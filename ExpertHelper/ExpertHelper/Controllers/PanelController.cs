@@ -10,6 +10,11 @@ namespace ExpertHelper
 {
     class PanelController
     {
+        protected PanelController()
+        {
+
+        }
+
         public static bool showCanvas(Window window, String canvasName)
         {
             return setPanelVisible(window, canvasName, Visibility.Visible);

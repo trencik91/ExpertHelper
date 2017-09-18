@@ -87,6 +87,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controllers\WariantController.cs" />
     <Compile Include="Views\GoalCanvas.xaml.cs">
       <DependentUpon>GoalCanvas.xaml</DependentUpon>
     </Compile>

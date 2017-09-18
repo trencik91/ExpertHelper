@@ -15,9 +15,6 @@ using System.Windows.Shapes;
 
 namespace ExpertHelper
 {
-    /// <summary>
-    /// Interaction logic for GoalCanvas.xaml
-    /// </summary>
     public partial class GoalCanvas : Canvas
     {
         private int kryteriumID = 0;
@@ -30,6 +27,8 @@ namespace ExpertHelper
         private const int PODKRYTERIA = 2;
         private const int ZAGLEBIENIA = 3;
 
+        private bool czyWariant = false;
+
         public GoalCanvas()
         {
             InitializeComponent();
@@ -41,14 +40,21 @@ namespace ExpertHelper
 
         private void dodajButton_Click(object sender, RoutedEventArgs e)
         {
-            if (kryteriumID == 0)
+            if (!czyWariant)
             {
-                Kryterium kryterium = KryteriumController.dodajKryterium(nazwaTextBox.Text, new TextRange(opisRichTextBox.Document.ContentStart, opisRichTextBox.Document.ContentEnd).Text, 0);
-            }
-            else
+                if (kryteriumID == 0)
+                {
+                    Kryterium kryterium = KryteriumController.dodajKryterium(nazwaTextBox.Text, new TextRange(opisRichTextBox.Document.ContentStart, opisRichTextBox.Document.ContentEnd).Text, 0);
+                }
+                else
+                {
+                    Kryterium kryterium = KryteriumController.dodajKryterium(nazwaTextBox.Text, new TextRange(opisRichTextBox.Document.ContentStart, opisRichTextBox.Document.ContentEnd).Text, kryteriumID);
+                    liczbaPodkryteriow++;
+                }
+            } else
             {
-                Kryterium kryterium = KryteriumController.dodajKryterium(nazwaTextBox.Text, new TextRange(opisRichTextBox.Document.ContentStart, opisRichTextBox.Document.ContentEnd).Text, kryteriumID);
-                liczbaPodkryteriow++;
+                Wariant wariant = WariantController.dodajWariant(nazwaTextBox.Text, new TextRange(opisRichTextBox.Document.ContentStart, opisRichTextBox.Document.ContentEnd).Text, kryteriumID);
+                czyWariant = false;
             }
 
             nazwaTextBox.Clear();
@@ -107,6 +113,8 @@ namespace ExpertHelper
 
         private void dodajPodkryteriumMenuItem_Click(object sender, RoutedEventArgs e)
         {
+            czyWariant = false;
+
             if (null != kryteriumTreeView.SelectedItem)
             {
                 if(liczbaPodkryteriow < PODKRYTERIA)
@@ -147,8 +155,14 @@ namespace ExpertHelper
         private void newButton_Click(object sender, RoutedEventArgs e)
         {
             nazwaTextBox.Focus();
-
+            czyWariant = false;
             kryteriumID = 0;
+        }
+
+        private void dodajWariantMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            czyWariant = true;
+            nazwaTextBox.Focus();
         }
 
         private void pobierzCele()

@@ -16,7 +16,7 @@
             </Paragraph>
         </FlowDocument>
     </RichTextBox>
-    <TreeView x:Name="kryteriumTreeView" Height="211" Canvas.Left="317" Canvas.Top="75" Width="247" SelectedItemChanged="kryteriumTreeView_SelectedItemChanged" Initialized="kryteriumTreeView_Initialized">
+    <TreeView x:Name="kryteriumTreeView" Height="211" Canvas.Left="317" Canvas.Top="75" Width="239" SelectedItemChanged="kryteriumTreeView_SelectedItemChanged" Initialized="kryteriumTreeView_Initialized">
         <TreeView.ContextMenu>
             <ContextMenu Name="kryteriumContextMenu">
                 <MenuItem Header="Dodaj podkryterium" Name="dodajPodkryteriumMenuItem" Click="dodajPodkryteriumMenuItem_Click" IsEnabled="False"/>
@@ -52,12 +52,12 @@
             </StackPanel>
         </Button>
     </Menu>
-    <Button x:Name="ustalWagiButton" Content="Ustal wagi" Canvas.Left="437" Canvas.Top="466" Width="127" RenderTransformOrigin="0.746,-0.394" IsEnabled="False"/>
+    <Button x:Name="ustalWagiButton" Content="Ustal wagi" Canvas.Left="429" Canvas.Top="466" Width="127" RenderTransformOrigin="0.746,-0.394" IsEnabled="False"/>
     <Label x:Name="wariantLabel" Content="Warianty:" Canvas.Left="317" Canvas.Top="286" Width="75"/>
-    <ListBox x:Name="listBox" Height="149" Canvas.Left="317" Canvas.Top="312" Width="247">
+    <ListBox x:Name="listBox" Height="149" Canvas.Left="317" Canvas.Top="312" Width="239">
         <ListBox.ContextMenu>
             <ContextMenu Name="wariantContextMenu">
-                <MenuItem Header="Dodaj wariant" Name="dodajWariantMenuItem" IsEnabled="False"/>
+                <MenuItem Header="Dodaj wariant" Name="dodajWariantMenuItem" IsEnabled="True" Click="dodajWariantMenuItem_Click"/>
                 <MenuItem Header="Usuń" Name="usunWariantMenuItem" IsEnabled="false" />
             </ContextMenu>
         </ListBox.ContextMenu>

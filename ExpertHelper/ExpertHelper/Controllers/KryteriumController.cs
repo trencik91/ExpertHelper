@@ -14,8 +14,6 @@ namespace ExpertHelper
         {
         }
 
-        private static DataTable listaKryteriow = new DataTable("Kryterium");
-
         public static Kryterium dodajKryterium(String nazwa, String opis, int idRodzica)
         {
             ExpertHelperDataContext db = new ExpertHelperDataContext();
@@ -51,6 +49,8 @@ namespace ExpertHelper
 
         public static DataTable pobierzListeKryteriow()
         {
+            DataTable listaKryteriow = new DataTable("Kryterium");
+
             listaKryteriow.Rows.Clear();
             listaKryteriow.Columns.Clear();
             listaKryteriow.Columns.Add("Lp");
@@ -104,7 +104,23 @@ namespace ExpertHelper
 
         public static List<Kryterium> pobierzListeCelow()
         {
+            DataTable listaKryteriow = pobierzListeKryteriow();
+
             return listaKryteriow.AsEnumerable().Select(row => new Kryterium()).Where(row => row.ID_Rodzica == 0).ToList();
+        }
+
+        public static DataTable pobierzTabeleCelow()
+        {
+            DataTable listaKryteriow = pobierzListeKryteriow();
+
+            if (listaKryteriow.Rows.Count > 0)
+            {
+                return listaKryteriow.AsEnumerable().Where(p => p.Field<string>("ID_Rodzica") == "0").CopyToDataTable();
+            }
+            else
+            {
+                return listaKryteriow;
+            }
         }
 
         private static Kryterium pobierzKryterium(int id)
@@ -132,6 +148,8 @@ namespace ExpertHelper
 
         private static List<Kryterium> pobierzListeDzieci(int idRoot)
         {
+            DataTable listaKryteriow = pobierzListeKryteriow();
+
             return listaKryteriow.AsEnumerable().Select(row => new Kryterium()
             {
                 ID = int.Parse(row["ID"].ToString()),
@@ -144,7 +162,7 @@ namespace ExpertHelper
         {
             List<Kryterium> listaDzieci = pobierzListeDzieci(int.Parse(root.Uid));
 
-            foreach (Kryterium k in listaDzieci)
+            listaDzieci.ForEach(k =>
             {
                 TreeViewItem rootItem = new TreeViewItem();
                 rootItem.Uid = k.ID.ToString();
@@ -154,8 +172,9 @@ namespace ExpertHelper
                 root.IsExpanded = true;
 
                 stworzDrzewo(rootItem);
-            }
-            Console.WriteLine(root.ToString());
+
+            });
+
             return root;
         }
     }

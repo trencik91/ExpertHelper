@@ -30,18 +30,13 @@ namespace ExpertHelper
         private const int PODKRYTERIA = 9;
         private const int ZAGLEBIENIA = 3;
 
-        private DataTable wszystkieKryteria = new DataTable();
-
-        private List<Kryterium> listaCelow = new List<Kryterium>();
-
         public GoalCanvas()
         {
             InitializeComponent();
             nazwaTextBox.Focus();
             nextButton.IsEnabled = false;
             beforeButton.IsEnabled = false;
-            wszystkieKryteria = KryteriumController.pobierzListeKryteriow();
-            listaCelow = KryteriumController.pobierzListeCelow();
+            pobierzCele();
         }
 
         private void dodajButton_Click(object sender, RoutedEventArgs e)
@@ -149,13 +144,7 @@ namespace ExpertHelper
 
         private void pobierzCele()
         {
-            List<Kryterium> listaCelow = KryteriumController.pobierzListeCelow();
-            DataTable dt = KryteriumController.pobierzListeKryteriow();
-
-            if (dt.Rows.Count > 0)
-            {
-                dt = dt.AsEnumerable().Where(p => p.Field<string>("ID_Rodzica") == "0").CopyToDataTable();
-            }
+            DataTable dt = KryteriumController.pobierzTabeleCelow();
 
             listaProblemowDataGrid.ItemsSource = dt.AsDataView();
             listaProblemowDataGrid.CanUserAddRows = true;

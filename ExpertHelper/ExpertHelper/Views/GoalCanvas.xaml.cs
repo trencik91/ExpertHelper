@@ -109,7 +109,7 @@ namespace ExpertHelper
         {
             if (null != kryteriumTreeView.SelectedItem)
             {
-                if(liczbaPodkryteriow <= PODKRYTERIA)
+                if(liczbaPodkryteriow < PODKRYTERIA)
                 {
                     TreeViewItem item = (TreeViewItem)kryteriumTreeView.SelectedItem;
 

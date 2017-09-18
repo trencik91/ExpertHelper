@@ -27,7 +27,7 @@ namespace ExpertHelper
         private int liczbaPodkryteriow = 0;
         private int liczbaZaglebienDrzewa = 0;
 
-        private const int PODKRYTERIA = 9;
+        private const int PODKRYTERIA = 2;
         private const int ZAGLEBIENIA = 3;
 
         public GoalCanvas()
@@ -109,11 +109,20 @@ namespace ExpertHelper
         {
             if (null != kryteriumTreeView.SelectedItem)
             {
-                TreeViewItem item = (TreeViewItem)kryteriumTreeView.SelectedItem;
+                if(liczbaPodkryteriow <= PODKRYTERIA)
+                {
+                    TreeViewItem item = (TreeViewItem)kryteriumTreeView.SelectedItem;
 
-                nazwaTextBox.Focus();
+                    nazwaTextBox.Focus();
 
-                kryteriumID = int.Parse(item.Uid);
+                    kryteriumID = int.Parse(item.Uid);
+                } else
+                {
+                    MessageBox.Show("Maksymalna liczba podkryteriów wynosi "+ PODKRYTERIA +"!", "Błąd!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            } else
+            {
+                MessageBox.Show("Zaznacz wiersz z danymi!", "Błąd!", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 

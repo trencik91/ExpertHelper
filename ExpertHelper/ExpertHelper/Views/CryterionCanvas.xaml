@@ -19,4 +19,6 @@
     <DataGrid x:Name="wagiDataGrid" Canvas.Left="233" Canvas.Top="37" Width="323" Height="177"/>
     <Label x:Name="label2" Content="Wagi" Canvas.Left="233" Canvas.Top="10"/>
     <Button x:Name="zatwierdzButton" Content="Zatwierdź" Canvas.Left="481" Canvas.Top="219" Width="75"/>
+    <Slider x:Name="wagaSlider" Canvas.Left="256" Canvas.Top="278" Orientation="Horizontal" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Minimum="-27" Maximum="27" Cursor="Hand" IsSnapToTickEnabled="True" Width="269" Value="{Binding Path=ElevationAngle,Mode=OneWayToSource}" RenderTransformOrigin="-1.323,-11.381" ValueChanged="wagaSlider_ValueChanged"
+/>
 </Canvas>

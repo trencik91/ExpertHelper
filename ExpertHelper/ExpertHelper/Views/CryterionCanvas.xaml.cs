@@ -18,6 +18,8 @@ namespace ExpertHelper
     {
         private int idCelu = 0;
 
+        public DependencyProperty ElevationAngleProperty { get; set; }
+
         public CryterionCanvas()
         {
             InitializeComponent();
@@ -27,6 +29,19 @@ namespace ExpertHelper
         {
             InitializeComponent();
             this.idCelu = idCelu;
+        }
+
+        public override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+            Binding b = new Binding();
+            b.ElementName = "wagaSlider";
+            SetBinding(ElevationAngleProperty, b);
+        }
+
+        private void wagaSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            Console.WriteLine(wagaSlider.Value);
         }
     }
 }

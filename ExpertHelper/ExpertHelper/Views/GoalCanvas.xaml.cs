@@ -51,7 +51,8 @@ namespace ExpertHelper
                     Kryterium kryterium = KryteriumController.dodajKryterium(nazwaTextBox.Text, new TextRange(opisRichTextBox.Document.ContentStart, opisRichTextBox.Document.ContentEnd).Text, kryteriumID);
                     liczbaPodkryteriow++;
                 }
-            } else
+            }
+            else
             {
                 Wariant wariant = WariantController.dodajWariant(nazwaTextBox.Text, new TextRange(opisRichTextBox.Document.ContentStart, opisRichTextBox.Document.ContentEnd).Text, kryteriumID);
                 czyWariant = false;
@@ -91,16 +92,23 @@ namespace ExpertHelper
         private void listaProblemowDataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             kryteriumTreeView.Items.Clear();
+            wariantListBox.Items.Clear();
 
             if (listaProblemowDataGrid.SelectedItems.Count == 1)
             {
                 try
                 {
                     DataRowView dataRow = (DataRowView)listaProblemowDataGrid.SelectedItem;
-                    int id = int.Parse(dataRow.Row.ItemArray[1].ToString());
+                    kryteriumID = int.Parse(dataRow.Row.ItemArray[1].ToString());
                     selectedIndex = listaProblemowDataGrid.SelectedIndex;
 
-                    kryteriumTreeView.Items.Add(KryteriumController.pobierzDrzewo(id));
+                    kryteriumTreeView.Items.Add(KryteriumController.pobierzDrzewo(kryteriumID));
+                    List<Wariant> listaWariantow = WariantController.pobierzListeWariantow(kryteriumID);
+
+                    if (listaWariantow.Count > 0)
+                    {
+                        listaWariantow.ForEach(w => wariantListBox.Items.Add(w.Nazwa));
+                    }
 
                     ustalWagiButton.IsEnabled = false;
                 }
@@ -117,18 +125,20 @@ namespace ExpertHelper
 
             if (null != kryteriumTreeView.SelectedItem)
             {
-                if(liczbaPodkryteriow < PODKRYTERIA)
+                if (liczbaPodkryteriow < PODKRYTERIA)
                 {
                     TreeViewItem item = (TreeViewItem)kryteriumTreeView.SelectedItem;
 
                     nazwaTextBox.Focus();
 
                     kryteriumID = int.Parse(item.Uid);
-                } else
-                {
-                    MessageBox.Show("Maksymalna liczba podkryteriów wynosi "+ PODKRYTERIA +"!", "Błąd!", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
-            } else
+                else
+                {
+                    MessageBox.Show("Maksymalna liczba podkryteriów wynosi " + PODKRYTERIA + "!", "Błąd!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                }
+            }
+            else
             {
                 MessageBox.Show("Zaznacz wiersz z danymi!", "Błąd!", MessageBoxButton.OK, MessageBoxImage.Warning);
             }

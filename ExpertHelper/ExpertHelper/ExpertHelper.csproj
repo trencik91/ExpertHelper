@@ -88,6 +88,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Controllers\WariantController.cs" />
+    <Compile Include="Views\CryterionCanvas.xaml.cs">
+      <DependentUpon>CryterionCanvas.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\GoalCanvas.xaml.cs">
       <DependentUpon>GoalCanvas.xaml</DependentUpon>
     </Compile>
@@ -113,6 +116,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\CryterionCanvas.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\GoalCanvas.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -52,7 +52,7 @@
             </StackPanel>
         </Button>
     </Menu>
-    <Button x:Name="ustalWagiButton" Content="Ustal wagi" Canvas.Left="429" Canvas.Top="466" Width="127" RenderTransformOrigin="0.746,-0.394" IsEnabled="False"/>
+    <Button x:Name="ustalWagiButton" Content="Ustal wagi" Canvas.Left="429" Canvas.Top="466" Width="127" RenderTransformOrigin="0.746,-0.394" IsEnabled="True" Click="ustalWagiButton_Click"/>
     <Label x:Name="wariantLabel" Content="Warianty:" Canvas.Left="317" Canvas.Top="286" Width="75"/>
     <ListBox x:Name="wariantListBox" Height="149" Canvas.Left="317" Canvas.Top="312" Width="239">
         <ListBox.ContextMenu>

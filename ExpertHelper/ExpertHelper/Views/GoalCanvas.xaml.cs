@@ -29,6 +29,8 @@ namespace ExpertHelper
 
         private bool czyWariant = false;
 
+        private Grid mainGrid;
+
         public GoalCanvas()
         {
             InitializeComponent();
@@ -36,6 +38,16 @@ namespace ExpertHelper
             nextButton.IsEnabled = false;
             beforeButton.IsEnabled = false;
             pobierzCele();
+        }
+
+        public GoalCanvas(Grid mainGrid)
+        {
+            InitializeComponent();
+            nazwaTextBox.Focus();
+            nextButton.IsEnabled = false;
+            beforeButton.IsEnabled = false;
+            pobierzCele();
+            this.mainGrid = mainGrid;
         }
 
         private void dodajButton_Click(object sender, RoutedEventArgs e)
@@ -196,6 +208,14 @@ namespace ExpertHelper
             dodajPodkryteriumMenuItem.IsEnabled = czyOdblokowane;
             usunMenuItem.IsEnabled = czyOdblokowane;
             ustalWagiButton.IsEnabled = czyOdblokowane;
+        }
+
+        private void ustalWagiButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Visibility = Visibility.Hidden;
+            CryterionCanvas cc = new CryterionCanvas(kryteriumID);
+            mainGrid.Children.Add(cc);
+            cc.Visibility = Visibility.Visible;
         }
     }
 }

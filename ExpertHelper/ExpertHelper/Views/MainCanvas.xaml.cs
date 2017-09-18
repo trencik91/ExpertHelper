@@ -34,7 +34,7 @@ namespace ExpertHelper
 
         private void celButton_Click(object sender, RoutedEventArgs e)
         {
-            GoalCanvas gc = new GoalCanvas();
+            GoalCanvas gc = new GoalCanvas(mainGrid);
             this.Visibility = Visibility.Hidden;
             mainGrid.Children.Add(gc);
             gc.Visibility = Visibility.Visible;

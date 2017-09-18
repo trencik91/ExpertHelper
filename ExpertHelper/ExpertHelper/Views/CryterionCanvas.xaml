@@ -1,0 +1,22 @@
+﻿<Canvas x:Class="ExpertHelper.CryterionCanvas"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ExpertHelper"
+        mc:Ignorable="d"
+        Name="cryterionCanvas" Height="580" Width="566">
+    <TreeView x:Name="problemTreeView" Height="259" Canvas.Left="10" Canvas.Top="37" Width="205"/>
+    <ListView x:Name="wariantyListView" Height="172" Canvas.Left="10" Canvas.Top="332" Width="205">
+        <ListView.View>
+            <GridView>
+                <GridViewColumn/>
+            </GridView>
+        </ListView.View>
+    </ListView>
+    <Label x:Name="label" Content="Problem" Canvas.Left="10" Canvas.Top="10"/>
+    <Label x:Name="label1" Content="Warianty" Canvas.Left="10" Canvas.Top="301"/>
+    <DataGrid x:Name="wagiDataGrid" Canvas.Left="233" Canvas.Top="37" Width="323" Height="177"/>
+    <Label x:Name="label2" Content="Wagi" Canvas.Left="233" Canvas.Top="10"/>
+    <Button x:Name="zatwierdzButton" Content="Zatwierdź" Canvas.Left="481" Canvas.Top="219" Width="75"/>
+</Canvas>

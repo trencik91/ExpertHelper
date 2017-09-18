@@ -32,20 +32,20 @@ namespace ExpertHelper
             return kryterium;
         }
 
-        //public static bool usunKryterium(int id)
-        //{
-        //    ExpertHelperDataContext db = new ExpertHelperDataContext();
+        public static bool usunKryterium(int id)
+        {
+            ExpertHelperDataContext db = new ExpertHelperDataContext();
 
-        //    Drzewo drzewo = pobierzObiektDrzewa(id, db);
+            Kryterium kryterium = pobierzKryterium(id);
 
-        //    if (null != drzewo)
-        //    {
-        //        db.Drzewos.DeleteOnSubmit(drzewo);
-        //        db.SubmitChanges();
-        //    }
+            if (null != kryterium)
+            {
+                kryterium.ID_Rodzica = -1;
+                db.SubmitChanges();
+            }
 
-        //    return false;
-        //}
+            return false;
+        }
 
         public static DataTable pobierzListeKryteriow()
         {
@@ -136,6 +136,7 @@ namespace ExpertHelper
                 Kryterium kryterium = new Kryterium
                 {
                     ID = id,
+                    ID_Rodzica = k.ID_Rodzica,
                     Nazwa = k.Nazwa,
                     Opis = k.Opis
                 };

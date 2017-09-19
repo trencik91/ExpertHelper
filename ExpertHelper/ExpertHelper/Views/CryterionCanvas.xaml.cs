@@ -68,7 +68,7 @@ namespace ExpertHelper
                     TreeViewItem item = (TreeViewItem)problemTreeView.SelectedItem;
                     int id = int.Parse(item.Uid);
 
-                    DataTable dt = DataGridController.stworzTabeleWag(id);
+                    DataTable dt = DataGridController.stworzTabeleWag(idCelu, id);
 
                     wagiDataGrid.ItemsSource = dt.AsDataView();
                     wagiDataGrid.CanUserAddRows = false;

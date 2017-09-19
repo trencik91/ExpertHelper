@@ -14,18 +14,32 @@ namespace ExpertHelper
 
         }
 
-        public static DataTable stworzTabeleWag(int idKryterium)
+        public static DataTable stworzTabeleWag(int idCelu, int idKryterium)
         {
             DataTable tabelaWag = new DataTable();
             List<Kryterium> listaDzieci = KryteriumController.pobierzListeDzieci(idKryterium);
             Kryterium ojciec = KryteriumController.pobierzKryterium(idKryterium);
 
-            tabelaWag.Columns.Add(ojciec.Nazwa);
 
-            foreach (Kryterium k in listaDzieci)
+
+            if (listaDzieci.Count > 0)
             {
-                tabelaWag.Columns.Add(k.Nazwa);
-                tabelaWag.Rows.Add(k.Nazwa);
+                tabelaWag.Columns.Add(ojciec.Nazwa);
+
+                foreach (Kryterium k in listaDzieci)
+                {
+                    tabelaWag.Columns.Add(k.Nazwa);
+                    tabelaWag.Rows.Add(k.Nazwa);
+                }
+            }
+            else
+            {
+                List<Wariant> listaWariantow = WariantController.pobierzListeWariantow(idCelu);
+                tabelaWag.Columns.Add("");
+                listaWariantow.ForEach(w =>
+                {
+                    tabelaWag.Rows.Add(w.Nazwa);
+                });
             }
 
             return tabelaWag;

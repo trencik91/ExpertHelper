@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,6 +56,27 @@ namespace ExpertHelper
             if (listaWariantow.Count > 0)
             {
                 listaWariantow.ForEach(w => wariantyListBox.Items.Add(w.Nazwa));
+            }
+        }
+
+        private void problemTreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            if (null != problemTreeView.SelectedItem)
+            {
+                try
+                {
+                    TreeViewItem item = (TreeViewItem)problemTreeView.SelectedItem;
+                    int id = int.Parse(item.Uid);
+
+                    DataTable dt = DataGridController.stworzTabeleWag(id);
+
+                    wagiDataGrid.ItemsSource = dt.AsDataView();
+                    wagiDataGrid.CanUserAddRows = false;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Błąd przy tworzeniu identyfikatora danych! " + ex.ToString(), "Błąd!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
     }

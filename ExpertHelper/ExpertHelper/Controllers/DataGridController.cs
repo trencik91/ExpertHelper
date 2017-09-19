@@ -18,8 +18,11 @@ namespace ExpertHelper
         {
             DataTable tabelaWag = new DataTable();
             List<Kryterium> listaDzieci = KryteriumController.pobierzListeDzieci(idKryterium);
+            Kryterium ojciec = KryteriumController.pobierzKryterium(idKryterium);
 
-            foreach(Kryterium k in listaDzieci)
+            tabelaWag.Columns.Add(ojciec.Nazwa);
+
+            foreach (Kryterium k in listaDzieci)
             {
                 tabelaWag.Columns.Add(k.Nazwa);
                 tabelaWag.Rows.Add(k.Nazwa);

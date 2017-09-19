@@ -123,7 +123,7 @@ namespace ExpertHelper
             }
         }
 
-        private static Kryterium pobierzKryterium(int id)
+        public static Kryterium pobierzKryterium(int id)
         {
             ExpertHelperDataContext db = new ExpertHelperDataContext();
 

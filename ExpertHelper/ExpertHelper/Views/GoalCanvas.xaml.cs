@@ -212,10 +212,17 @@ namespace ExpertHelper
 
         private void ustalWagiButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Visibility = Visibility.Hidden;
-            CryterionCanvas cc = new CryterionCanvas(kryteriumID);
-            mainGrid.Children.Add(cc);
-            cc.Visibility = Visibility.Visible;
+            if (wariantListBox.Items.Count > 1)
+            {
+                this.Visibility = Visibility.Hidden;
+                CryterionCanvas cc = new CryterionCanvas(kryteriumID);
+                mainGrid.Children.Add(cc);
+                cc.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                MessageBox.Show("Musisz dodać przynajmniej 2 warianty!", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }

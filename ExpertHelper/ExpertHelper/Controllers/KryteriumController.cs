@@ -42,6 +42,8 @@ namespace ExpertHelper
             {
                 kryterium.ID_Rodzica = -1;
                 db.SubmitChanges();
+
+                return true;
             }
 
             return false;
@@ -100,6 +102,21 @@ namespace ExpertHelper
             stworzDrzewo(rootItem);
 
             return rootItem;
+        }
+
+        public static List<int> stworzListeDoUsuniecia(int idRoot)
+        {
+            List<int> listaIdDoUsuniecia = new List<int>();
+            listaIdDoUsuniecia.Add(idRoot);
+
+            stworzListeIdPodkryteriow(idRoot, listaIdDoUsuniecia);
+
+            foreach(int id in listaIdDoUsuniecia)
+            {
+                Console.WriteLine("id = " + id);
+            }
+
+            return listaIdDoUsuniecia;
         }
 
         public static List<Kryterium> pobierzListeCelow()
@@ -177,6 +194,19 @@ namespace ExpertHelper
             });
 
             return root;
+        }
+
+        private static void stworzListeIdPodkryteriow(int idKryterium, List<int> lista)
+        {
+            List<Kryterium> listaDzieci = pobierzListePodkryteriow(idKryterium);
+
+            listaDzieci.ForEach(k =>
+            {
+                lista.Add(k.ID);
+
+                stworzListeIdPodkryteriow(k.ID, lista);
+
+            });
         }
     }
 }

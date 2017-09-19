@@ -162,15 +162,17 @@ namespace ExpertHelper
             {
                 int id = int.Parse(((TreeViewItem)kryteriumTreeView.SelectedItem).Uid);
 
-                //if (!KryteriumController.checkIsRoot(id))
-                //{
-                //    MessageBoxResult resutlt = MessageBox.Show("Czy na pewno chcesz usunąć zaznaczone kryterium?", "Usuwanie", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                MessageBoxResult resutlt = MessageBox.Show("Czy na pewno chcesz usunąć zaznaczone kryterium i wszystkie jego podkryteria?", "Usuń", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-                //    if (resutlt == MessageBoxResult.Yes)
-                //    {
-                //        KryteriumController.usunKryterium(id);
-                //    }
-                //}
+                if (resutlt == MessageBoxResult.Yes)
+                {
+                    List<int> listaPodkryteriow = KryteriumController.stworzListeDoUsuniecia(id);
+
+                    foreach(int idPodkryterium in listaPodkryteriow)
+                    {
+                        KryteriumController.usunKryterium(idPodkryterium);
+                    }
+                }
             }
         }
 

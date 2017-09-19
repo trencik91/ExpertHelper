@@ -63,19 +63,19 @@ namespace ExpertHelper
         {
             if (null != problemTreeView.SelectedItem)
             {
-                //try
-                //{
+                try
+                {
                     TreeViewItem item = (TreeViewItem)problemTreeView.SelectedItem;
                     int id = int.Parse(item.Uid);
 
                     stworzKolumnyDataGrid(DataGridController.stworzTabeleWag(idCelu, id));
 
-                //}
-                //catch (Exception ex)
-                //{
-                //    MessageBox.Show("Błąd przy tworzeniu identyfikatora danych! " + ex.ToString(), "Błąd!", MessageBoxButton.OK, MessageBoxImage.Error);
-                //}
-            }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Błąd przy tworzeniu identyfikatora danych! " + ex.ToString(), "Błąd!", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+        }
         }
 
         private void stworzKolumnyDataGrid(DataTable tabelaWag)
@@ -87,7 +87,7 @@ namespace ExpertHelper
             {
                 foreach (DataColumn dc in tabelaWag.Columns)
                 {
-                    if (dr[0].ToString() == dc.ToString())
+                    if (dr[0].ToString() == dc.ToString() && tabelaWag.Rows.Count != tabelaWag.Columns.Count)
                     {
                         dr[dc] = 1;
                     }

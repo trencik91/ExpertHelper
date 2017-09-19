@@ -147,7 +147,7 @@ namespace ExpertHelper
             return null;
         }
 
-        public static List<Kryterium> pobierzListeDzieci(int idRoot)
+        public static List<Kryterium> pobierzListePodkryteriow(int idRoot)
         {
             DataTable listaKryteriow = pobierzListeKryteriow();
 
@@ -161,7 +161,7 @@ namespace ExpertHelper
 
         private static TreeViewItem stworzDrzewo(TreeViewItem root)
         {
-            List<Kryterium> listaDzieci = pobierzListeDzieci(int.Parse(root.Uid));
+            List<Kryterium> listaDzieci = pobierzListePodkryteriow(int.Parse(root.Uid));
 
             listaDzieci.ForEach(k =>
             {

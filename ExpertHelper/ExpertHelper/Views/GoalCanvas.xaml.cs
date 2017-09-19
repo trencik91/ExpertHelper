@@ -24,7 +24,7 @@ namespace ExpertHelper
         private int liczbaPodkryteriow = 0;
         private int liczbaZaglebienDrzewa = 0;
 
-        private const int PODKRYTERIA = 2;
+        private const int PODKRYTERIA = 9;
         private const int ZAGLEBIENIA = 3;
 
         private bool czyWariant = false;

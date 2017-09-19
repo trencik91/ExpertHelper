@@ -29,6 +29,9 @@ namespace ExpertHelper
         {
             InitializeComponent();
             this.idCelu = idCelu;
+            problemTreeView.Items.Clear();
+            wariantyListBox.Items.Clear();
+            uzupelnijDrzewoProblemu();
         }
 
         public override void OnApplyTemplate()
@@ -42,6 +45,17 @@ namespace ExpertHelper
         private void wagaSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             Console.WriteLine(wagaSlider.Value);
+        }
+
+        private void uzupelnijDrzewoProblemu()
+        {
+            problemTreeView.Items.Add(KryteriumController.pobierzDrzewo(idCelu));
+            List<Wariant> listaWariantow = WariantController.pobierzListeWariantow(idCelu);
+
+            if (listaWariantow.Count > 0)
+            {
+                listaWariantow.ForEach(w => wariantyListBox.Items.Add(w.Nazwa));
+            }
         }
     }
 }

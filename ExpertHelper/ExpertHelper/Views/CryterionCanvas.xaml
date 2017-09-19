@@ -7,13 +7,7 @@
         mc:Ignorable="d"
         Name="cryterionCanvas" Height="580" Width="566">
     <TreeView x:Name="problemTreeView" Height="259" Canvas.Left="10" Canvas.Top="37" Width="205"/>
-    <ListView x:Name="wariantyListView" Height="172" Canvas.Left="10" Canvas.Top="332" Width="205">
-        <ListView.View>
-            <GridView>
-                <GridViewColumn/>
-            </GridView>
-        </ListView.View>
-    </ListView>
+    <ListBox x:Name="wariantyListBox" Height="172" Canvas.Left="10" Canvas.Top="332" Width="205"/>
     <Label x:Name="label" Content="Problem" Canvas.Left="10" Canvas.Top="10"/>
     <Label x:Name="label1" Content="Warianty" Canvas.Left="10" Canvas.Top="301"/>
     <DataGrid x:Name="wagiDataGrid" Canvas.Left="233" Canvas.Top="37" Width="323" Height="177"/>

@@ -87,6 +87,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Controllers\DataGridController.cs" />
     <Compile Include="Controllers\WariantController.cs" />
     <Compile Include="Views\CryterionCanvas.xaml.cs">
       <DependentUpon>CryterionCanvas.xaml</DependentUpon>

@@ -147,7 +147,7 @@ namespace ExpertHelper
             return null;
         }
 
-        private static List<Kryterium> pobierzListeDzieci(int idRoot)
+        public static List<Kryterium> pobierzListeDzieci(int idRoot)
         {
             DataTable listaKryteriow = pobierzListeKryteriow();
 

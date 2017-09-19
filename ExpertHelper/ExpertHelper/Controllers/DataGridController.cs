@@ -20,17 +20,14 @@ namespace ExpertHelper
             List<Kryterium> listaDzieci = KryteriumController.pobierzListeDzieci(idKryterium);
             Kryterium ojciec = KryteriumController.pobierzKryterium(idKryterium);
 
-
-
             if (listaDzieci.Count > 0)
             {
                 tabelaWag.Columns.Add(ojciec.Nazwa);
-
-                foreach (Kryterium k in listaDzieci)
+                listaDzieci.ForEach(d => 
                 {
-                    tabelaWag.Columns.Add(k.Nazwa);
-                    tabelaWag.Rows.Add(k.Nazwa);
-                }
+                    tabelaWag.Columns.Add(d.Nazwa); tabelaWag.Rows.Add(d.Nazwa);
+                });
+
             }
             else
             {

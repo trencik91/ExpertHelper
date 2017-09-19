@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -27,8 +28,6 @@ namespace ExpertHelper
         private const int PODKRYTERIA = 9;
         private const int ZAGLEBIENIA = 3;
 
-        private bool czyWariant = false;
-
         private Grid mainGrid;
 
         public GoalCanvas()
@@ -48,26 +47,23 @@ namespace ExpertHelper
             beforeButton.IsEnabled = false;
             pobierzCele();
             this.mainGrid = mainGrid;
+            ustalWartoscCheckBoxa(goalCheckBox, true);
         }
 
         private void dodajButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!czyWariant)
+            if (goalCheckBox.IsChecked.Value)
             {
-                if (kryteriumID == 0)
-                {
-                    Kryterium kryterium = KryteriumController.dodajKryterium(nazwaTextBox.Text, new TextRange(opisRichTextBox.Document.ContentStart, opisRichTextBox.Document.ContentEnd).Text, 0);
-                }
-                else
-                {
-                    Kryterium kryterium = KryteriumController.dodajKryterium(nazwaTextBox.Text, new TextRange(opisRichTextBox.Document.ContentStart, opisRichTextBox.Document.ContentEnd).Text, kryteriumID);
-                    liczbaPodkryteriow++;
-                }
+                KryteriumController.dodajKryterium(nazwaTextBox.Text, new TextRange(opisRichTextBox.Document.ContentStart, opisRichTextBox.Document.ContentEnd).Text, 0);
             }
-            else
+            else if (cryterionCheckBox.IsChecked.Value)
             {
-                Wariant wariant = WariantController.dodajWariant(nazwaTextBox.Text, new TextRange(opisRichTextBox.Document.ContentStart, opisRichTextBox.Document.ContentEnd).Text, kryteriumID);
-                czyWariant = false;
+                KryteriumController.dodajKryterium(nazwaTextBox.Text, new TextRange(opisRichTextBox.Document.ContentStart, opisRichTextBox.Document.ContentEnd).Text, kryteriumID);
+                liczbaPodkryteriow++;
+            }
+            else if (wariantCheckBox.IsChecked.Value)
+            {
+                WariantController.dodajWariant(nazwaTextBox.Text, new TextRange(opisRichTextBox.Document.ContentStart, opisRichTextBox.Document.ContentEnd).Text, kryteriumID);
             }
 
             nazwaTextBox.Clear();
@@ -133,7 +129,7 @@ namespace ExpertHelper
 
         private void dodajPodkryteriumMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            czyWariant = false;
+            ustalWartoscCheckBoxa(cryterionCheckBox, true);
 
             if (null != kryteriumTreeView.SelectedItem)
             {
@@ -168,7 +164,7 @@ namespace ExpertHelper
                 {
                     List<int> listaPodkryteriow = KryteriumController.stworzListeDoUsuniecia(id);
 
-                    foreach(int idPodkryterium in listaPodkryteriow)
+                    foreach (int idPodkryterium in listaPodkryteriow)
                     {
                         KryteriumController.usunKryterium(idPodkryterium);
                     }
@@ -179,13 +175,13 @@ namespace ExpertHelper
         private void newButton_Click(object sender, RoutedEventArgs e)
         {
             nazwaTextBox.Focus();
-            czyWariant = false;
+            ustalWartoscCheckBoxa(goalCheckBox, true);
             kryteriumID = 0;
         }
 
         private void dodajWariantMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            czyWariant = true;
+            ustalWartoscCheckBoxa(wariantCheckBox, true);
             nazwaTextBox.Focus();
         }
 
@@ -225,6 +221,29 @@ namespace ExpertHelper
             {
                 MessageBox.Show("Musisz dodać przynajmniej 2 warianty!", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void goalCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            ustalWartoscCheckBoxa(cryterionCheckBox, false);
+            ustalWartoscCheckBoxa(wariantCheckBox, false);
+        }
+
+        private void cryterionCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            ustalWartoscCheckBoxa(goalCheckBox, false);
+            ustalWartoscCheckBoxa(wariantCheckBox, false);
+        }
+
+        private void wariantCheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            ustalWartoscCheckBoxa(cryterionCheckBox, false);
+            ustalWartoscCheckBoxa(goalCheckBox, false);
+        }
+
+        private void ustalWartoscCheckBoxa(ToggleButton checkBox, bool wartosc)
+        {
+            checkBox.IsChecked = wartosc;
         }
     }
 }

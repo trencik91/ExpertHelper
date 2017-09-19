@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ExpertHelper"
         mc:Ignorable="d" Height="580" Width="566">
-    <Label x:Name="nameLabel" Content="Nazwa:" Canvas.Top="286" Width="108" Canvas.Left="10"/>
-    <TextBox x:Name="nazwaTextBox" Height="23" TextWrapping="Wrap" Canvas.Top="312" Width="259" Canvas.Left="10"/>
-    <Label Content="Opis:" Canvas.Top="335" Width="108" Canvas.Left="10"/>
-    <Button x:Name="dodajButton" Content="Dodaj" Canvas.Left="194" Canvas.Top="466" Width="75" Click="dodajButton_Click"/>
-    <RichTextBox x:Name="opisRichTextBox" Height="100" Canvas.Top="361" Width="259" Canvas.Left="10">
+    <Label x:Name="nameLabel" Content="Nazwa:" Canvas.Top="340" Width="108" Canvas.Left="10"/>
+    <TextBox x:Name="nazwaTextBox" Height="23" TextWrapping="Wrap" Canvas.Top="371" Width="259" Canvas.Left="10"/>
+    <Label Content="Opis:" Canvas.Top="394" Width="108" Canvas.Left="10"/>
+    <Button x:Name="dodajButton" Content="Dodaj" Canvas.Left="194" Canvas.Top="530" Width="75" Click="dodajButton_Click"/>
+    <RichTextBox x:Name="opisRichTextBox" Height="100" Canvas.Top="425" Width="259" Canvas.Left="10">
         <FlowDocument>
             <Paragraph>
                 <Run Text=""/>
@@ -62,4 +62,7 @@
             </ContextMenu>
         </ListBox.ContextMenu>
     </ListBox>
+    <CheckBox x:Name="goalCheckBox" Content="Cel" Canvas.Left="10" Canvas.Top="325" Checked="goalCheckBox_Checked"/>
+    <CheckBox x:Name="cryterionCheckBox" Content="Kryterium" Canvas.Left="94" Canvas.Top="325" Checked="cryterionCheckBox_Checked"/>
+    <CheckBox x:Name="wariantCheckBox" Content="Wariant" Canvas.Left="208" Canvas.Top="325" Checked="wariantCheckBox_Checked"/>
 </Canvas>

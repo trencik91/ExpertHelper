@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ExpertHelper"
         mc:Ignorable="d"
-        Title="ExpertHelper" Height="576.704" Width="583.665" ResizeMode="NoResize">
+        Title="ExpertHelper" Height="686.552" Width="583.665" ResizeMode="NoResize">
     <Grid Margin="0,0,2,0" Name="mainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="259*"/>
             <RowDefinition Height="15*"/>
         </Grid.RowDefinitions>
-        <StatusBar HorizontalAlignment="Left" Height="25" Margin="10,511,0,0" VerticalAlignment="Top" Width="556" Grid.RowSpan="2"/>
+        <StatusBar HorizontalAlignment="Left" Height="25" VerticalAlignment="Top" Width="556" Margin="10,1,0,0" Grid.Row="1"/>
     </Grid>
 </Window>

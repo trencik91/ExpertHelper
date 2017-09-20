@@ -54,22 +54,19 @@ namespace ExpertHelper
             if (goalCheckBox.IsChecked.Value)
             {
                 KryteriumController.dodajKryterium(nazwaTextBox.Text, new TextRange(opisRichTextBox.Document.ContentStart, opisRichTextBox.Document.ContentEnd).Text, 0);
-
-                pobierzCele();
-                listaProblemowDataGrid.SelectedIndex = selectedIndex;
             }
             else if (cryterionCheckBox.IsChecked.Value)
             {
                 KryteriumController.dodajKryterium(nazwaTextBox.Text, new TextRange(opisRichTextBox.Document.ContentStart, opisRichTextBox.Document.ContentEnd).Text, kryteriumID);
                 liczbaPodkryteriow++;
-                pobierzCele();
             }
             else if (wariantCheckBox.IsChecked.Value)
             {
                 WariantController.dodajWariant(nazwaTextBox.Text, new TextRange(opisRichTextBox.Document.ContentStart, opisRichTextBox.Document.ContentEnd).Text, kryteriumID);
-                pobierzCele();
             }
 
+            pobierzCele();
+            listaProblemowDataGrid.SelectedIndex = selectedIndex;
             wyczyscKontrolki();
         }
 
@@ -127,9 +124,7 @@ namespace ExpertHelper
                             wariantListBox.Items.Add(w.Nazwa);
                         });
                     }
-
                     
-
                     nazwaTextBox.Text = dataRow.Row.ItemArray[3].ToString();
                     opisRichTextBox.AppendText(dataRow.Row.ItemArray[4].ToString());
 

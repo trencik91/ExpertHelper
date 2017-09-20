@@ -32,7 +32,22 @@ namespace ExpertHelper
             return kryterium;
         }
 
-        public static bool usunKryterium(int id)
+        public static void edytujKryterium(int id, String nazwa, String opis)
+        {
+            ExpertHelperDataContext db = new ExpertHelperDataContext();
+
+            Kryterium kryterium = pobierzKryterium(id);
+
+            if(null != kryterium)
+            {
+                kryterium.Nazwa = nazwa;
+                kryterium.Opis = opis;
+
+                db.SubmitChanges();
+            }
+        }
+
+        public static void usunKryterium(int id)
         {
             ExpertHelperDataContext db = new ExpertHelperDataContext();
 
@@ -42,11 +57,7 @@ namespace ExpertHelper
             {
                 kryterium.ID_Rodzica = -1;
                 db.SubmitChanges();
-
-                return true;
             }
-
-            return false;
         }
 
         public static DataTable pobierzListeKryteriow()
@@ -59,6 +70,7 @@ namespace ExpertHelper
             listaKryteriow.Columns.Add("ID");
             listaKryteriow.Columns.Add("ID_Rodzica");
             listaKryteriow.Columns.Add("Cel");
+            listaKryteriow.Columns.Add("Opis");
 
             ExpertHelperDataContext db = new ExpertHelperDataContext();
 
@@ -67,7 +79,8 @@ namespace ExpertHelper
                         {
                             id = d.ID,
                             idRodzica = d.ID_Rodzica,
-                            cel = d.Nazwa
+                            cel = d.Nazwa,
+                            opis = d.Opis
                         };
 
             int lp = 1;
@@ -79,6 +92,7 @@ namespace ExpertHelper
                 dr["ID"] = cel.id;
                 dr["ID_Rodzica"] = cel.idRodzica;
                 dr["Cel"] = cel.cel;
+                dr["Opis"] = cel.opis;
 
                 lp++;
 
@@ -172,7 +186,8 @@ namespace ExpertHelper
             {
                 ID = int.Parse(row["ID"].ToString()),
                 ID_Rodzica = int.Parse(row["ID_Rodzica"].ToString()),
-                Nazwa = row["Cel"].ToString()
+                Nazwa = row["Cel"].ToString(),
+                Opis = row["Opis"].ToString()
             }).Where(row => row.ID_Rodzica == idRoot).ToList();
         }
 

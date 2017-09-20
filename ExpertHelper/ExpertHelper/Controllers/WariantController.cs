@@ -38,6 +38,21 @@ namespace ExpertHelper
             return wariant;
         }
 
+        public static void edytujWariant(int idWariantu, String nazwa, String opis)
+        {
+            ExpertHelperDataContext db = new ExpertHelperDataContext();
+
+            Wariant wariant = pobierzWariant(idWariantu, db);
+
+            if(null != wariant)
+            {
+                wariant.Nazwa = nazwa;
+                wariant.Opis = opis;
+
+                db.SubmitChanges();
+            }
+        }
+
         public static List<Wariant> pobierzListeWariantow(int idCelu)
         {
             List<Wariant> listaWariantow = new List<Wariant>();

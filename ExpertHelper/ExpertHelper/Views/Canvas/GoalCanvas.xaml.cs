@@ -19,9 +19,8 @@ namespace ExpertHelper
     public partial class GoalCanvas : Canvas
     {
         private int kryteriumID = 0;
-
+        private int wariantID = 0;
         private int selectedIndex = 0;
-
         private int liczbaPodkryteriow = 0;
         private int liczbaZaglebienDrzewa = 0;
 
@@ -55,22 +54,23 @@ namespace ExpertHelper
             if (goalCheckBox.IsChecked.Value)
             {
                 KryteriumController.dodajKryterium(nazwaTextBox.Text, new TextRange(opisRichTextBox.Document.ContentStart, opisRichTextBox.Document.ContentEnd).Text, 0);
+
+                pobierzCele();
+                listaProblemowDataGrid.SelectedIndex = selectedIndex;
             }
             else if (cryterionCheckBox.IsChecked.Value)
             {
                 KryteriumController.dodajKryterium(nazwaTextBox.Text, new TextRange(opisRichTextBox.Document.ContentStart, opisRichTextBox.Document.ContentEnd).Text, kryteriumID);
                 liczbaPodkryteriow++;
+                pobierzCele();
             }
             else if (wariantCheckBox.IsChecked.Value)
             {
                 WariantController.dodajWariant(nazwaTextBox.Text, new TextRange(opisRichTextBox.Document.ContentStart, opisRichTextBox.Document.ContentEnd).Text, kryteriumID);
+                pobierzCele();
             }
 
-            nazwaTextBox.Clear();
-            opisRichTextBox.Document.Blocks.Clear();
-            pobierzCele();
-
-            listaProblemowDataGrid.SelectedIndex = selectedIndex;
+            wyczyscKontrolki();
         }
 
         private void kryteriumTreeView_Initialized(object sender, EventArgs e)
@@ -87,6 +87,10 @@ namespace ExpertHelper
 
         private void kryteriumTreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
+            wyczyscKontrolki();
+            dodajButton.IsEnabled = false;
+            zapiszButton.IsEnabled = true;
+
             if (null == kryteriumTreeView.SelectedItem)
             {
                 ustalBlokadeKontrolek(false);
@@ -101,6 +105,9 @@ namespace ExpertHelper
         {
             kryteriumTreeView.Items.Clear();
             wariantListBox.Items.Clear();
+            wyczyscKontrolki();
+            dodajButton.IsEnabled = false;
+            zapiszButton.IsEnabled = true;
 
             if (listaProblemowDataGrid.SelectedItems.Count == 1)
             {
@@ -115,8 +122,16 @@ namespace ExpertHelper
 
                     if (listaWariantow.Count > 0)
                     {
-                        listaWariantow.ForEach(w => wariantListBox.Items.Add(w.Nazwa));
+                        listaWariantow.ForEach(w =>
+                        {
+                            wariantListBox.Items.Add(w.Nazwa);
+                        });
                     }
+
+                    
+
+                    nazwaTextBox.Text = dataRow.Row.ItemArray[3].ToString();
+                    opisRichTextBox.AppendText(dataRow.Row.ItemArray[4].ToString());
 
                     ustalWagiButton.IsEnabled = false;
                 }
@@ -129,7 +144,10 @@ namespace ExpertHelper
 
         private void dodajPodkryteriumMenuItem_Click(object sender, RoutedEventArgs e)
         {
+            wyczyscKontrolki();
             ustalWartoscCheckBoxa(cryterionCheckBox, true);
+            dodajButton.IsEnabled = true;
+            zapiszButton.IsEnabled = false;
 
             if (null != kryteriumTreeView.SelectedItem)
             {
@@ -174,6 +192,9 @@ namespace ExpertHelper
 
         private void newButton_Click(object sender, RoutedEventArgs e)
         {
+            wyczyscKontrolki();
+            dodajButton.IsEnabled = true;
+            zapiszButton.IsEnabled = false;
             nazwaTextBox.Focus();
             ustalWartoscCheckBoxa(goalCheckBox, true);
             kryteriumID = 0;
@@ -181,31 +202,11 @@ namespace ExpertHelper
 
         private void dodajWariantMenuItem_Click(object sender, RoutedEventArgs e)
         {
+            wyczyscKontrolki();
+            dodajButton.IsEnabled = true;
+            zapiszButton.IsEnabled = false;
             ustalWartoscCheckBoxa(wariantCheckBox, true);
             nazwaTextBox.Focus();
-        }
-
-        private void pobierzCele()
-        {
-            DataTable dt = KryteriumController.pobierzTabeleCelow();
-
-            listaProblemowDataGrid.ItemsSource = dt.AsDataView();
-            listaProblemowDataGrid.CanUserAddRows = true;
-
-            if (listaProblemowDataGrid.Columns.Count > 1)
-            {
-                listaProblemowDataGrid.Columns[0].Width = 41;
-                listaProblemowDataGrid.Columns[3].Width = 210;
-                listaProblemowDataGrid.Columns[1].Visibility = Visibility.Collapsed;
-                listaProblemowDataGrid.Columns[2].Visibility = Visibility.Collapsed;
-            }
-        }
-
-        private void ustalBlokadeKontrolek(bool czyOdblokowane)
-        {
-            dodajPodkryteriumMenuItem.IsEnabled = czyOdblokowane;
-            usunMenuItem.IsEnabled = czyOdblokowane;
-            ustalWagiButton.IsEnabled = czyOdblokowane;
         }
 
         private void ustalWagiButton_Click(object sender, RoutedEventArgs e)
@@ -221,6 +222,24 @@ namespace ExpertHelper
             {
                 MessageBox.Show("Musisz dodać przynajmniej 2 warianty!", "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void zapiszButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (goalCheckBox.IsChecked.Value || cryterionCheckBox.IsChecked.Value)
+            {
+                KryteriumController.edytujKryterium(kryteriumID, nazwaTextBox.Text, new TextRange(opisRichTextBox.Document.ContentStart, opisRichTextBox.Document.ContentEnd).Text);
+            }
+            else if (wariantCheckBox.IsChecked.Value)
+            {
+                WariantController.dodajWariant(nazwaTextBox.Text, new TextRange(opisRichTextBox.Document.ContentStart, opisRichTextBox.Document.ContentEnd).Text, kryteriumID);
+            }
+        }
+
+        private void wariantListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            wariantID = int.Parse(((ItemsControl)wariantListBox.SelectedItem).Uid);
+            Console.WriteLine("id " + wariantID);
         }
 
         private void goalCheckBox_Checked(object sender, RoutedEventArgs e)
@@ -241,9 +260,39 @@ namespace ExpertHelper
             ustalWartoscCheckBoxa(goalCheckBox, false);
         }
 
+        private void pobierzCele()
+        {
+            DataTable dt = KryteriumController.pobierzTabeleCelow();
+
+            listaProblemowDataGrid.ItemsSource = dt.AsDataView();
+            listaProblemowDataGrid.CanUserAddRows = true;
+
+            if (listaProblemowDataGrid.Columns.Count > 1)
+            {
+                listaProblemowDataGrid.Columns[0].Width = 41;
+                listaProblemowDataGrid.Columns[3].Width = 210;
+                listaProblemowDataGrid.Columns[1].Visibility = Visibility.Collapsed;
+                listaProblemowDataGrid.Columns[2].Visibility = Visibility.Collapsed;
+                listaProblemowDataGrid.Columns[4].Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void ustalBlokadeKontrolek(bool czyOdblokowane)
+        {
+            dodajPodkryteriumMenuItem.IsEnabled = czyOdblokowane;
+            usunMenuItem.IsEnabled = czyOdblokowane;
+            ustalWagiButton.IsEnabled = czyOdblokowane;
+        }
+
         private void ustalWartoscCheckBoxa(ToggleButton checkBox, bool wartosc)
         {
             checkBox.IsChecked = wartosc;
+        }
+
+        private void wyczyscKontrolki()
+        {
+            nazwaTextBox.Clear();
+            opisRichTextBox.Document.Blocks.Clear();
         }
     }
 }

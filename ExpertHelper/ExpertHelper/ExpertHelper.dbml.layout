@@ -2,63 +2,63 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="ExpertHelper">
   <DataContextMoniker Name="/ExpertHelperDataContext" />
   <nestedChildShapes>
-    <classShape Id="5fb4d123-23eb-4a77-bf3d-8957670e215c" absoluteBounds="1.625, 1.125, 2, 1.7708968098958329">
+    <classShape Id="4b5be70a-02d8-40ff-9578-c250aeaa9540" absoluteBounds="0.75, 1.875, 2, 1.9631982421875003">
       <DataClassMoniker Name="/ExpertHelperDataContext/Kryterium" />
       <nestedChildShapes>
-        <elementListCompartment Id="e4e42713-1fe4-4daa-9e67-e61a9c75ec9c" absoluteBounds="1.6399999999999997, 1.585, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="36e3a5b5-8475-4597-b345-b5151bf40c0f" absoluteBounds="0.765, 2.335, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="70cf5754-c23b-4047-8c26-8a0027fc859e" absoluteBounds="7.125, 0.875, 2, 1.3862939453125003">
+    <classShape Id="26582659-84e5-4086-b8b3-6f31b1a0c7a9" absoluteBounds="3.5, 1.125, 2, 1.3862939453125003">
       <DataClassMoniker Name="/ExpertHelperDataContext/Warianty_Celu" />
       <nestedChildShapes>
-        <elementListCompartment Id="58b40bbb-d658-4751-8f9c-35f3ff0258ed" absoluteBounds="7.1400000000000006, 1.335, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="3ff05fab-f138-4960-8486-474d91e98a48" absoluteBounds="3.515, 1.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="728b2c57-fe4d-4a60-8fe3-01c755563002" absoluteBounds="1.75, 4.625, 2, 1.5785953776041666">
+    <classShape Id="743c3488-b54e-406c-97ea-494ed3daa097" absoluteBounds="3.5, 4.25, 2, 1.5785953776041666">
       <DataClassMoniker Name="/ExpertHelperDataContext/Waga" />
       <nestedChildShapes>
-        <elementListCompartment Id="38b12c3b-4528-4532-8525-a5d3e817fbad" absoluteBounds="1.7650000000000006, 5.085, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="f878215c-263e-47bd-9e33-348a7775850f" absoluteBounds="3.515, 4.71, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="c5cea319-190b-48bf-ba9c-b7dc63bbfd99" absoluteBounds="7.25, 4.875, 2, 1.3862939453125005">
+    <classShape Id="bf2e2319-429e-47ba-aea6-a7293ea06c28" absoluteBounds="0.75, 5.125, 2, 1.3862939453125005">
       <DataClassMoniker Name="/ExpertHelperDataContext/Wariant" />
       <nestedChildShapes>
-        <elementListCompartment Id="5ba213fb-297e-4bb7-8bba-5fc6713e4d14" absoluteBounds="7.265, 5.335, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="860401b6-e985-4b4a-8a7a-ab1d9a35d079" absoluteBounds="0.765, 5.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.33052987154447 : 2.89589680989583); (2.33052987154447 : 3.14589680989583); (2.93349251552484 : 3.14589680989583); (2.93349251552484 : 2.89589680989583)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(1.45863627929688 : 3.8381982421875); (1.45863627929688 : 4.0881982421875); (2.05523818359375 : 4.0881982421875); (2.05523818359375 : 3.8381982421875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/ExpertHelperDataContext/Kryterium/Kryterium_Kryterium" />
       <nodes>
-        <classShapeMoniker Id="5fb4d123-23eb-4a77-bf3d-8957670e215c" />
-        <classShapeMoniker Id="5fb4d123-23eb-4a77-bf3d-8957670e215c" />
+        <classShapeMoniker Id="4b5be70a-02d8-40ff-9578-c250aeaa9540" />
+        <classShapeMoniker Id="4b5be70a-02d8-40ff-9578-c250aeaa9540" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(3.625 : 1.89768271582031); (7.125 : 1.89768271582031)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 2.19314697265625); (3.29166666666667 : 2.19314697265625 : JumpStart); (3.45833333333333 : 2.19314697265625 : JumpEnd); (3.5 : 2.19314697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/ExpertHelperDataContext/Kryterium/Kryterium_Warianty_Celu" />
       <nodes>
-        <classShapeMoniker Id="5fb4d123-23eb-4a77-bf3d-8957670e215c" />
-        <classShapeMoniker Id="70cf5754-c23b-4047-8c26-8a0027fc859e" />
+        <classShapeMoniker Id="4b5be70a-02d8-40ff-9578-c250aeaa9540" />
+        <classShapeMoniker Id="26582659-84e5-4086-b8b3-6f31b1a0c7a9" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(3.34174625776242 : 2.89589680989583); (3.34174625776242 : 4.625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 3.80497388731971); (3 : 4.05497388731971); (3 : 3.72207200485777); (3.31607443490112 : 4.03814643975889 : JumpStart); (3.43392556509888 : 4.15599756995665 : JumpEnd); (3.52792799514223 : 4.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/ExpertHelperDataContext/Kryterium/Kryterium_Waga" />
       <nodes>
-        <classShapeMoniker Id="5fb4d123-23eb-4a77-bf3d-8957670e215c" />
-        <classShapeMoniker Id="728b2c57-fe4d-4a60-8fe3-01c755563002" />
+        <classShapeMoniker Id="4b5be70a-02d8-40ff-9578-c250aeaa9540" />
+        <classShapeMoniker Id="743c3488-b54e-406c-97ea-494ed3daa097" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(1.97776493577224 : 2.89589680989583); (1.97776493577224 : 4.625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 3.80799419230769); (3.1875 : 4.24549419230769); (3.1875 : 3.96300038686899); (3.31607443490112 : 4.09157482177011 : JumpStart); (3.43392556509888 : 4.20942595196787 : JumpEnd); (3.5 : 4.27550038686899)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/ExpertHelperDataContext/Kryterium/Kryterium_Waga1" />
       <nodes>
-        <classShapeMoniker Id="5fb4d123-23eb-4a77-bf3d-8957670e215c" />
-        <classShapeMoniker Id="728b2c57-fe4d-4a60-8fe3-01c755563002" />
+        <classShapeMoniker Id="4b5be70a-02d8-40ff-9578-c250aeaa9540" />
+        <classShapeMoniker Id="743c3488-b54e-406c-97ea-494ed3daa097" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.1875 : 4.875); (8.1875 : 2.2612939453125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 5.125); (3.375 : 4.5); (3.375 : 1.62782148632813); (3.5 : 1.62782148632813)]" fixedFrom="NotFixed" fixedTo="Algorithm">
       <AssociationMoniker Name="/ExpertHelperDataContext/Wariant/Wariant_Warianty_Celu" />
       <nodes>
-        <classShapeMoniker Id="c5cea319-190b-48bf-ba9c-b7dc63bbfd99" />
-        <classShapeMoniker Id="70cf5754-c23b-4047-8c26-8a0027fc859e" />
+        <classShapeMoniker Id="bf2e2319-429e-47ba-aea6-a7293ea06c28" />
+        <classShapeMoniker Id="26582659-84e5-4086-b8b3-6f31b1a0c7a9" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

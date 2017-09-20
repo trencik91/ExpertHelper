@@ -45,7 +45,7 @@ namespace ExpertHelper
     #endregion
 		
 		public ExpertHelperDataContext() : 
-				base(global::ExpertHelper.Properties.Settings.Default.ExpertConnectionString1, mappingSource)
+				base(global::ExpertHelper.Properties.Settings.Default.ExpertConnectionString2, mappingSource)
 		{
 			OnCreated();
 		}
@@ -123,6 +123,8 @@ namespace ExpertHelper
 		
 		private System.DateTime _Data_utworzenia;
 		
+		private int _Liczba_Podkryteriow;
+		
 		private EntitySet<Kryterium> _Kryteriums;
 		
 		private EntitySet<Warianty_Celu> _Warianty_Celus;
@@ -147,6 +149,8 @@ namespace ExpertHelper
     partial void OnOpisChanged();
     partial void OnData_utworzeniaChanging(System.DateTime value);
     partial void OnData_utworzeniaChanged();
+    partial void OnLiczba_PodkryteriowChanging(int value);
+    partial void OnLiczba_PodkryteriowChanged();
     #endregion
 		
 		public Kryterium()
@@ -259,6 +263,26 @@ namespace ExpertHelper
 					this._Data_utworzenia = value;
 					this.SendPropertyChanged("Data_utworzenia");
 					this.OnData_utworzeniaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Liczba_Podkryteriow", DbType="Int NOT NULL")]
+		public int Liczba_Podkryteriow
+		{
+			get
+			{
+				return this._Liczba_Podkryteriow;
+			}
+			set
+			{
+				if ((this._Liczba_Podkryteriow != value))
+				{
+					this.OnLiczba_PodkryteriowChanging(value);
+					this.SendPropertyChanging();
+					this._Liczba_Podkryteriow = value;
+					this.SendPropertyChanged("Liczba_Podkryteriow");
+					this.OnLiczba_PodkryteriowChanged();
 				}
 			}
 		}

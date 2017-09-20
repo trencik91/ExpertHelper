@@ -55,5 +55,16 @@ namespace ExpertHelper.Properties {
                 return ((string)(this["ExpertConnectionString1"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Database\\Expe" +
+            "rt.mdf;Integrated Security=True;Connect Timeout=30")]
+        public string ExpertConnectionString2 {
+            get {
+                return ((string)(this["ExpertConnectionString2"]));
+            }
+        }
     }
 }

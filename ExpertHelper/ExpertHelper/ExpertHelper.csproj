@@ -91,6 +91,11 @@
     </ApplicationDefinition>
     <Compile Include="Controllers\DataGridController.cs" />
     <Compile Include="Controllers\WariantController.cs" />
+    <Compile Include="ExpertHelper.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExpertHelper.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Canvas\CryterionCanvas.xaml.cs">
       <DependentUpon>CryterionCanvas.xaml</DependentUpon>
     </Compile>
@@ -110,11 +115,6 @@
     </Compile>
     <Compile Include="Controllers\KryteriumController.cs" />
     <Compile Include="Controllers\PanelController.cs" />
-    <Compile Include="ExpertHelper.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ExpertHelper.dbml</DependentUpon>
-    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

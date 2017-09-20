@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Expert" Class="ExpertHelperDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Expert.mdf;Integrated Security=True;Connect Timeout=30" SettingsObjectName="ExpertHelper.Properties.Settings" SettingsPropertyName="ExpertConnectionString1" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database\Expert.mdf;Integrated Security=True;Connect Timeout=30" SettingsObjectName="ExpertHelper.Properties.Settings" SettingsPropertyName="ExpertConnectionString2" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Kryterium" Member="Kryteriums">
     <Type Name="Kryterium">
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -7,6 +7,7 @@
       <Column Name="Nazwa" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Opis" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="Data_utworzenia" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Liczba_Podkryteriow" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="Kryterium_Kryterium" Member="Kryteriums" ThisKey="ID" OtherKey="ID_Rodzica" Type="Kryterium" />
       <Association Name="Kryterium_Warianty_Celu" Member="Warianty_Celus" ThisKey="ID" OtherKey="ID_Celu" Type="Warianty_Celu" />
       <Association Name="Kryterium_Waga" Member="Wagas" ThisKey="ID" OtherKey="Kryterium1" Type="Waga" />

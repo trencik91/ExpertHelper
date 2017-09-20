@@ -175,22 +175,7 @@ namespace ExpertHelper
 
         private void usunMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            if (null != kryteriumTreeView.SelectedItem)
-            {
-                int id = int.Parse(((TreeViewItem)kryteriumTreeView.SelectedItem).Uid);
-
-                MessageBoxResult resutlt = MessageBox.Show("Czy na pewno chcesz usunąć zaznaczone kryterium i wszystkie jego podkryteria?", "Usuń", MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-                if (resutlt == MessageBoxResult.Yes)
-                {
-                    List<int> listaPodkryteriow = KryteriumController.stworzListeDoUsuniecia(id);
-
-                    foreach (int idPodkryterium in listaPodkryteriow)
-                    {
-                        KryteriumController.usunKryterium(idPodkryterium);
-                    }
-                }
-            }
+            usunKryterium();
         }
 
         private void newButton_Click(object sender, RoutedEventArgs e)
@@ -232,8 +217,6 @@ namespace ExpertHelper
             if (goalCheckBox.IsChecked.Value || cryterionCheckBox.IsChecked.Value)
             {
                 KryteriumController.edytujKryterium(kryteriumID, nazwaTextBox.Text, new TextRange(opisRichTextBox.Document.ContentStart, opisRichTextBox.Document.ContentEnd).Text);
-
-                Console.WriteLine("edycja kryterium");
             }
             else if (wariantCheckBox.IsChecked.Value)
             {
@@ -313,6 +296,31 @@ namespace ExpertHelper
         {
             nazwaTextBox.Clear();
             opisRichTextBox.Document.Blocks.Clear();
+        }
+
+        private void deleteButton_Click(object sender, RoutedEventArgs e)
+        {
+            usunKryterium();
+        }
+
+        private void usunKryterium()
+        {
+            if (null != kryteriumTreeView.SelectedItem)
+            {
+                int id = int.Parse(((TreeViewItem)kryteriumTreeView.SelectedItem).Uid);
+
+                MessageBoxResult resutlt = MessageBox.Show("Czy na pewno chcesz usunąć zaznaczone kryterium i wszystkie jego podkryteria?", "Usuń", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                if (resutlt == MessageBoxResult.Yes)
+                {
+                    List<int> listaPodkryteriow = KryteriumController.stworzListeDoUsuniecia(id);
+
+                    foreach (int idPodkryterium in listaPodkryteriow)
+                    {
+                        KryteriumController.usunKryterium(idPodkryterium);
+                    }
+                }
+            }
         }
     }
 }

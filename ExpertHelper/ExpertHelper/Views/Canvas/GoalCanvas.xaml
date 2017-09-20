@@ -11,7 +11,7 @@
                 <Image Source="/ExpertHelper;component/Graphics/plus.png" Width="20" Height="20" />
             </StackPanel>
         </Button>
-        <Button x:Name="deleteButton" IsEnabled="False" ToolTip="Usuń" ToolTipService.ShowOnDisabled="True">
+        <Button x:Name="deleteButton" IsEnabled="False" ToolTip="Usuń" ToolTipService.ShowOnDisabled="True" Click="deleteButton_Click">
             <StackPanel>
                 <Image Source="/ExpertHelper;component/Graphics/delete.png" Width="20" Height="20" />
             </StackPanel>

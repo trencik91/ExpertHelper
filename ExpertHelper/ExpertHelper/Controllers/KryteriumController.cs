@@ -35,15 +35,13 @@ namespace ExpertHelper
         public static void edytujKryterium(int id, String nazwa, String opis)
         {
             ExpertHelperDataContext db = new ExpertHelperDataContext();
-            Console.WriteLine("id " + id);
+
             Kryterium kryterium = pobierzKryterium(id);
 
-            if(null != kryterium)
+            if (null != kryterium)
             {
                 kryterium.Nazwa = nazwa;
                 kryterium.Opis = opis;
-
-                Console.WriteLine("opis " + opis);
 
                 db.SubmitChanges();
             }
@@ -127,7 +125,7 @@ namespace ExpertHelper
 
             stworzListeIdPodkryteriow(idRoot, listaIdDoUsuniecia);
 
-            foreach(int id in listaIdDoUsuniecia)
+            foreach (int id in listaIdDoUsuniecia)
             {
                 Console.WriteLine("id = " + id);
             }

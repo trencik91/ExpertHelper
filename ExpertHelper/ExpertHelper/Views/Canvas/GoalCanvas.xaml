@@ -30,8 +30,7 @@
     <GroupBox x:Name="problemGroupBox" Header="Lista problemów" Canvas.Left="10" Canvas.Top="61" Height="474" Width="312">
         <DataGrid x:Name="listaProblemowDataGrid" ItemsSource="{Binding}" SelectionChanged="listaProblemowDataGrid_SelectionChanged" Margin="10,10,8,4"/>
     </GroupBox>
-    <GroupBox x:Name="kryteriaGroupBox" Header="Kryteria
-              " Canvas.Left="345" Canvas.Top="61" Width="296" Height="273">
+    <GroupBox x:Name="kryteriaGroupBox" Header="Kryteria" Canvas.Left="345" Canvas.Top="61" Width="296" Height="273">
         <TreeView x:Name="kryteriumTreeView" SelectedItemChanged="kryteriumTreeView_SelectedItemChanged" Initialized="kryteriumTreeView_Initialized" Margin="0,10,-2,0" Height="237" VerticalAlignment="Top">
             <TreeView.ContextMenu>
                 <ContextMenu x:Name="kryteriumContextMenu">
@@ -41,9 +40,9 @@
             </TreeView.ContextMenu>
         </TreeView>
     </GroupBox>
-    <GroupBox x:Name="wariantGroupBox" Header="Warianty
-              " Canvas.Left="345" Canvas.Top="349" Width="296" Height="186">
-        <ListBox x:Name="wariantListBox" Margin="0,10,-2,2" HorizontalAlignment="Left" Width="286" SelectionChanged="wariantListBox_SelectionChanged">
+    <GroupBox x:Name="wariantGroupBox" Header="Warianty" Canvas.Left="345" Canvas.Top="349" Width="296" Height="186">
+        <ListBox x:Name="wariantListBox" Margin="0,10,-2,2" HorizontalAlignment="Left" Width="286" DisplayMemberPath="Nazwa"
+            ItemsSource="{Binding}" SelectedValuePath="ID_Wariantu" SelectionChanged="wariantListBox_SelectionChanged">
             <ListBox.ContextMenu>
                 <ContextMenu x:Name="wariantContextMenu">
                     <MenuItem Header="Dodaj wariant" x:Name="dodajWariantMenuItem" IsEnabled="True" Click="dodajWariantMenuItem_Click"/>

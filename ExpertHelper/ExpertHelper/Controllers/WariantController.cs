@@ -44,7 +44,7 @@ namespace ExpertHelper
 
             Wariant wariant = pobierzWariant(idWariantu, db);
 
-            if(null != wariant)
+            if (null != wariant)
             {
                 wariant.Nazwa = nazwa;
                 wariant.Opis = opis;
@@ -69,6 +69,13 @@ namespace ExpertHelper
             }
 
             return listaWariantow;
+        }
+
+        public static Wariant pobierzWariant(int idWariantu)
+        {
+            ExpertHelperDataContext db = new ExpertHelperDataContext();
+
+            return pobierzWariant(idWariantu, db);
         }
 
         public static Wariant pobierzWariant(int idWariantu, ExpertHelperDataContext db)

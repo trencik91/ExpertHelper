@@ -95,6 +95,17 @@ namespace ExpertHelper
             else
             {
                 ustalBlokadeKontrolek(true);
+                TreeViewItem item = (TreeViewItem)kryteriumTreeView.SelectedItem;
+                kryteriumID = int.Parse(item.Uid);
+                Kryterium kryterium = KryteriumController.pobierzKryterium(kryteriumID);
+
+                if (null != kryterium)
+                {
+                    nazwaTextBox.Text = kryterium.Nazwa;
+                    opisRichTextBox.AppendText(kryterium.Opis);
+                }
+
+                ustalWartoscCheckBoxa(cryterionCheckBox, true);
             }
         }
 
@@ -119,12 +130,9 @@ namespace ExpertHelper
 
                     if (listaWariantow.Count > 0)
                     {
-                        listaWariantow.ForEach(w =>
-                        {
-                            wariantListBox.Items.Add(w.Nazwa);
-                        });
+                        listaWariantow.ForEach(w => wariantListBox.Items.Add(w));
                     }
-                    
+
                     nazwaTextBox.Text = dataRow.Row.ItemArray[3].ToString();
                     opisRichTextBox.AppendText(dataRow.Row.ItemArray[4].ToString());
 
@@ -224,17 +232,34 @@ namespace ExpertHelper
             if (goalCheckBox.IsChecked.Value || cryterionCheckBox.IsChecked.Value)
             {
                 KryteriumController.edytujKryterium(kryteriumID, nazwaTextBox.Text, new TextRange(opisRichTextBox.Document.ContentStart, opisRichTextBox.Document.ContentEnd).Text);
+
+                Console.WriteLine("edycja kryterium");
             }
             else if (wariantCheckBox.IsChecked.Value)
             {
-                WariantController.dodajWariant(nazwaTextBox.Text, new TextRange(opisRichTextBox.Document.ContentStart, opisRichTextBox.Document.ContentEnd).Text, kryteriumID);
+                WariantController.edytujWariant(wariantID, nazwaTextBox.Text, new TextRange(opisRichTextBox.Document.ContentStart, opisRichTextBox.Document.ContentEnd).Text);
             }
+
+            pobierzCele();
+            listaProblemowDataGrid.SelectedIndex = selectedIndex;
+            wyczyscKontrolki();
         }
 
-        private void wariantListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void wariantListBox_SelectionChanged(object sender, RoutedEventArgs e)
         {
-            wariantID = int.Parse(((ItemsControl)wariantListBox.SelectedItem).Uid);
-            Console.WriteLine("id " + wariantID);
+            wyczyscKontrolki();
+
+            if (null != wariantListBox.SelectedValue)
+            {
+                wariantID = int.Parse(((ListBox)e.Source).SelectedValue.ToString());
+                Wariant wariant = WariantController.pobierzWariant(wariantID);
+
+                if (null != wariant)
+                {
+                    nazwaTextBox.Text = wariant.Nazwa;
+                    opisRichTextBox.AppendText(wariant.Opis);
+                }
+            }
         }
 
         private void goalCheckBox_Checked(object sender, RoutedEventArgs e)

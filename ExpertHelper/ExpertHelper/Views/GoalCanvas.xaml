@@ -65,4 +65,5 @@
     <CheckBox x:Name="goalCheckBox" Content="Cel" Canvas.Left="10" Canvas.Top="325" Checked="goalCheckBox_Checked"/>
     <CheckBox x:Name="cryterionCheckBox" Content="Kryterium" Canvas.Left="94" Canvas.Top="325" Checked="cryterionCheckBox_Checked"/>
     <CheckBox x:Name="wariantCheckBox" Content="Wariant" Canvas.Left="208" Canvas.Top="325" Checked="wariantCheckBox_Checked"/>
+    <Button x:Name="button" Content="Button" Canvas.Left="90" Canvas.Top="297" Width="75"/>
 </Canvas>

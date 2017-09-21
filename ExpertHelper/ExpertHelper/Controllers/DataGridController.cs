@@ -34,12 +34,11 @@ namespace ExpertHelper
             else
             {
                 List<Wariant> listaWariantow = WariantController.pobierzListeWariantow(idCelu);
-                tabelaWag.Columns.Add("Wariant");
                 tabelaWag.Columns.Add(kryterium.Nazwa);
 
                 listaWariantow.ForEach(w =>
                 {
-                    tabelaWag.Rows.Add(w.Nazwa);
+                    tabelaWag.Columns.Add(w.Nazwa); tabelaWag.Rows.Add(w.Nazwa);
                 });
             }
 

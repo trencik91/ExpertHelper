@@ -23,7 +23,8 @@ namespace ExpertHelper
                 Nazwa = nazwa,
                 Opis = opis,
                 Data_utworzenia = DateTime.Now,
-                ID_Rodzica = idRodzica
+                ID_Rodzica = idRodzica,
+                Liczba_Podkryteriow = 0
             };
 
             db.Kryteriums.InsertOnSubmit(kryterium);
@@ -36,27 +37,43 @@ namespace ExpertHelper
         {
             ExpertHelperDataContext db = new ExpertHelperDataContext();
 
-            Kryterium kryterium = pobierzKryterium(id);
+            Kryterium kryterium = pobierzKryterium(id, db);
 
             if (null != kryterium)
             {
                 kryterium.Nazwa = nazwa;
                 kryterium.Opis = opis;
-
-                db.SubmitChanges();
             }
+
+            db.SubmitChanges();
         }
 
         public static void usunKryterium(int id)
         {
             ExpertHelperDataContext db = new ExpertHelperDataContext();
 
-            Kryterium kryterium = pobierzKryterium(id);
+            Kryterium kryterium = pobierzKryterium(id, db);
 
             if (null != kryterium)
             {
                 kryterium.ID_Rodzica = -1;
                 db.SubmitChanges();
+            }
+        }
+
+        public static void dodajLiczbePodkryteriow(int idKryterium)
+        {
+            ExpertHelperDataContext db = new ExpertHelperDataContext();
+
+            Kryterium kryterium = pobierzKryterium(idKryterium, db);
+
+            if (null != kryterium)
+            {
+                int liczbaPodkryteriow = kryterium.Liczba_Podkryteriow + 1;
+                kryterium.Liczba_Podkryteriow = liczbaPodkryteriow;
+                
+                db.SubmitChanges();
+
             }
         }
 
@@ -71,6 +88,7 @@ namespace ExpertHelper
             listaKryteriow.Columns.Add("ID_Rodzica");
             listaKryteriow.Columns.Add("Cel");
             listaKryteriow.Columns.Add("Opis");
+            listaKryteriow.Columns.Add("Liczba_Podkryteriow");
 
             ExpertHelperDataContext db = new ExpertHelperDataContext();
 
@@ -80,7 +98,8 @@ namespace ExpertHelper
                             id = d.ID,
                             idRodzica = d.ID_Rodzica,
                             cel = d.Nazwa,
-                            opis = d.Opis
+                            opis = d.Opis,
+                            liczbaPodkryteriow = d.Liczba_Podkryteriow
                         };
 
             int lp = 1;
@@ -93,6 +112,7 @@ namespace ExpertHelper
                 dr["ID_Rodzica"] = cel.idRodzica;
                 dr["Cel"] = cel.cel;
                 dr["Opis"] = cel.opis;
+                dr["Liczba_Podkryteriow"] = cel.liczbaPodkryteriow;
 
                 lp++;
 
@@ -105,7 +125,9 @@ namespace ExpertHelper
         public static TreeViewItem pobierzDrzewo(int idRoot)
         {
             TreeViewItem rootItem = new TreeViewItem();
-            Kryterium rootKryterium = pobierzKryterium(idRoot);
+            ExpertHelperDataContext db = new ExpertHelperDataContext();
+
+            Kryterium rootKryterium = pobierzKryterium(idRoot, db);
 
             if (null != rootKryterium)
             {
@@ -154,24 +176,14 @@ namespace ExpertHelper
             }
         }
 
-        public static Kryterium pobierzKryterium(int id)
+        public static Kryterium pobierzKryterium(int id, ExpertHelperDataContext db)
         {
-            ExpertHelperDataContext db = new ExpertHelperDataContext();
+            var kryterium = (from kr in db.Kryteriums
+                             where kr.ID == id
+                             select kr).FirstOrDefault();
 
-            var k = (from kr in db.Kryteriums
-                     where kr.ID == id
-                     select kr).FirstOrDefault();
-
-            if (null != k)
+            if (null != kryterium)
             {
-                Kryterium kryterium = new Kryterium
-                {
-                    ID = id,
-                    ID_Rodzica = k.ID_Rodzica,
-                    Nazwa = k.Nazwa,
-                    Opis = k.Opis
-                };
-
                 return kryterium;
             }
 
@@ -187,7 +199,8 @@ namespace ExpertHelper
                 ID = int.Parse(row["ID"].ToString()),
                 ID_Rodzica = int.Parse(row["ID_Rodzica"].ToString()),
                 Nazwa = row["Cel"].ToString(),
-                Opis = row["Opis"].ToString()
+                Opis = row["Opis"].ToString(),
+                Liczba_Podkryteriow = int.Parse(row["Liczba_Podkryteriow"].ToString())
             }).Where(row => row.ID_Rodzica == idRoot).ToList();
         }
 

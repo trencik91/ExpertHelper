@@ -18,7 +18,9 @@ namespace ExpertHelper
         {
             DataTable tabelaWag = new DataTable();
             List<Kryterium> listaPodkryteriow = KryteriumController.pobierzListePodkryteriow(idKryterium);
-            Kryterium kryterium = KryteriumController.pobierzKryterium(idKryterium);
+            ExpertHelperDataContext db = new ExpertHelperDataContext();
+
+            Kryterium kryterium = KryteriumController.pobierzKryterium(idKryterium, db);
 
             if (listaPodkryteriow.Count > 0)
             {

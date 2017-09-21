@@ -3,16 +3,14 @@
   <Table Name="dbo.Kryterium" Member="Kryteriums">
     <Type Name="Kryterium">
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="ID_Rodzica" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ID_Rodzica" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Nazwa" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Opis" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="Data_utworzenia" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="Liczba_Podkryteriow" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Association Name="Kryterium_Kryterium" Member="Kryteriums" ThisKey="ID" OtherKey="ID_Rodzica" Type="Kryterium" />
       <Association Name="Kryterium_Warianty_Celu" Member="Warianty_Celus" ThisKey="ID" OtherKey="ID_Celu" Type="Warianty_Celu" />
       <Association Name="Kryterium_Waga" Member="Wagas" ThisKey="ID" OtherKey="Kryterium1" Type="Waga" />
       <Association Name="Kryterium_Waga1" Member="Wagas1" ThisKey="ID" OtherKey="Kryterium2" Type="Waga" />
-      <Association Name="Kryterium_Kryterium" Member="Kryterium1" ThisKey="ID_Rodzica" OtherKey="ID" Type="Kryterium" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Warianty_Celu" Member="Warianty_Celus">

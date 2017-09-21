@@ -58,6 +58,8 @@ namespace ExpertHelper
             else if (cryterionCheckBox.IsChecked.Value)
             {
                 KryteriumController.dodajKryterium(nazwaTextBox.Text, new TextRange(opisRichTextBox.Document.ContentStart, opisRichTextBox.Document.ContentEnd).Text, kryteriumID);
+                KryteriumController.dodajLiczbePodkryteriow(kryteriumID);
+
                 liczbaPodkryteriow++;
             }
             else if (wariantCheckBox.IsChecked.Value)
@@ -84,6 +86,8 @@ namespace ExpertHelper
 
         private void kryteriumTreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
+            ExpertHelperDataContext db = new ExpertHelperDataContext();
+
             wyczyscKontrolki();
             dodajButton.IsEnabled = false;
             zapiszButton.IsEnabled = true;
@@ -97,7 +101,7 @@ namespace ExpertHelper
                 ustalBlokadeKontrolek(true);
                 TreeViewItem item = (TreeViewItem)kryteriumTreeView.SelectedItem;
                 kryteriumID = int.Parse(item.Uid);
-                Kryterium kryterium = KryteriumController.pobierzKryterium(kryteriumID);
+                Kryterium kryterium = KryteriumController.pobierzKryterium(kryteriumID, db);
 
                 if (null != kryterium)
                 {

@@ -18,6 +18,7 @@ namespace ExpertHelper
     public partial class CryterionCanvas : Canvas
     {
         private int idCelu = 0;
+        DataGridTextColumn zaznaczonaKolumna = null;
 
         public DependencyProperty ElevationAngleProperty { get; set; }
 
@@ -75,7 +76,7 @@ namespace ExpertHelper
                 {
                     MessageBox.Show("Błąd przy tworzeniu identyfikatora danych! " + ex.ToString(), "Błąd!", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-        }
+            }
         }
 
         private void stworzKolumnyDataGrid(DataTable tabelaWag)

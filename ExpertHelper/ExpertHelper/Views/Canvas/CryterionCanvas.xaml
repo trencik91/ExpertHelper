@@ -5,14 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ExpertHelper"
         mc:Ignorable="d"
-        Name="cryterionCanvas" Height="580" Width="566">
-    <TreeView x:Name="problemTreeView" Height="259" Canvas.Left="10" Canvas.Top="37" Width="205" SelectedItemChanged="problemTreeView_SelectedItemChanged"/>
-    <ListBox x:Name="wariantyListBox" Height="172" Canvas.Left="10" Canvas.Top="332" Width="205"/>
-    <Label x:Name="label" Content="Problem" Canvas.Left="10" Canvas.Top="10"/>
-    <Label x:Name="label1" Content="Warianty" Canvas.Left="10" Canvas.Top="301"/>
-    <DataGrid x:Name="wagiDataGrid" Canvas.Left="233" Canvas.Top="37" Width="323" Height="177"/>
-    <Label x:Name="label2" Content="Wagi" Canvas.Left="233" Canvas.Top="10"/>
-    <Button x:Name="zatwierdzButton" Content="Zatwierdź" Canvas.Left="481" Canvas.Top="219" Width="75"/>
-    <Slider x:Name="wagaSlider" Canvas.Left="256" Canvas.Top="278" Orientation="Horizontal" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Minimum="-27" Maximum="27" Cursor="Hand" IsSnapToTickEnabled="True" Width="269" Value="{Binding Path=ElevationAngle,Mode=OneWayToSource}" RenderTransformOrigin="-1.323,-11.381" ValueChanged="wagaSlider_ValueChanged"
+        Name="cryterionCanvas" Height="580" Width="1000.171">
+    <Button x:Name="zatwierdzButton" Content="Zatwierdź" Canvas.Left="915" Canvas.Top="309" Width="75"/>
+    <Slider x:Name="wagaSlider" Canvas.Left="-200" Canvas.Top="-53" Orientation="Horizontal" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Minimum="-27" Maximum="27" Cursor="Hand" IsSnapToTickEnabled="True" Width="269" Value="{Binding Path=ElevationAngle,Mode=OneWayToSource}" RenderTransformOrigin="-1.323,-11.381" ValueChanged="wagaSlider_ValueChanged"
 />
+    <GroupBox x:Name="problemGroupBox" Header="Problem" Canvas.Left="10" Canvas.Top="56" Height="282" Width="253">
+        <TreeView x:Name="problemTreeView" SelectedItemChanged="problemTreeView_SelectedItemChanged" Margin="4,7,-2,3"/>
+    </GroupBox>
+    <GroupBox x:Name="wariantyGroupBox" Header="Warianty" Canvas.Left="10" Canvas.Top="343" Height="191" Width="253">
+        <ListBox x:Name="wariantyListBox" Margin="4,10,-2,4"/>
+    </GroupBox>
+    <GroupBox x:Name="groupBox" Header="Wagi" Canvas.Left="351" Canvas.Top="56" Height="248" Width="639">
+        <DataGrid x:Name="wagiDataGrid" Margin="4,10,-2,4" IsReadOnly="True" SelectionMode="Single"/>
+    </GroupBox>
+    <TabControl x:Name="wagiTabControl" Height="191" Canvas.Left="351" Canvas.Top="343" Width="639">
+        <TabItem x:Name="liczbowoTabItem" Header="Liczbowo">
+            <Grid Background="#FFE5E5E5">
+                <Label x:Name="wagaLabel" Content="Waga:" Margin="10,10,574,127"/>
+                <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="10,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            </Grid>
+        </TabItem>
+        <TabItem x:Name="graficznieTabItem" Header="Graficznie">
+            <Grid Background="#FFE5E5E5"/>
+        </TabItem>
+        <TabItem x:Name="slownieTabItem" Header="Słownie">
+            <Grid Background="#FFE5E5E5"/>
+        </TabItem>
+    </TabControl>
 </Canvas>

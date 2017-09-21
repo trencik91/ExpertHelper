@@ -15,7 +15,7 @@ namespace Expert
         public ExpertHelper()
         {
             InitializeComponent();
-            MainPanel mainPanel = new MainPanel();
+            MainPanel mainPanel = new MainPanel(this);
             this.Controls.Add(mainPanel);
             mainPanel.Visible = true;
         }

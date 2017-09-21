@@ -49,6 +49,7 @@
             this.dodajCelButton.TabIndex = 1;
             this.dodajCelButton.Text = "Dodaj Cel";
             this.dodajCelButton.UseVisualStyleBackColor = true;
+            this.dodajCelButton.Click += new System.EventHandler(this.dodajCelButton_Click);
             // 
             // MainPanel
             // 

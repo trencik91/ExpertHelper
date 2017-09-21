@@ -32,7 +32,6 @@
             this.problemGroupBox = new System.Windows.Forms.GroupBox();
             this.problemDataGridView = new System.Windows.Forms.DataGridView();
             this.kryteriaGroupBox = new System.Windows.Forms.GroupBox();
-            this.kryteriaListView = new System.Windows.Forms.ListView();
             this.wariantyGroupBox = new System.Windows.Forms.GroupBox();
             this.wariantyListBox = new System.Windows.Forms.ListBox();
             this.dodajGroupBox = new System.Windows.Forms.GroupBox();
@@ -49,12 +48,17 @@
             this.kryteriumContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.dodajToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.usunKryteriumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kryteriaTreeView = new System.Windows.Forms.TreeView();
+            this.wariantyContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.dodajWariantToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.usuńWariantToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.problemGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.problemDataGridView)).BeginInit();
             this.kryteriaGroupBox.SuspendLayout();
             this.wariantyGroupBox.SuspendLayout();
             this.dodajGroupBox.SuspendLayout();
             this.kryteriumContextMenuStrip.SuspendLayout();
+            this.wariantyContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // problemGroupBox
@@ -78,23 +82,13 @@
             // 
             // kryteriaGroupBox
             // 
-            this.kryteriaGroupBox.Controls.Add(this.kryteriaListView);
+            this.kryteriaGroupBox.Controls.Add(this.kryteriaTreeView);
             this.kryteriaGroupBox.Location = new System.Drawing.Point(404, 58);
             this.kryteriaGroupBox.Name = "kryteriaGroupBox";
             this.kryteriaGroupBox.Size = new System.Drawing.Size(278, 270);
             this.kryteriaGroupBox.TabIndex = 1;
             this.kryteriaGroupBox.TabStop = false;
             this.kryteriaGroupBox.Text = "Kryteria";
-            // 
-            // kryteriaListView
-            // 
-            this.kryteriaListView.ContextMenuStrip = this.kryteriumContextMenuStrip;
-            this.kryteriaListView.Location = new System.Drawing.Point(6, 19);
-            this.kryteriaListView.Name = "kryteriaListView";
-            this.kryteriaListView.Size = new System.Drawing.Size(266, 245);
-            this.kryteriaListView.TabIndex = 0;
-            this.kryteriaListView.UseCompatibleStateImageBehavior = false;
-            this.kryteriaListView.SelectedIndexChanged += new System.EventHandler(this.kryteriaListView_SelectedIndexChanged);
             // 
             // wariantyGroupBox
             // 
@@ -108,12 +102,14 @@
             // 
             // wariantyListBox
             // 
+            this.wariantyListBox.ContextMenuStrip = this.wariantyContextMenuStrip;
             this.wariantyListBox.FormattingEnabled = true;
             this.wariantyListBox.Location = new System.Drawing.Point(6, 19);
             this.wariantyListBox.Name = "wariantyListBox";
             this.wariantyListBox.Size = new System.Drawing.Size(266, 199);
             this.wariantyListBox.TabIndex = 0;
             this.wariantyListBox.SelectedIndexChanged += new System.EventHandler(this.wariantyListBox_SelectedIndexChanged);
+            this.wariantyListBox.SelectedValueChanged += new System.EventHandler(this.wariantyListBox_SelectedValueChanged);
             // 
             // dodajGroupBox
             // 
@@ -255,6 +251,36 @@
             this.usunKryteriumToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
             this.usunKryteriumToolStripMenuItem.Text = "Usuń";
             // 
+            // kryteriaTreeView
+            // 
+            this.kryteriaTreeView.ContextMenuStrip = this.kryteriumContextMenuStrip;
+            this.kryteriaTreeView.Location = new System.Drawing.Point(6, 19);
+            this.kryteriaTreeView.Name = "kryteriaTreeView";
+            this.kryteriaTreeView.Size = new System.Drawing.Size(266, 245);
+            this.kryteriaTreeView.TabIndex = 1;
+            this.kryteriaTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.kryteriaTreeView_AfterSelect);
+            // 
+            // wariantyContextMenuStrip
+            // 
+            this.wariantyContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dodajWariantToolStripMenuItem,
+            this.usuńWariantToolStripMenuItem});
+            this.wariantyContextMenuStrip.Name = "wariantyContextMenuStrip";
+            this.wariantyContextMenuStrip.Size = new System.Drawing.Size(148, 48);
+            // 
+            // dodajWariantToolStripMenuItem
+            // 
+            this.dodajWariantToolStripMenuItem.Name = "dodajWariantToolStripMenuItem";
+            this.dodajWariantToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.dodajWariantToolStripMenuItem.Text = "Dodaj wariant";
+            this.dodajWariantToolStripMenuItem.Click += new System.EventHandler(this.dodajWariantToolStripMenuItem_Click);
+            // 
+            // usuńWariantToolStripMenuItem
+            // 
+            this.usuńWariantToolStripMenuItem.Name = "usuńWariantToolStripMenuItem";
+            this.usuńWariantToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.usuńWariantToolStripMenuItem.Text = "Usuń wariant";
+            // 
             // KryteriumPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -272,6 +298,7 @@
             this.dodajGroupBox.ResumeLayout(false);
             this.dodajGroupBox.PerformLayout();
             this.kryteriumContextMenuStrip.ResumeLayout(false);
+            this.wariantyContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -281,7 +308,6 @@
         private System.Windows.Forms.GroupBox problemGroupBox;
         private System.Windows.Forms.DataGridView problemDataGridView;
         private System.Windows.Forms.GroupBox kryteriaGroupBox;
-        private System.Windows.Forms.ListView kryteriaListView;
         private System.Windows.Forms.GroupBox wariantyGroupBox;
         private System.Windows.Forms.ListBox wariantyListBox;
         private System.Windows.Forms.GroupBox dodajGroupBox;
@@ -298,5 +324,9 @@
         private System.Windows.Forms.ContextMenuStrip kryteriumContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem dodajToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem usunKryteriumToolStripMenuItem;
+        private System.Windows.Forms.TreeView kryteriaTreeView;
+        private System.Windows.Forms.ContextMenuStrip wariantyContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem dodajWariantToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem usuńWariantToolStripMenuItem;
     }
 }

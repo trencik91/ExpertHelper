@@ -105,39 +105,9 @@ namespace Expert
 
         }
 
-        private void kryteriaListView_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            ExpertHelperDataContext db = new ExpertHelperDataContext();
-
-            wyczyscKontrolki();
-            dodajButton.Enabled = false;
-            zapiszButton.Enabled = true;
-
-            if (kryteriaListView.SelectedItems.Count > 0)
-            {
-                ustalBlokadeKontrolek(false);
-            }
-            else
-            {
-                ustalBlokadeKontrolek(true);
-                if (kryteriaListView.SelectedItems.Count == 1)
-                {
-                    ListViewItem item = (ListViewItem)kryteriaListView.SelectedItems[0];
-                    kryteriumID = int.Parse(item.Tag.ToString());
-                    Kryterium kryterium = KryteriumController.pobierzKryterium(kryteriumID, db);
-
-                    if (null != kryterium)
-                    {
-                        nazwaTextBox.Text = kryterium.Nazwa;
-                        opisRichTextBox.AppendText(kryterium.Opis);
-                    }
-                }
-            }
-        }
-
         private void problemDataGridView_SelectionChanged(object sender, EventArgs e)
         {
-            kryteriaListView.Items.Clear();
+            kryteriaTreeView.Nodes.Clear();
             wariantyListBox.Items.Clear();
             wyczyscKontrolki();
             dodajButton.Enabled = false;
@@ -153,13 +123,17 @@ namespace Expert
                     selectedIndex = problemDataGridView.SelectedRows[0].Index;
 
                     TreeNode listaNodow = KryteriumController.pobierzDrzewo(kryteriumID);
-                    kryteriaListView.Items.Add(listaNodow.ToString());
+                    kryteriaTreeView.Nodes.AddRange(new TreeNode[] { listaNodow });
+
                     List<Wariant> listaWariantow = WariantController.pobierzListeWariantow(kryteriumID);
 
                     if (listaWariantow.Count > 0)
                     {
                         listaWariantow.ForEach(w => wariantyListBox.Items.Add(w));
                     }
+
+                    wariantyListBox.ValueMember = "ID_Wariantu";
+                    wariantyListBox.DisplayMember = "Nazwa";
 
                     nazwaTextBox.Text = dataRow.Cells[3].Value.ToString();
                     opisRichTextBox.Text = dataRow.Cells[4].Value.ToString();
@@ -175,17 +149,72 @@ namespace Expert
 
         private void wariantyListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
+        }
+
+        private void dodajToolStripMenuItem_Click(object sender, EventArgs e)
+        {
             wyczyscKontrolki();
+            kryteriumRadioButton.Checked = true;
+            ustalZaznaczenie(celRadioButton, wariantRadioButton);
+            dodajButton.Enabled = true;
+            zapiszButton.Enabled = false;
 
-            if (null != wariantyListBox.SelectedValue)
+            if (kryteriaTreeView.SelectedNode != null)
             {
-                wariantID = int.Parse(wariantyListBox.SelectedItem.ToString());
-                Wariant wariant = WariantController.pobierzWariant(wariantID);
-
-                if (null != wariant)
+                if (liczbaPodkryteriow < PODKRYTERIA)
                 {
-                    nazwaTextBox.Text = wariant.Nazwa;
-                    opisRichTextBox.AppendText(wariant.Opis);
+                    TreeNode item = kryteriaTreeView.SelectedNode;
+
+                    nazwaTextBox.Focus();
+
+                    kryteriumID = int.Parse(item.Name.ToString());
+                }
+                else
+                {
+                    MessageBox.Show("Maksymalna liczba podkryteriów wynosi " + PODKRYTERIA + "!", "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Zaznacz wiersz z danymi!", "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void dodajWariantToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            wyczyscKontrolki();
+            dodajButton.Enabled = true;
+            zapiszButton.Enabled = false;
+            wariantRadioButton.Checked = true;
+            ustalZaznaczenie(celRadioButton, kryteriumRadioButton);
+            nazwaTextBox.Focus();
+        }
+
+        private void kryteriaTreeView_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            ExpertHelperDataContext db = new ExpertHelperDataContext();
+
+            wyczyscKontrolki();
+            dodajButton.Enabled = false;
+            zapiszButton.Enabled = true;
+
+            if (kryteriaTreeView.SelectedNode == null)
+            {
+                ustalBlokadeKontrolek(false);
+            }
+            else
+            {
+                ustalBlokadeKontrolek(true);
+                TreeNode item = kryteriaTreeView.SelectedNode;
+                kryteriumID = int.Parse(item.Name.ToString());
+                Console.WriteLine("kryterium " + kryteriumID);
+                Kryterium kryterium = KryteriumController.pobierzKryterium(kryteriumID, db);
+
+                if (null != kryterium)
+                {
+                    nazwaTextBox.Text = kryterium.Nazwa;
+                    opisRichTextBox.AppendText(kryterium.Opis);
                 }
             }
         }
@@ -197,14 +226,16 @@ namespace Expert
             problemDataGridView.DataSource = dt;
 
             problemDataGridView.AllowUserToAddRows = true;
+            problemDataGridView.AllowUserToResizeColumns = false;
 
             if (problemDataGridView.Columns.Count > 1)
             {
                 problemDataGridView.Columns[0].Width = 41;
-                problemDataGridView.Columns[3].Width = 210;
+                problemDataGridView.Columns[3].Width = 258;
                 problemDataGridView.Columns[1].Visible = false;
                 problemDataGridView.Columns[2].Visible = false;
                 problemDataGridView.Columns[4].Visible = false;
+                problemDataGridView.Columns[5].Visible = false;
             }
         }
 
@@ -247,32 +278,21 @@ namespace Expert
             //}
         }
 
-        private void dodajToolStripMenuItem_Click(object sender, EventArgs e)
+        private void wariantyListBox_SelectedValueChanged(object sender, EventArgs e)
         {
             wyczyscKontrolki();
-            kryteriumRadioButton.Checked = true;
-            ustalZaznaczenie(celRadioButton, wariantRadioButton);
-            dodajButton.Enabled = true;
-            zapiszButton.Enabled = false;
 
-            if (kryteriaListView.SelectedItems.Count > 0)
+            if (null != wariantyListBox.SelectedItem)
             {
-                if (liczbaPodkryteriow < PODKRYTERIA)
-                {
-                    ListViewItem item = kryteriaListView.SelectedItems[0];
+                //wariantID = int.Parse(((DataRowView)wariantyListBox.SelectedItem)["ID_Wariantu"].ToString());
+                Console.WriteLine("id " + wariantyListBox.SelectedValue.ToString());
+                Wariant wariant = WariantController.pobierzWariant(wariantID);
 
-                    nazwaTextBox.Focus();
-
-                    kryteriumID = int.Parse(item.Tag.ToString());
-                }
-                else
+                if (null != wariant)
                 {
-                    MessageBox.Show("Maksymalna liczba podkryteriów wynosi " + PODKRYTERIA + "!", "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    nazwaTextBox.Text = wariant.Nazwa;
+                    opisRichTextBox.AppendText(wariant.Opis);
                 }
-            }
-            else
-            {
-                MessageBox.Show("Zaznacz wiersz z danymi!", "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }

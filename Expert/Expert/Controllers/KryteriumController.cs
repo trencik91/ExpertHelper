@@ -132,8 +132,7 @@ namespace Expert
 
             if (null != rootKryterium)
             {
-                
-                rootItem.Tag = rootKryterium.ID.ToString();
+                rootItem.Name = rootKryterium.ID.ToString();
                 rootItem.Text = rootKryterium.Nazwa;
             }
 
@@ -208,12 +207,12 @@ namespace Expert
 
         private static TreeNode stworzDrzewo(TreeNode root)
         {
-            List<Kryterium> listaDzieci = pobierzListePodkryteriow(int.Parse(root.Tag.ToString()));
+            List<Kryterium> listaDzieci = pobierzListePodkryteriow(int.Parse(root.Name.ToString()));
 
             listaDzieci.ForEach(k =>
             {
                 TreeNode rootItem = new TreeNode();
-                rootItem.Tag = k.ID.ToString();
+                rootItem.Name = k.ID.ToString();
                 rootItem.Text = k.Nazwa;
 
                 root.Nodes.Add(rootItem);

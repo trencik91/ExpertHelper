@@ -13,6 +13,13 @@ namespace Expert
 
         }
 
+        public static void dodajListeWag(IEnumerable<Waga> listaWag)
+        {
+            ExpertHelperDataContext db = new ExpertHelperDataContext();
+            db.Wagas.InsertAllOnSubmit(listaWag);
+            db.SubmitChanges();
+        }
+
         public static void dodajWage(int idKryteriumJeden, int idKryteriumDwa, decimal wartosc, ExpertHelperDataContext db)
         {
             Waga waga = new Waga

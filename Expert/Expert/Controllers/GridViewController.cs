@@ -22,8 +22,6 @@ namespace Expert
 
             Kryterium kryterium = KryteriumController.pobierzKryterium(idKryterium, db, false);
 
-            Console.WriteLine(kryterium.Nazwa);
-
             if (listaPodkryteriow.Count > 0)
             {
                 tabelaWag.Columns.Add(kryterium.Nazwa);

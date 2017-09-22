@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Globalization;
 
 namespace Expert
 {
@@ -17,6 +18,8 @@ namespace Expert
         private int idCelu = 0;
 
         private DataGridViewCell zaznaczonaKomorka = null;
+
+        private Dictionary<String, int> listaIdKryteriow = new Dictionary<String, int>();
 
         public WagiPanel()
         {
@@ -31,11 +34,29 @@ namespace Expert
             problemTreeView.Nodes.Clear();
             wariantyListBox.Items.Clear();
             uzupelnijProblemWarianty();
+            listaIdKryteriow = KryteriumController.pobierzListeIdKryteriow();
         }
 
         private void zatwierdzButton_Click(object sender, EventArgs e)
         {
+            List<Waga> listaWag = new List<Waga>();
 
+            for (int i = 0; i < wagiDataGridView.Rows.Count; i++)
+            {
+                for (int j = 0; j < wagiDataGridView.Columns.Count; j++)
+                {
+                    if (j > 0)
+                    {
+                        decimal value = decimal.Parse(wagiDataGridView.Rows[i].Cells[j].Value.ToString(), NumberStyles.AllowThousands | NumberStyles.AllowDecimalPoint | NumberStyles.AllowCurrencySymbol);
+                        int idKolumny = listaIdKryteriow[wagiDataGridView.Columns[j].HeaderCell.Value.ToString()];
+                        int idWiersza = listaIdKryteriow[wagiDataGridView.Rows[i].Cells[0].Value.ToString()];
+
+                        listaWag.Add(WagaController.stworzWage(idWiersza, idKolumny, value));
+                    }
+                }
+            }
+
+            Console.WriteLine(listaWag.Count);
         }
 
         private void uzupelnijProblemWarianty()
@@ -58,19 +79,19 @@ namespace Expert
             if (null != problemTreeView.SelectedNode)
             {
                 wagiDataGridView.DataSource = null;
-                //try
-                //{
+                try
+                {
                     TreeNode item = problemTreeView.SelectedNode;
                     int id = int.Parse(item.Name.ToString());
 
                     stworzKolumnyDataGrid(GridViewController.stworzTabeleWag(idCelu, id));
 
                     wagiTabControl.Visible = true;
-                //}
-                //catch (Exception ex)
-                //{
-                //    MessageBox.Show("Błąd przy tworzeniu identyfikatora danych! " + ex.ToString(), "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //}
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Błąd przy tworzeniu identyfikatora danych! " + ex.ToString(), "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {

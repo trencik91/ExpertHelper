@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="Controllers\GridViewController.cs" />
     <Compile Include="Controllers\KryteriumController.cs" />
+    <Compile Include="Controllers\WagaController.cs" />
     <Compile Include="ExpertHelper.cs">
       <SubType>Form</SubType>
     </Compile>

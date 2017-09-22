@@ -19,10 +19,5 @@ namespace Expert
             this.Controls.Add(mainPanel);
             mainPanel.Visible = true;
         }
-
-        private void dodajCelButton_Click(object sender, EventArgs e)
-        {
-            
-        }
     }
 }

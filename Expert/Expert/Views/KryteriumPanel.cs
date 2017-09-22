@@ -242,7 +242,6 @@ namespace Expert
                 ustalBlokadeKontrolek(true);
                 TreeNode item = kryteriaTreeView.SelectedNode;
                 kryteriumID = int.Parse(item.Name.ToString());
-                Console.WriteLine("kryterium " + kryteriumID);
                 Kryterium kryterium = KryteriumController.pobierzKryterium(kryteriumID, db, true);
 
                 if (null != kryterium)

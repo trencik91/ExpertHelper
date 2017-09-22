@@ -246,8 +246,6 @@ namespace Expert
                 }
             }
 
-            Console.WriteLine("size tabeli " + dt.Rows.Count);
-
             return dt;
         }
 
@@ -267,6 +265,23 @@ namespace Expert
             }
 
             return listaWariantow;
+        }
+
+        public static Dictionary<String, int> pobierzListeIdKryteriow()
+        {
+            Dictionary<String, int> listaIdKryteriow = new Dictionary<string, int>();
+
+            ExpertHelperDataContext db = new ExpertHelperDataContext();
+
+            var lista = from w in db.Kryteriums
+                        select w;
+
+            foreach (var w in lista)
+            {
+                listaIdKryteriow.Add(w.Nazwa, w.ID);
+            }
+
+            return listaIdKryteriow;
         }
 
         private static TreeNode stworzDrzewo(TreeNode root)

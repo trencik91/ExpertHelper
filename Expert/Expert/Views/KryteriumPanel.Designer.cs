@@ -66,7 +66,7 @@
             this.problemGroupBox.Controls.Add(this.problemDataGridView);
             this.problemGroupBox.Location = new System.Drawing.Point(16, 58);
             this.problemGroupBox.Name = "problemGroupBox";
-            this.problemGroupBox.Size = new System.Drawing.Size(354, 528);
+            this.problemGroupBox.Size = new System.Drawing.Size(328, 528);
             this.problemGroupBox.TabIndex = 0;
             this.problemGroupBox.TabStop = false;
             this.problemGroupBox.Text = "Problem";
@@ -77,14 +77,14 @@
             this.problemDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.problemDataGridView.Location = new System.Drawing.Point(3, 16);
             this.problemDataGridView.Name = "problemDataGridView";
-            this.problemDataGridView.Size = new System.Drawing.Size(348, 509);
+            this.problemDataGridView.Size = new System.Drawing.Size(322, 509);
             this.problemDataGridView.TabIndex = 0;
             this.problemDataGridView.SelectionChanged += new System.EventHandler(this.problemDataGridView_SelectionChanged);
             // 
             // kryteriaGroupBox
             // 
             this.kryteriaGroupBox.Controls.Add(this.kryteriaTreeView);
-            this.kryteriaGroupBox.Location = new System.Drawing.Point(404, 58);
+            this.kryteriaGroupBox.Location = new System.Drawing.Point(370, 58);
             this.kryteriaGroupBox.Name = "kryteriaGroupBox";
             this.kryteriaGroupBox.Size = new System.Drawing.Size(278, 270);
             this.kryteriaGroupBox.TabIndex = 1;
@@ -126,9 +126,9 @@
             // wariantyGroupBox
             // 
             this.wariantyGroupBox.Controls.Add(this.wariantyListBox);
-            this.wariantyGroupBox.Location = new System.Drawing.Point(404, 354);
+            this.wariantyGroupBox.Location = new System.Drawing.Point(373, 354);
             this.wariantyGroupBox.Name = "wariantyGroupBox";
-            this.wariantyGroupBox.Size = new System.Drawing.Size(278, 232);
+            this.wariantyGroupBox.Size = new System.Drawing.Size(272, 232);
             this.wariantyGroupBox.TabIndex = 2;
             this.wariantyGroupBox.TabStop = false;
             this.wariantyGroupBox.Text = "Warianty";
@@ -140,7 +140,7 @@
             this.wariantyListBox.FormattingEnabled = true;
             this.wariantyListBox.Location = new System.Drawing.Point(3, 16);
             this.wariantyListBox.Name = "wariantyListBox";
-            this.wariantyListBox.Size = new System.Drawing.Size(272, 213);
+            this.wariantyListBox.Size = new System.Drawing.Size(266, 213);
             this.wariantyListBox.TabIndex = 0;
             this.wariantyListBox.SelectedIndexChanged += new System.EventHandler(this.wariantyListBox_SelectedIndexChanged);
             // 
@@ -177,9 +177,9 @@
             this.dodajGroupBox.Controls.Add(this.wariantRadioButton);
             this.dodajGroupBox.Controls.Add(this.kryteriumRadioButton);
             this.dodajGroupBox.Controls.Add(this.celRadioButton);
-            this.dodajGroupBox.Location = new System.Drawing.Point(717, 58);
+            this.dodajGroupBox.Location = new System.Drawing.Point(697, 58);
             this.dodajGroupBox.Name = "dodajGroupBox";
-            this.dodajGroupBox.Size = new System.Drawing.Size(294, 304);
+            this.dodajGroupBox.Size = new System.Drawing.Size(285, 304);
             this.dodajGroupBox.TabIndex = 3;
             this.dodajGroupBox.TabStop = false;
             this.dodajGroupBox.Text = "Dodaj";
@@ -196,7 +196,7 @@
             // 
             // zapiszButton
             // 
-            this.zapiszButton.Location = new System.Drawing.Point(132, 270);
+            this.zapiszButton.Location = new System.Drawing.Point(123, 270);
             this.zapiszButton.Name = "zapiszButton";
             this.zapiszButton.Size = new System.Drawing.Size(75, 23);
             this.zapiszButton.TabIndex = 8;
@@ -206,7 +206,7 @@
             // 
             // dodajButton
             // 
-            this.dodajButton.Location = new System.Drawing.Point(213, 270);
+            this.dodajButton.Location = new System.Drawing.Point(204, 270);
             this.dodajButton.Name = "dodajButton";
             this.dodajButton.Size = new System.Drawing.Size(75, 23);
             this.dodajButton.TabIndex = 7;
@@ -218,7 +218,7 @@
             // 
             this.opisRichTextBox.Location = new System.Drawing.Point(9, 113);
             this.opisRichTextBox.Name = "opisRichTextBox";
-            this.opisRichTextBox.Size = new System.Drawing.Size(279, 151);
+            this.opisRichTextBox.Size = new System.Drawing.Size(270, 151);
             this.opisRichTextBox.TabIndex = 6;
             this.opisRichTextBox.Text = "";
             // 
@@ -235,7 +235,7 @@
             // 
             this.nazwaTextBox.Location = new System.Drawing.Point(9, 69);
             this.nazwaTextBox.Name = "nazwaTextBox";
-            this.nazwaTextBox.Size = new System.Drawing.Size(279, 20);
+            this.nazwaTextBox.Size = new System.Drawing.Size(270, 20);
             this.nazwaTextBox.TabIndex = 4;
             // 
             // label1
@@ -250,7 +250,7 @@
             // wariantRadioButton
             // 
             this.wariantRadioButton.AutoSize = true;
-            this.wariantRadioButton.Location = new System.Drawing.Point(189, 19);
+            this.wariantRadioButton.Location = new System.Drawing.Point(177, 19);
             this.wariantRadioButton.Name = "wariantRadioButton";
             this.wariantRadioButton.Size = new System.Drawing.Size(62, 17);
             this.wariantRadioButton.TabIndex = 2;
@@ -262,7 +262,7 @@
             // kryteriumRadioButton
             // 
             this.kryteriumRadioButton.AutoSize = true;
-            this.kryteriumRadioButton.Location = new System.Drawing.Point(86, 19);
+            this.kryteriumRadioButton.Location = new System.Drawing.Point(78, 19);
             this.kryteriumRadioButton.Name = "kryteriumRadioButton";
             this.kryteriumRadioButton.Size = new System.Drawing.Size(68, 17);
             this.kryteriumRadioButton.TabIndex = 1;

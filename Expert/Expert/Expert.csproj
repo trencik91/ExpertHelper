@@ -90,11 +90,20 @@
     <Compile Include="Views\MainPanel.Designer.cs">
       <DependentUpon>MainPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\WagiPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\WagiPanel.Designer.cs">
+      <DependentUpon>WagiPanel.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Views\KryteriumPanel.resx">
       <DependentUpon>KryteriumPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\MainPanel.resx">
       <DependentUpon>MainPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\WagiPanel.resx">
+      <DependentUpon>WagiPanel.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="ExpertHelper.dbml.layout">
       <DependentUpon>ExpertHelper.dbml</DependentUpon>

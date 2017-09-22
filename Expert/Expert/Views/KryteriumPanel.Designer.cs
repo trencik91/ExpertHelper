@@ -32,8 +32,15 @@
             this.problemGroupBox = new System.Windows.Forms.GroupBox();
             this.problemDataGridView = new System.Windows.Forms.DataGridView();
             this.kryteriaGroupBox = new System.Windows.Forms.GroupBox();
+            this.kryteriaTreeView = new System.Windows.Forms.TreeView();
+            this.kryteriumContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.dodajToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.usunKryteriumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.wariantyGroupBox = new System.Windows.Forms.GroupBox();
             this.wariantyListBox = new System.Windows.Forms.ListBox();
+            this.wariantyContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.dodajWariantToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.usuńWariantToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dodajGroupBox = new System.Windows.Forms.GroupBox();
             this.wagiButton = new System.Windows.Forms.Button();
             this.zapiszButton = new System.Windows.Forms.Button();
@@ -45,20 +52,13 @@
             this.wariantRadioButton = new System.Windows.Forms.RadioButton();
             this.kryteriumRadioButton = new System.Windows.Forms.RadioButton();
             this.celRadioButton = new System.Windows.Forms.RadioButton();
-            this.kryteriumContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.dodajToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.usunKryteriumToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.kryteriaTreeView = new System.Windows.Forms.TreeView();
-            this.wariantyContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.dodajWariantToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.usuńWariantToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.problemGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.problemDataGridView)).BeginInit();
             this.kryteriaGroupBox.SuspendLayout();
-            this.wariantyGroupBox.SuspendLayout();
-            this.dodajGroupBox.SuspendLayout();
             this.kryteriumContextMenuStrip.SuspendLayout();
+            this.wariantyGroupBox.SuspendLayout();
             this.wariantyContextMenuStrip.SuspendLayout();
+            this.dodajGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // problemGroupBox
@@ -66,7 +66,7 @@
             this.problemGroupBox.Controls.Add(this.problemDataGridView);
             this.problemGroupBox.Location = new System.Drawing.Point(16, 58);
             this.problemGroupBox.Name = "problemGroupBox";
-            this.problemGroupBox.Size = new System.Drawing.Size(354, 534);
+            this.problemGroupBox.Size = new System.Drawing.Size(354, 528);
             this.problemGroupBox.TabIndex = 0;
             this.problemGroupBox.TabStop = false;
             this.problemGroupBox.Text = "Problem";
@@ -74,9 +74,10 @@
             // problemDataGridView
             // 
             this.problemDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.problemDataGridView.Location = new System.Drawing.Point(6, 19);
+            this.problemDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.problemDataGridView.Location = new System.Drawing.Point(3, 16);
             this.problemDataGridView.Name = "problemDataGridView";
-            this.problemDataGridView.Size = new System.Drawing.Size(342, 509);
+            this.problemDataGridView.Size = new System.Drawing.Size(348, 509);
             this.problemDataGridView.TabIndex = 0;
             this.problemDataGridView.SelectionChanged += new System.EventHandler(this.problemDataGridView_SelectionChanged);
             // 
@@ -89,6 +90,38 @@
             this.kryteriaGroupBox.TabIndex = 1;
             this.kryteriaGroupBox.TabStop = false;
             this.kryteriaGroupBox.Text = "Kryteria";
+            // 
+            // kryteriaTreeView
+            // 
+            this.kryteriaTreeView.ContextMenuStrip = this.kryteriumContextMenuStrip;
+            this.kryteriaTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.kryteriaTreeView.Location = new System.Drawing.Point(3, 16);
+            this.kryteriaTreeView.Name = "kryteriaTreeView";
+            this.kryteriaTreeView.Size = new System.Drawing.Size(272, 251);
+            this.kryteriaTreeView.TabIndex = 1;
+            this.kryteriaTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.kryteriaTreeView_AfterSelect);
+            // 
+            // kryteriumContextMenuStrip
+            // 
+            this.kryteriumContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dodajToolStripMenuItem,
+            this.usunKryteriumToolStripMenuItem});
+            this.kryteriumContextMenuStrip.Name = "kryteriumContextMenuStrip";
+            this.kryteriumContextMenuStrip.Size = new System.Drawing.Size(160, 48);
+            this.kryteriumContextMenuStrip.Text = "Dodaj kryterium";
+            // 
+            // dodajToolStripMenuItem
+            // 
+            this.dodajToolStripMenuItem.Name = "dodajToolStripMenuItem";
+            this.dodajToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.dodajToolStripMenuItem.Text = "Dodaj kryterium";
+            this.dodajToolStripMenuItem.Click += new System.EventHandler(this.dodajToolStripMenuItem_Click);
+            // 
+            // usunKryteriumToolStripMenuItem
+            // 
+            this.usunKryteriumToolStripMenuItem.Name = "usunKryteriumToolStripMenuItem";
+            this.usunKryteriumToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.usunKryteriumToolStripMenuItem.Text = "Usuń";
             // 
             // wariantyGroupBox
             // 
@@ -103,13 +136,34 @@
             // wariantyListBox
             // 
             this.wariantyListBox.ContextMenuStrip = this.wariantyContextMenuStrip;
+            this.wariantyListBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.wariantyListBox.FormattingEnabled = true;
-            this.wariantyListBox.Location = new System.Drawing.Point(6, 19);
+            this.wariantyListBox.Location = new System.Drawing.Point(3, 16);
             this.wariantyListBox.Name = "wariantyListBox";
-            this.wariantyListBox.Size = new System.Drawing.Size(266, 199);
+            this.wariantyListBox.Size = new System.Drawing.Size(272, 213);
             this.wariantyListBox.TabIndex = 0;
             this.wariantyListBox.SelectedIndexChanged += new System.EventHandler(this.wariantyListBox_SelectedIndexChanged);
-            this.wariantyListBox.SelectedValueChanged += new System.EventHandler(this.wariantyListBox_SelectedValueChanged);
+            // 
+            // wariantyContextMenuStrip
+            // 
+            this.wariantyContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dodajWariantToolStripMenuItem,
+            this.usuńWariantToolStripMenuItem});
+            this.wariantyContextMenuStrip.Name = "wariantyContextMenuStrip";
+            this.wariantyContextMenuStrip.Size = new System.Drawing.Size(148, 48);
+            // 
+            // dodajWariantToolStripMenuItem
+            // 
+            this.dodajWariantToolStripMenuItem.Name = "dodajWariantToolStripMenuItem";
+            this.dodajWariantToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.dodajWariantToolStripMenuItem.Text = "Dodaj wariant";
+            this.dodajWariantToolStripMenuItem.Click += new System.EventHandler(this.dodajWariantToolStripMenuItem_Click);
+            // 
+            // usuńWariantToolStripMenuItem
+            // 
+            this.usuńWariantToolStripMenuItem.Name = "usuńWariantToolStripMenuItem";
+            this.usuńWariantToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
+            this.usuńWariantToolStripMenuItem.Text = "Usuń wariant";
             // 
             // dodajGroupBox
             // 
@@ -229,58 +283,6 @@
             this.celRadioButton.UseVisualStyleBackColor = true;
             this.celRadioButton.CheckedChanged += new System.EventHandler(this.celRadioButton_CheckedChanged);
             // 
-            // kryteriumContextMenuStrip
-            // 
-            this.kryteriumContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.dodajToolStripMenuItem,
-            this.usunKryteriumToolStripMenuItem});
-            this.kryteriumContextMenuStrip.Name = "kryteriumContextMenuStrip";
-            this.kryteriumContextMenuStrip.Size = new System.Drawing.Size(160, 48);
-            this.kryteriumContextMenuStrip.Text = "Dodaj kryterium";
-            // 
-            // dodajToolStripMenuItem
-            // 
-            this.dodajToolStripMenuItem.Name = "dodajToolStripMenuItem";
-            this.dodajToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
-            this.dodajToolStripMenuItem.Text = "Dodaj kryterium";
-            this.dodajToolStripMenuItem.Click += new System.EventHandler(this.dodajToolStripMenuItem_Click);
-            // 
-            // usunKryteriumToolStripMenuItem
-            // 
-            this.usunKryteriumToolStripMenuItem.Name = "usunKryteriumToolStripMenuItem";
-            this.usunKryteriumToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
-            this.usunKryteriumToolStripMenuItem.Text = "Usuń";
-            // 
-            // kryteriaTreeView
-            // 
-            this.kryteriaTreeView.ContextMenuStrip = this.kryteriumContextMenuStrip;
-            this.kryteriaTreeView.Location = new System.Drawing.Point(6, 19);
-            this.kryteriaTreeView.Name = "kryteriaTreeView";
-            this.kryteriaTreeView.Size = new System.Drawing.Size(266, 245);
-            this.kryteriaTreeView.TabIndex = 1;
-            this.kryteriaTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.kryteriaTreeView_AfterSelect);
-            // 
-            // wariantyContextMenuStrip
-            // 
-            this.wariantyContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.dodajWariantToolStripMenuItem,
-            this.usuńWariantToolStripMenuItem});
-            this.wariantyContextMenuStrip.Name = "wariantyContextMenuStrip";
-            this.wariantyContextMenuStrip.Size = new System.Drawing.Size(148, 48);
-            // 
-            // dodajWariantToolStripMenuItem
-            // 
-            this.dodajWariantToolStripMenuItem.Name = "dodajWariantToolStripMenuItem";
-            this.dodajWariantToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.dodajWariantToolStripMenuItem.Text = "Dodaj wariant";
-            this.dodajWariantToolStripMenuItem.Click += new System.EventHandler(this.dodajWariantToolStripMenuItem_Click);
-            // 
-            // usuńWariantToolStripMenuItem
-            // 
-            this.usuńWariantToolStripMenuItem.Name = "usuńWariantToolStripMenuItem";
-            this.usuńWariantToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.usuńWariantToolStripMenuItem.Text = "Usuń wariant";
-            // 
             // KryteriumPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -294,11 +296,11 @@
             this.problemGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.problemDataGridView)).EndInit();
             this.kryteriaGroupBox.ResumeLayout(false);
+            this.kryteriumContextMenuStrip.ResumeLayout(false);
             this.wariantyGroupBox.ResumeLayout(false);
+            this.wariantyContextMenuStrip.ResumeLayout(false);
             this.dodajGroupBox.ResumeLayout(false);
             this.dodajGroupBox.PerformLayout();
-            this.kryteriumContextMenuStrip.ResumeLayout(false);
-            this.wariantyContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

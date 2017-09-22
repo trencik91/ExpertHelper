@@ -111,7 +111,17 @@ namespace Expert
 
         private void wagiButton_Click(object sender, EventArgs e)
         {
-
+            if (wariantyListBox.Items.Count > 1)
+            {
+                this.Visible = false;
+                WagiPanel wagiPanel = new WagiPanel(mainForm, kryteriumID);
+                mainForm.Controls.Add(wagiPanel);
+                wagiPanel.Visible = true;
+            }
+            else
+            {
+                MessageBox.Show("Musisz dodać przynajmniej 2 warianty!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void problemDataGridView_SelectionChanged(object sender, EventArgs e)
@@ -141,13 +151,12 @@ namespace Expert
                         wariantyListBox.DataSource = tabelaWariantow;
                         wariantyListBox.ValueMember = "ID_Wariantu";
                         wariantyListBox.DisplayMember = "Nazwa";
-
                     }
 
                     nazwaTextBox.Text = dataRow.Cells[3].Value.ToString();
                     opisRichTextBox.Text = dataRow.Cells[4].Value.ToString();
 
-                    wagiButton.Enabled = false;
+                    //wagiButton.Enabled = false;
                 }
                 catch
                 {
@@ -301,11 +310,6 @@ namespace Expert
             //        }
             //    }
             //}
-        }
-
-        private void wariantyListBox_SelectedValueChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }

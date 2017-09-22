@@ -43,7 +43,7 @@ namespace Expert
             TreeNode listaNodow = KryteriumController.pobierzDrzewo(idCelu);
             problemTreeView.Nodes.AddRange(new TreeNode[] { listaNodow });
 
-            DataTable tabelaWariantow = WariantController.pobierzTabeleWariantow(idCelu);
+            DataTable tabelaWariantow = KryteriumController.pobierzTabeleWariantow(idCelu);
 
             if (tabelaWariantow.Rows.Count > 0)
             {
@@ -58,19 +58,19 @@ namespace Expert
             if (null != problemTreeView.SelectedNode)
             {
                 wagiDataGridView.DataSource = null;
-                try
-                {
+                //try
+                //{
                     TreeNode item = problemTreeView.SelectedNode;
                     int id = int.Parse(item.Name.ToString());
 
                     stworzKolumnyDataGrid(GridViewController.stworzTabeleWag(idCelu, id));
 
                     wagiTabControl.Visible = true;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Błąd przy tworzeniu identyfikatora danych! " + ex.ToString(), "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                //}
+                //catch (Exception ex)
+                //{
+                //    MessageBox.Show("Błąd przy tworzeniu identyfikatora danych! " + ex.ToString(), "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //}
             }
             else
             {

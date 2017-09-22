@@ -64,7 +64,6 @@
   <ItemGroup>
     <Compile Include="Controllers\GridViewController.cs" />
     <Compile Include="Controllers\KryteriumController.cs" />
-    <Compile Include="Controllers\WariantController.cs" />
     <Compile Include="ExpertHelper.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +95,9 @@
     <Compile Include="Views\WagiPanel.Designer.cs">
       <DependentUpon>WagiPanel.cs</DependentUpon>
     </Compile>
+    <None Include="ExpertHelper.dbml.layout">
+      <DependentUpon>ExpertHelper.dbml</DependentUpon>
+    </None>
     <EmbeddedResource Include="Views\KryteriumPanel.resx">
       <DependentUpon>KryteriumPanel.cs</DependentUpon>
     </EmbeddedResource>
@@ -105,9 +107,6 @@
     <EmbeddedResource Include="Views\WagiPanel.resx">
       <DependentUpon>WagiPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="ExpertHelper.dbml.layout">
-      <DependentUpon>ExpertHelper.dbml</DependentUpon>
-    </None>
     <EmbeddedResource Include="ExpertHelper.resx">
       <DependentUpon>ExpertHelper.cs</DependentUpon>
     </EmbeddedResource>

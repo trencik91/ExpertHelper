@@ -65,19 +65,19 @@ namespace Expert
         {
             if (celRadioButton.Checked)
             {
-                KryteriumController.dodajKryterium(nazwaTextBox.Text, opisRichTextBox.Text, 0);
+                KryteriumController.dodajKryterium(nazwaTextBox.Text, opisRichTextBox.Text, 0, false);
             }
             else if (kryteriumRadioButton.Checked)
             {
-                KryteriumController.dodajKryterium(nazwaTextBox.Text, opisRichTextBox.Text, kryteriumID);
-                KryteriumController.dodajLiczbePodkryteriow(kryteriumID);
+                KryteriumController.dodajKryterium(nazwaTextBox.Text, opisRichTextBox.Text, kryteriumID, false);
+                KryteriumController.dodajLiczbePodkryteriow(kryteriumID, false);
 
                 liczbaPodkryteriow++;
             }
             else if (wariantRadioButton.Checked)
             {
-                WariantController.dodajWariant(nazwaTextBox.Text, opisRichTextBox.Text, kryteriumID);
-                DataTable tabelaWariantow = WariantController.pobierzTabeleWariantow(kryteriumID);
+                KryteriumController.dodajKryterium(nazwaTextBox.Text, opisRichTextBox.Text, kryteriumID, true);
+                DataTable tabelaWariantow = KryteriumController.pobierzTabeleWariantow(kryteriumID);
 
                 if (tabelaWariantow.Rows.Count > 0)
                 {
@@ -97,11 +97,11 @@ namespace Expert
         {
             if (celRadioButton.Checked || kryteriumRadioButton.Checked)
             {
-                KryteriumController.edytujKryterium(kryteriumID, nazwaTextBox.Text, opisRichTextBox.Text);
+                KryteriumController.edytujKryterium(kryteriumID, nazwaTextBox.Text, opisRichTextBox.Text, true);
             }
             else if (wariantRadioButton.Checked)
             {
-                WariantController.edytujWariant(wariantID, nazwaTextBox.Text, opisRichTextBox.Text);
+                KryteriumController.edytujKryterium(wariantID, nazwaTextBox.Text, opisRichTextBox.Text, false);
             }
 
             pobierzCele();
@@ -144,7 +144,7 @@ namespace Expert
                     TreeNode listaNodow = KryteriumController.pobierzDrzewo(kryteriumID);
                     kryteriaTreeView.Nodes.AddRange(new TreeNode[] { listaNodow });
 
-                    DataTable tabelaWariantow = WariantController.pobierzTabeleWariantow(kryteriumID);
+                    DataTable tabelaWariantow = KryteriumController.pobierzTabeleWariantow(kryteriumID);
 
                     if (tabelaWariantow.Rows.Count > 0)
                     {
@@ -175,7 +175,7 @@ namespace Expert
 
                 if (czyLiczba)
                 {
-                    Wariant wariant = WariantController.pobierzWariant(wariantID);
+                    Kryterium wariant = KryteriumController.pobierzKryterium(wariantID, true);
 
                     if (null != wariant)
                     {
@@ -243,7 +243,7 @@ namespace Expert
                 TreeNode item = kryteriaTreeView.SelectedNode;
                 kryteriumID = int.Parse(item.Name.ToString());
                 Console.WriteLine("kryterium " + kryteriumID);
-                Kryterium kryterium = KryteriumController.pobierzKryterium(kryteriumID, db);
+                Kryterium kryterium = KryteriumController.pobierzKryterium(kryteriumID, db, true);
 
                 if (null != kryterium)
                 {

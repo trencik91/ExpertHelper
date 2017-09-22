@@ -20,7 +20,9 @@ namespace Expert
             List<Kryterium> listaPodkryteriow = KryteriumController.pobierzListePodkryteriow(idKryterium);
             ExpertHelperDataContext db = new ExpertHelperDataContext();
 
-            Kryterium kryterium = KryteriumController.pobierzKryterium(idKryterium, db);
+            Kryterium kryterium = KryteriumController.pobierzKryterium(idKryterium, db, false);
+
+            Console.WriteLine(kryterium.Nazwa);
 
             if (listaPodkryteriow.Count > 0)
             {
@@ -33,7 +35,7 @@ namespace Expert
             }
             else
             {
-                List<Wariant> listaWariantow = WariantController.pobierzListeWariantow(idCelu);
+                List<Kryterium> listaWariantow = KryteriumController.pobierzListeWariantow(idCelu);
                 tabelaWag.Columns.Add(kryterium.Nazwa);
 
                 listaWariantow.ForEach(w =>

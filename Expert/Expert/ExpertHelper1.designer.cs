@@ -33,15 +33,9 @@ namespace Expert
     partial void InsertKryterium(Kryterium instance);
     partial void UpdateKryterium(Kryterium instance);
     partial void DeleteKryterium(Kryterium instance);
-    partial void InsertWarianty_Celu(Warianty_Celu instance);
-    partial void UpdateWarianty_Celu(Warianty_Celu instance);
-    partial void DeleteWarianty_Celu(Warianty_Celu instance);
     partial void InsertWaga(Waga instance);
     partial void UpdateWaga(Waga instance);
     partial void DeleteWaga(Waga instance);
-    partial void InsertWariant(Wariant instance);
-    partial void UpdateWariant(Wariant instance);
-    partial void DeleteWariant(Wariant instance);
     #endregion
 		
 		public ExpertHelperDataContext() : 
@@ -82,27 +76,11 @@ namespace Expert
 			}
 		}
 		
-		public System.Data.Linq.Table<Warianty_Celu> Warianty_Celus
-		{
-			get
-			{
-				return this.GetTable<Warianty_Celu>();
-			}
-		}
-		
 		public System.Data.Linq.Table<Waga> Wagas
 		{
 			get
 			{
 				return this.GetTable<Waga>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Wariant> Wariants
-		{
-			get
-			{
-				return this.GetTable<Wariant>();
 			}
 		}
 	}
@@ -115,7 +93,7 @@ namespace Expert
 		
 		private int _ID;
 		
-		private int _ID_Rodzica;
+		private System.Nullable<int> _ID_Rodzica;
 		
 		private string _Nazwa;
 		
@@ -125,11 +103,15 @@ namespace Expert
 		
 		private int _Liczba_Podkryteriow;
 		
-		private EntitySet<Warianty_Celu> _Warianty_Celus;
+		private bool _Czy_wariant;
+		
+		private EntitySet<Kryterium> _Kryteriums;
 		
 		private EntitySet<Waga> _Wagas;
 		
 		private EntitySet<Waga> _Wagas1;
+		
+		private EntityRef<Kryterium> _Kryterium1;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -137,7 +119,7 @@ namespace Expert
     partial void OnCreated();
     partial void OnIDChanging(int value);
     partial void OnIDChanged();
-    partial void OnID_RodzicaChanging(int value);
+    partial void OnID_RodzicaChanging(System.Nullable<int> value);
     partial void OnID_RodzicaChanged();
     partial void OnNazwaChanging(string value);
     partial void OnNazwaChanged();
@@ -147,13 +129,16 @@ namespace Expert
     partial void OnData_utworzeniaChanged();
     partial void OnLiczba_PodkryteriowChanging(int value);
     partial void OnLiczba_PodkryteriowChanged();
+    partial void OnCzy_wariantChanging(bool value);
+    partial void OnCzy_wariantChanged();
     #endregion
 		
 		public Kryterium()
 		{
-			this._Warianty_Celus = new EntitySet<Warianty_Celu>(new Action<Warianty_Celu>(this.attach_Warianty_Celus), new Action<Warianty_Celu>(this.detach_Warianty_Celus));
+			this._Kryteriums = new EntitySet<Kryterium>(new Action<Kryterium>(this.attach_Kryteriums), new Action<Kryterium>(this.detach_Kryteriums));
 			this._Wagas = new EntitySet<Waga>(new Action<Waga>(this.attach_Wagas), new Action<Waga>(this.detach_Wagas));
 			this._Wagas1 = new EntitySet<Waga>(new Action<Waga>(this.attach_Wagas1), new Action<Waga>(this.detach_Wagas1));
+			this._Kryterium1 = default(EntityRef<Kryterium>);
 			OnCreated();
 		}
 		
@@ -177,8 +162,8 @@ namespace Expert
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_Rodzica", DbType="Int NOT NULL")]
-		public int ID_Rodzica
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_Rodzica", DbType="Int")]
+		public System.Nullable<int> ID_Rodzica
 		{
 			get
 			{
@@ -188,6 +173,10 @@ namespace Expert
 			{
 				if ((this._ID_Rodzica != value))
 				{
+					if (this._Kryterium1.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnID_RodzicaChanging(value);
 					this.SendPropertyChanging();
 					this._ID_Rodzica = value;
@@ -277,16 +266,36 @@ namespace Expert
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Kryterium_Warianty_Celu", Storage="_Warianty_Celus", ThisKey="ID", OtherKey="ID_Celu")]
-		public EntitySet<Warianty_Celu> Warianty_Celus
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Czy_wariant", DbType="Bit NOT NULL")]
+		public bool Czy_wariant
 		{
 			get
 			{
-				return this._Warianty_Celus;
+				return this._Czy_wariant;
 			}
 			set
 			{
-				this._Warianty_Celus.Assign(value);
+				if ((this._Czy_wariant != value))
+				{
+					this.OnCzy_wariantChanging(value);
+					this.SendPropertyChanging();
+					this._Czy_wariant = value;
+					this.SendPropertyChanged("Czy_wariant");
+					this.OnCzy_wariantChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Kryterium_Kryterium", Storage="_Kryteriums", ThisKey="ID", OtherKey="ID_Rodzica")]
+		public EntitySet<Kryterium> Kryteriums
+		{
+			get
+			{
+				return this._Kryteriums;
+			}
+			set
+			{
+				this._Kryteriums.Assign(value);
 			}
 		}
 		
@@ -316,6 +325,40 @@ namespace Expert
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Kryterium_Kryterium", Storage="_Kryterium1", ThisKey="ID_Rodzica", OtherKey="ID", IsForeignKey=true)]
+		public Kryterium Kryterium1
+		{
+			get
+			{
+				return this._Kryterium1.Entity;
+			}
+			set
+			{
+				Kryterium previousValue = this._Kryterium1.Entity;
+				if (((previousValue != value) 
+							|| (this._Kryterium1.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Kryterium1.Entity = null;
+						previousValue.Kryteriums.Remove(this);
+					}
+					this._Kryterium1.Entity = value;
+					if ((value != null))
+					{
+						value.Kryteriums.Add(this);
+						this._ID_Rodzica = value.ID;
+					}
+					else
+					{
+						this._ID_Rodzica = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Kryterium1");
+				}
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -336,16 +379,16 @@ namespace Expert
 			}
 		}
 		
-		private void attach_Warianty_Celus(Warianty_Celu entity)
+		private void attach_Kryteriums(Kryterium entity)
 		{
 			this.SendPropertyChanging();
-			entity.Kryterium = this;
+			entity.Kryterium1 = this;
 		}
 		
-		private void detach_Warianty_Celus(Warianty_Celu entity)
+		private void detach_Kryteriums(Kryterium entity)
 		{
 			this.SendPropertyChanging();
-			entity.Kryterium = null;
+			entity.Kryterium1 = null;
 		}
 		
 		private void attach_Wagas(Waga entity)
@@ -370,198 +413,6 @@ namespace Expert
 		{
 			this.SendPropertyChanging();
 			entity.Kryterium3 = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Warianty_Celu")]
-	public partial class Warianty_Celu : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ID;
-		
-		private int _ID_Celu;
-		
-		private int _ID_Wariantu;
-		
-		private EntityRef<Kryterium> _Kryterium;
-		
-		private EntityRef<Wariant> _Wariant;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    partial void OnID_CeluChanging(int value);
-    partial void OnID_CeluChanged();
-    partial void OnID_WariantuChanging(int value);
-    partial void OnID_WariantuChanged();
-    #endregion
-		
-		public Warianty_Celu()
-		{
-			this._Kryterium = default(EntityRef<Kryterium>);
-			this._Wariant = default(EntityRef<Wariant>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_Celu", DbType="Int NOT NULL")]
-		public int ID_Celu
-		{
-			get
-			{
-				return this._ID_Celu;
-			}
-			set
-			{
-				if ((this._ID_Celu != value))
-				{
-					if (this._Kryterium.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnID_CeluChanging(value);
-					this.SendPropertyChanging();
-					this._ID_Celu = value;
-					this.SendPropertyChanged("ID_Celu");
-					this.OnID_CeluChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_Wariantu", DbType="Int NOT NULL")]
-		public int ID_Wariantu
-		{
-			get
-			{
-				return this._ID_Wariantu;
-			}
-			set
-			{
-				if ((this._ID_Wariantu != value))
-				{
-					if (this._Wariant.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnID_WariantuChanging(value);
-					this.SendPropertyChanging();
-					this._ID_Wariantu = value;
-					this.SendPropertyChanged("ID_Wariantu");
-					this.OnID_WariantuChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Kryterium_Warianty_Celu", Storage="_Kryterium", ThisKey="ID_Celu", OtherKey="ID", IsForeignKey=true)]
-		public Kryterium Kryterium
-		{
-			get
-			{
-				return this._Kryterium.Entity;
-			}
-			set
-			{
-				Kryterium previousValue = this._Kryterium.Entity;
-				if (((previousValue != value) 
-							|| (this._Kryterium.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Kryterium.Entity = null;
-						previousValue.Warianty_Celus.Remove(this);
-					}
-					this._Kryterium.Entity = value;
-					if ((value != null))
-					{
-						value.Warianty_Celus.Add(this);
-						this._ID_Celu = value.ID;
-					}
-					else
-					{
-						this._ID_Celu = default(int);
-					}
-					this.SendPropertyChanged("Kryterium");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Wariant_Warianty_Celu", Storage="_Wariant", ThisKey="ID_Wariantu", OtherKey="ID_Wariantu", IsForeignKey=true)]
-		public Wariant Wariant
-		{
-			get
-			{
-				return this._Wariant.Entity;
-			}
-			set
-			{
-				Wariant previousValue = this._Wariant.Entity;
-				if (((previousValue != value) 
-							|| (this._Wariant.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Wariant.Entity = null;
-						previousValue.Warianty_Celus.Remove(this);
-					}
-					this._Wariant.Entity = value;
-					if ((value != null))
-					{
-						value.Warianty_Celus.Add(this);
-						this._ID_Wariantu = value.ID_Wariantu;
-					}
-					else
-					{
-						this._ID_Wariantu = default(int);
-					}
-					this.SendPropertyChanged("Wariant");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
 		}
 	}
 	
@@ -778,144 +629,6 @@ namespace Expert
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Wariant")]
-	public partial class Wariant : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ID_Wariantu;
-		
-		private string _Nazwa;
-		
-		private string _Opis;
-		
-		private EntitySet<Warianty_Celu> _Warianty_Celus;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnID_WariantuChanging(int value);
-    partial void OnID_WariantuChanged();
-    partial void OnNazwaChanging(string value);
-    partial void OnNazwaChanged();
-    partial void OnOpisChanging(string value);
-    partial void OnOpisChanged();
-    #endregion
-		
-		public Wariant()
-		{
-			this._Warianty_Celus = new EntitySet<Warianty_Celu>(new Action<Warianty_Celu>(this.attach_Warianty_Celus), new Action<Warianty_Celu>(this.detach_Warianty_Celus));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_Wariantu", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID_Wariantu
-		{
-			get
-			{
-				return this._ID_Wariantu;
-			}
-			set
-			{
-				if ((this._ID_Wariantu != value))
-				{
-					this.OnID_WariantuChanging(value);
-					this.SendPropertyChanging();
-					this._ID_Wariantu = value;
-					this.SendPropertyChanged("ID_Wariantu");
-					this.OnID_WariantuChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nazwa", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Nazwa
-		{
-			get
-			{
-				return this._Nazwa;
-			}
-			set
-			{
-				if ((this._Nazwa != value))
-				{
-					this.OnNazwaChanging(value);
-					this.SendPropertyChanging();
-					this._Nazwa = value;
-					this.SendPropertyChanged("Nazwa");
-					this.OnNazwaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Opis", DbType="Text", UpdateCheck=UpdateCheck.Never)]
-		public string Opis
-		{
-			get
-			{
-				return this._Opis;
-			}
-			set
-			{
-				if ((this._Opis != value))
-				{
-					this.OnOpisChanging(value);
-					this.SendPropertyChanging();
-					this._Opis = value;
-					this.SendPropertyChanged("Opis");
-					this.OnOpisChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Wariant_Warianty_Celu", Storage="_Warianty_Celus", ThisKey="ID_Wariantu", OtherKey="ID_Wariantu")]
-		public EntitySet<Warianty_Celu> Warianty_Celus
-		{
-			get
-			{
-				return this._Warianty_Celus;
-			}
-			set
-			{
-				this._Warianty_Celus.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Warianty_Celus(Warianty_Celu entity)
-		{
-			this.SendPropertyChanging();
-			entity.Wariant = this;
-		}
-		
-		private void detach_Warianty_Celus(Warianty_Celu entity)
-		{
-			this.SendPropertyChanging();
-			entity.Wariant = null;
 		}
 	}
 }

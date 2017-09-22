@@ -15,7 +15,7 @@ namespace Expert
 
         }
 
-        public static Kryterium dodajKryterium(String nazwa, String opis, int idRodzica)
+        public static Kryterium dodajKryterium(String nazwa, String opis, int idRodzica, bool czyWariant)
         {
             ExpertHelperDataContext db = new ExpertHelperDataContext();
 
@@ -25,7 +25,8 @@ namespace Expert
                 Opis = opis,
                 Data_utworzenia = DateTime.Now,
                 ID_Rodzica = idRodzica,
-                Liczba_Podkryteriow = 0
+                Liczba_Podkryteriow = 0,
+                Czy_wariant = czyWariant
             };
 
             db.Kryteriums.InsertOnSubmit(kryterium);
@@ -34,11 +35,11 @@ namespace Expert
             return kryterium;
         }
 
-        public static void edytujKryterium(int id, String nazwa, String opis)
+        public static void edytujKryterium(int id, String nazwa, String opis, bool czyWariant)
         {
             ExpertHelperDataContext db = new ExpertHelperDataContext();
 
-            Kryterium kryterium = pobierzKryterium(id, db);
+            Kryterium kryterium = pobierzKryterium(id, db, czyWariant);
 
             if (null != kryterium)
             {
@@ -49,11 +50,11 @@ namespace Expert
             db.SubmitChanges();
         }
 
-        public static void usunKryterium(int id)
+        public static void usunKryterium(int id, bool czyWariant)
         {
             ExpertHelperDataContext db = new ExpertHelperDataContext();
 
-            Kryterium kryterium = pobierzKryterium(id, db);
+            Kryterium kryterium = pobierzKryterium(id, db, czyWariant);
 
             if (null != kryterium)
             {
@@ -62,11 +63,11 @@ namespace Expert
             }
         }
 
-        public static void dodajLiczbePodkryteriow(int idKryterium)
+        public static void dodajLiczbePodkryteriow(int idKryterium, bool czyWariant)
         {
             ExpertHelperDataContext db = new ExpertHelperDataContext();
 
-            Kryterium kryterium = pobierzKryterium(idKryterium, db);
+            Kryterium kryterium = pobierzKryterium(idKryterium, db, czyWariant);
 
             if (null != kryterium)
             {
@@ -90,17 +91,20 @@ namespace Expert
             listaKryteriow.Columns.Add("Cel");
             listaKryteriow.Columns.Add("Opis");
             listaKryteriow.Columns.Add("Liczba_Podkryteriow");
+            listaKryteriow.Columns.Add("Czy_Wariant");
 
             ExpertHelperDataContext db = new ExpertHelperDataContext();
 
             var lista = from d in db.Kryteriums
+                        where d.Czy_wariant == false
                         select new
                         {
                             id = d.ID,
                             idRodzica = d.ID_Rodzica,
                             cel = d.Nazwa,
                             opis = d.Opis,
-                            liczbaPodkryteriow = d.Liczba_Podkryteriow
+                            liczbaPodkryteriow = d.Liczba_Podkryteriow,
+                            czyWariant = d.Czy_wariant
                         };
 
             int lp = 1;
@@ -114,6 +118,7 @@ namespace Expert
                 dr["Cel"] = cel.cel;
                 dr["Opis"] = cel.opis;
                 dr["Liczba_Podkryteriow"] = cel.liczbaPodkryteriow;
+                dr["Czy_Wariant"] = cel.czyWariant;
 
                 lp++;
 
@@ -128,7 +133,7 @@ namespace Expert
             TreeNode rootItem = new TreeNode();
             ExpertHelperDataContext db = new ExpertHelperDataContext();
 
-            Kryterium rootKryterium = pobierzKryterium(idRoot, db);
+            Kryterium rootKryterium = pobierzKryterium(idRoot, db, false);
 
             if (null != rootKryterium)
             {
@@ -177,10 +182,10 @@ namespace Expert
             }
         }
 
-        public static Kryterium pobierzKryterium(int id, ExpertHelperDataContext db)
+        public static Kryterium pobierzKryterium(int id, ExpertHelperDataContext db, bool czyWariant)
         {
             var kryterium = (from kr in db.Kryteriums
-                             where kr.ID == id
+                             where kr.ID == id && kr.Czy_wariant == czyWariant
                              select kr).FirstOrDefault();
 
             if (null != kryterium)
@@ -189,6 +194,13 @@ namespace Expert
             }
 
             return null;
+        }
+
+        public static Kryterium pobierzKryterium(int id, bool czyWariant)
+        {
+            ExpertHelperDataContext db = new ExpertHelperDataContext();
+
+            return pobierzKryterium(id, db, czyWariant);
         }
 
         public static List<Kryterium> pobierzListePodkryteriow(int idRoot)
@@ -201,8 +213,60 @@ namespace Expert
                 ID_Rodzica = int.Parse(row["ID_Rodzica"].ToString()),
                 Nazwa = row["Cel"].ToString(),
                 Opis = row["Opis"].ToString(),
-                Liczba_Podkryteriow = int.Parse(row["Liczba_Podkryteriow"].ToString())
+                Liczba_Podkryteriow = int.Parse(row["Liczba_Podkryteriow"].ToString()),
+                Czy_wariant = bool.Parse(row["Czy_Wariant"].ToString())
             }).Where(row => row.ID_Rodzica == idRoot).ToList();
+        }
+
+        public static DataTable pobierzTabeleWariantow(int idCelu)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("ID_Wariantu");
+            dt.Columns.Add("Nazwa");
+            dt.Columns.Add("Opis");
+
+            ExpertHelperDataContext db = new ExpertHelperDataContext();
+
+            var lista = from w in db.Kryteriums
+                        where w.ID_Rodzica == idCelu && w.Czy_wariant
+                        select w.ID;
+
+            foreach (var w in lista)
+            {
+                Kryterium wariant = pobierzKryterium(w, db, true);
+
+                if (null != wariant)
+                {
+                    DataRow dr = dt.NewRow();
+                    dr["ID_Wariantu"] = wariant.ID;
+                    dr["Nazwa"] = wariant.Nazwa;
+                    dr["Opis"] = wariant.Opis;
+
+                    dt.Rows.Add(dr);
+                }
+            }
+
+            Console.WriteLine("size tabeli " + dt.Rows.Count);
+
+            return dt;
+        }
+
+        public static List<Kryterium> pobierzListeWariantow(int idCelu)
+        {
+            List<Kryterium> listaWariantow = new List<Kryterium>();
+
+            ExpertHelperDataContext db = new ExpertHelperDataContext();
+
+            var lista = from w in db.Kryteriums
+                        where w.ID_Rodzica == idCelu
+                        select w.ID;
+
+            foreach (var w in lista)
+            {
+                listaWariantow.Add(pobierzKryterium(w, db, true));
+            }
+
+            return listaWariantow;
         }
 
         private static TreeNode stworzDrzewo(TreeNode root)

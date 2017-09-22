@@ -77,6 +77,15 @@ namespace Expert
             else if (wariantRadioButton.Checked)
             {
                 WariantController.dodajWariant(nazwaTextBox.Text, opisRichTextBox.Text, kryteriumID);
+                DataTable tabelaWariantow = WariantController.pobierzTabeleWariantow(kryteriumID);
+
+                if (tabelaWariantow.Rows.Count > 0)
+                {
+                    wariantyListBox.DataSource = tabelaWariantow;
+                    wariantyListBox.ValueMember = "ID_Wariantu";
+                    wariantyListBox.DisplayMember = "Nazwa";
+                    wariantyListBox.ClearSelected();
+                }
             }
 
             pobierzCele();
@@ -108,7 +117,7 @@ namespace Expert
         private void problemDataGridView_SelectionChanged(object sender, EventArgs e)
         {
             kryteriaTreeView.Nodes.Clear();
-            wariantyListBox.Items.Clear();
+            wariantyListBox.DataSource = null;
             wyczyscKontrolki();
             dodajButton.Enabled = false;
             zapiszButton.Enabled = true;
@@ -125,15 +134,15 @@ namespace Expert
                     TreeNode listaNodow = KryteriumController.pobierzDrzewo(kryteriumID);
                     kryteriaTreeView.Nodes.AddRange(new TreeNode[] { listaNodow });
 
-                    List<Wariant> listaWariantow = WariantController.pobierzListeWariantow(kryteriumID);
+                    DataTable tabelaWariantow = WariantController.pobierzTabeleWariantow(kryteriumID);
 
-                    if (listaWariantow.Count > 0)
+                    if (tabelaWariantow.Rows.Count > 0)
                     {
-                        listaWariantow.ForEach(w => wariantyListBox.Items.Add(w));
-                    }
+                        wariantyListBox.DataSource = tabelaWariantow;
+                        wariantyListBox.ValueMember = "ID_Wariantu";
+                        wariantyListBox.DisplayMember = "Nazwa";
 
-                    wariantyListBox.ValueMember = "ID_Wariantu";
-                    wariantyListBox.DisplayMember = "Nazwa";
+                    }
 
                     nazwaTextBox.Text = dataRow.Cells[3].Value.ToString();
                     opisRichTextBox.Text = dataRow.Cells[4].Value.ToString();
@@ -149,7 +158,23 @@ namespace Expert
 
         private void wariantyListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            wyczyscKontrolki();
+
+            if (null != wariantyListBox.SelectedValue)
+            {
+                bool czyLiczba = int.TryParse(wariantyListBox.SelectedValue.ToString(), out wariantID);
+
+                if (czyLiczba)
+                {
+                    Wariant wariant = WariantController.pobierzWariant(wariantID);
+
+                    if (null != wariant)
+                    {
+                        nazwaTextBox.Text = wariant.Nazwa;
+                        opisRichTextBox.AppendText(wariant.Opis);
+                    }
+                }
+            }
         }
 
         private void dodajToolStripMenuItem_Click(object sender, EventArgs e)
@@ -280,20 +305,7 @@ namespace Expert
 
         private void wariantyListBox_SelectedValueChanged(object sender, EventArgs e)
         {
-            wyczyscKontrolki();
 
-            if (null != wariantyListBox.SelectedItem)
-            {
-                //wariantID = int.Parse(((DataRowView)wariantyListBox.SelectedItem)["ID_Wariantu"].ToString());
-                Console.WriteLine("id " + wariantyListBox.SelectedValue.ToString());
-                Wariant wariant = WariantController.pobierzWariant(wariantID);
-
-                if (null != wariant)
-                {
-                    nazwaTextBox.Text = wariant.Nazwa;
-                    opisRichTextBox.AppendText(wariant.Opis);
-                }
-            }
         }
     }
 }

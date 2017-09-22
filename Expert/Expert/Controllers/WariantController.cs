@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -69,6 +70,37 @@ namespace Expert
             }
 
             return listaWariantow;
+        }
+
+        public static DataTable pobierzTabeleWariantow(int idCelu)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("ID_Wariantu");
+            dt.Columns.Add("Nazwa");
+            dt.Columns.Add("Opis");
+
+            ExpertHelperDataContext db = new ExpertHelperDataContext();
+
+            var lista = from w in db.Warianty_Celus
+                        where w.ID_Celu == idCelu
+                        select w.ID_Wariantu;
+
+            foreach (var w in lista)
+            {
+                Wariant wariant = pobierzWariant(w, db);
+
+                if (null != wariant)
+                {
+                    DataRow dr = dt.NewRow();
+                    dr["ID_Wariantu"] = wariant.ID_Wariantu;
+                    dr["Nazwa"] = wariant.Nazwa;
+                    dr["Opis"] = wariant.Opis;
+
+                    dt.Rows.Add(dr);
+                }
+            }
+
+            return dt;
         }
 
         public static Wariant pobierzWariant(int idWariantu)

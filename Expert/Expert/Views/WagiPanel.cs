@@ -21,6 +21,8 @@ namespace Expert
 
         private Dictionary<String, int> listaIdKryteriow = new Dictionary<String, int>();
 
+        private bool czyZmieniono = false;
+
         public WagiPanel()
         {
             InitializeComponent();
@@ -39,24 +41,12 @@ namespace Expert
 
         private void zatwierdzButton_Click(object sender, EventArgs e)
         {
-            List<Waga> listaWag = new List<Waga>();
+            List<Waga> listaWag = stworzWagi();
 
-            for (int i = 0; i < wagiDataGridView.Rows.Count; i++)
+            if (listaWag.Count > 0)
             {
-                for (int j = 0; j < wagiDataGridView.Columns.Count; j++)
-                {
-                    if (j > 0)
-                    {
-                        decimal value = decimal.Parse(wagiDataGridView.Rows[i].Cells[j].Value.ToString(), NumberStyles.AllowThousands | NumberStyles.AllowDecimalPoint | NumberStyles.AllowCurrencySymbol);
-                        int idKolumny = listaIdKryteriow[wagiDataGridView.Columns[j].HeaderCell.Value.ToString()];
-                        int idWiersza = listaIdKryteriow[wagiDataGridView.Rows[i].Cells[0].Value.ToString()];
-
-                        listaWag.Add(WagaController.stworzWage(idWiersza, idKolumny, value));
-                    }
-                }
+                zapiszWagi(listaWag);
             }
-
-            Console.WriteLine(listaWag.Count);
         }
 
         private void uzupelnijProblemWarianty()
@@ -71,6 +61,21 @@ namespace Expert
                 wariantyListBox.DataSource = tabelaWariantow;
                 wariantyListBox.ValueMember = "ID_Wariantu";
                 wariantyListBox.DisplayMember = "Nazwa";
+            }
+        }
+
+        private void problemTreeView_BeforeSelect(object sender, TreeViewCancelEventArgs e)
+        {
+            if (czyZmieniono)
+            {
+                DialogResult result = MessageBox.Show("Czy chcesz zapisać ustalone wagi?", "Zapisz", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    List<Waga> listaWag = stworzWagi();
+
+                    zapiszWagi(listaWag);
+                }
             }
         }
 
@@ -117,6 +122,7 @@ namespace Expert
         private void wagiDataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             ustalWartoscNumeric();
+            czyZmieniono = true;
         }
 
         private void wartoscNumericUpDown_ValueChanged(object sender, EventArgs e)
@@ -128,7 +134,13 @@ namespace Expert
             else
             {
                 zaznaczonaKomorka.Value = wartoscNumericUpDown.Value;
+                czyZmieniono = true;
             }
+        }
+
+        private void zapiszWagi(IEnumerable<Waga> listaWag)
+        {
+            WagaController.dodajListeWag(listaWag);
         }
 
         private void stworzKolumnyDataGrid(DataTable tabelaWag)
@@ -193,6 +205,28 @@ namespace Expert
             {
                 MessageBox.Show("Wartość komórki musi być typu liczbowego!", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private List<Waga> stworzWagi()
+        {
+            List<Waga> listaWag = new List<Waga>();
+
+            for (int i = 0; i < wagiDataGridView.Rows.Count; i++)
+            {
+                for (int j = 0; j < wagiDataGridView.Columns.Count; j++)
+                {
+                    if (j > 0)
+                    {
+                        decimal value = decimal.Parse(wagiDataGridView.Rows[i].Cells[j].Value.ToString(), NumberStyles.AllowThousands | NumberStyles.AllowDecimalPoint | NumberStyles.AllowCurrencySymbol);
+                        int idKolumny = listaIdKryteriow[wagiDataGridView.Columns[j].HeaderCell.Value.ToString()];
+                        int idWiersza = listaIdKryteriow[wagiDataGridView.Rows[i].Cells[0].Value.ToString()];
+
+                        listaWag.Add(WagaController.stworzWage(idWiersza, idKolumny, value));
+                    }
+                }
+            }
+
+            return listaWag;
         }
     }
 }

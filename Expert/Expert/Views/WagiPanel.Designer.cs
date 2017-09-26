@@ -36,12 +36,12 @@
             this.wagiDataGridView = new System.Windows.Forms.DataGridView();
             this.wagiTabControl = new System.Windows.Forms.TabControl();
             this.liczbowoTabPage = new System.Windows.Forms.TabPage();
+            this.kolumnaTextBox = new System.Windows.Forms.TextBox();
+            this.wierszTextBox = new System.Windows.Forms.TextBox();
+            this.wartoscNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.graficznieTabPage = new System.Windows.Forms.TabPage();
             this.slownieTabPage = new System.Windows.Forms.TabPage();
             this.zatwierdzButton = new System.Windows.Forms.Button();
-            this.wartoscNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.wierszTextBox = new System.Windows.Forms.TextBox();
-            this.kolumnaTextBox = new System.Windows.Forms.TextBox();
             this.problemGroupBox.SuspendLayout();
             this.wariantyGroupBox.SuspendLayout();
             this.wagiGroupBox.SuspendLayout();
@@ -68,6 +68,7 @@
             this.problemTreeView.Name = "problemTreeView";
             this.problemTreeView.Size = new System.Drawing.Size(274, 277);
             this.problemTreeView.TabIndex = 0;
+            this.problemTreeView.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.problemTreeView_BeforeSelect);
             this.problemTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.problemTreeView_AfterSelect);
             // 
             // wariantyGroupBox
@@ -83,6 +84,7 @@
             // wariantyListBox
             // 
             this.wariantyListBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.wariantyListBox.Enabled = false;
             this.wariantyListBox.FormattingEnabled = true;
             this.wariantyListBox.Location = new System.Drawing.Point(3, 16);
             this.wariantyListBox.Name = "wariantyListBox";
@@ -141,6 +143,30 @@
             this.liczbowoTabPage.Text = "Liczbowo";
             this.liczbowoTabPage.UseVisualStyleBackColor = true;
             // 
+            // kolumnaTextBox
+            // 
+            this.kolumnaTextBox.Enabled = false;
+            this.kolumnaTextBox.Location = new System.Drawing.Point(279, 42);
+            this.kolumnaTextBox.Name = "kolumnaTextBox";
+            this.kolumnaTextBox.Size = new System.Drawing.Size(100, 20);
+            this.kolumnaTextBox.TabIndex = 2;
+            // 
+            // wierszTextBox
+            // 
+            this.wierszTextBox.Enabled = false;
+            this.wierszTextBox.Location = new System.Drawing.Point(18, 42);
+            this.wierszTextBox.Name = "wierszTextBox";
+            this.wierszTextBox.Size = new System.Drawing.Size(100, 20);
+            this.wierszTextBox.TabIndex = 1;
+            // 
+            // wartoscNumericUpDown
+            // 
+            this.wartoscNumericUpDown.Location = new System.Drawing.Point(136, 42);
+            this.wartoscNumericUpDown.Name = "wartoscNumericUpDown";
+            this.wartoscNumericUpDown.Size = new System.Drawing.Size(120, 20);
+            this.wartoscNumericUpDown.TabIndex = 0;
+            this.wartoscNumericUpDown.ValueChanged += new System.EventHandler(this.wartoscNumericUpDown_ValueChanged);
+            // 
             // graficznieTabPage
             // 
             this.graficznieTabPage.Location = new System.Drawing.Point(4, 22);
@@ -169,30 +195,6 @@
             this.zatwierdzButton.Text = "Zatwierdź";
             this.zatwierdzButton.UseVisualStyleBackColor = true;
             this.zatwierdzButton.Click += new System.EventHandler(this.zatwierdzButton_Click);
-            // 
-            // wartoscNumericUpDown
-            // 
-            this.wartoscNumericUpDown.Location = new System.Drawing.Point(136, 42);
-            this.wartoscNumericUpDown.Name = "wartoscNumericUpDown";
-            this.wartoscNumericUpDown.Size = new System.Drawing.Size(120, 20);
-            this.wartoscNumericUpDown.TabIndex = 0;
-            this.wartoscNumericUpDown.ValueChanged += new System.EventHandler(this.wartoscNumericUpDown_ValueChanged);
-            // 
-            // wierszTextBox
-            // 
-            this.wierszTextBox.Enabled = false;
-            this.wierszTextBox.Location = new System.Drawing.Point(18, 42);
-            this.wierszTextBox.Name = "wierszTextBox";
-            this.wierszTextBox.Size = new System.Drawing.Size(100, 20);
-            this.wierszTextBox.TabIndex = 1;
-            // 
-            // kolumnaTextBox
-            // 
-            this.kolumnaTextBox.Enabled = false;
-            this.kolumnaTextBox.Location = new System.Drawing.Point(279, 42);
-            this.kolumnaTextBox.Name = "kolumnaTextBox";
-            this.kolumnaTextBox.Size = new System.Drawing.Size(100, 20);
-            this.kolumnaTextBox.TabIndex = 2;
             // 
             // WagiPanel
             // 

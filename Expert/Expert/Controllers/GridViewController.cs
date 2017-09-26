@@ -14,10 +14,11 @@ namespace Expert
 
         }
 
-        public static DataTable stworzTabeleWag(int idCelu, int idKryterium)
+        public static DataTable stworzTabeleWag(int idCelu, int idKryterium, Dictionary<String, int> listaIdKryteriow)
         {
             DataTable tabelaWag = new DataTable();
             List<Kryterium> listaPodkryteriow = KryteriumController.pobierzListePodkryteriow(idKryterium);
+
             ExpertHelperDataContext db = new ExpertHelperDataContext();
 
             Kryterium kryterium = KryteriumController.pobierzKryterium(idKryterium, db, false);
@@ -40,6 +41,25 @@ namespace Expert
                 {
                     tabelaWag.Columns.Add(w.Nazwa); tabelaWag.Rows.Add(w.Nazwa);
                 });
+            }
+
+            foreach (DataRow dr in tabelaWag.Rows)
+            {
+                foreach (DataColumn dc in tabelaWag.Columns)
+                {
+                    if (dr.Table.Columns[dc.ColumnName].Ordinal > 0)
+                    {
+                        int rowID = listaIdKryteriow[dr[0].ToString()];
+                        int columnID = listaIdKryteriow[dc.ColumnName];
+
+                        Waga waga = WagaController.pobierzWage(rowID, columnID, db);
+
+                        if (null != waga)
+                        {
+                            dr[dc] = waga.Waga1;
+                        }
+                    }
+                }
             }
 
             return tabelaWag;

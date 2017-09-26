@@ -89,7 +89,7 @@ namespace Expert
                     TreeNode item = problemTreeView.SelectedNode;
                     int id = int.Parse(item.Name.ToString());
 
-                    stworzKolumnyDataGrid(GridViewController.stworzTabeleWag(idCelu, id));
+                    stworzKolumnyDataGrid(GridViewController.stworzTabeleWag(idCelu, id, listaIdKryteriow));
 
                     wagiTabControl.Visible = true;
                 }

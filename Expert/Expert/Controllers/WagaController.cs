@@ -18,11 +18,9 @@ namespace Expert
             ExpertHelperDataContext db = new ExpertHelperDataContext();
             //db.Wagas.InsertAllOnSubmit(listaWag);
             //db.SubmitChanges();
-            decimal wa;
-            bool ok = decimal.TryParse("1.0", out wa);
             foreach (Waga w in listaWag)
             {
-                dodajWage(w.Kryterium1, w.Kryterium2, wa, db);
+                dodajWage(w.Kryterium1, w.Kryterium2, w.Waga1, db);
             }
         }
 

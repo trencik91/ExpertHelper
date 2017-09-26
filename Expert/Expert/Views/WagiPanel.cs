@@ -83,6 +83,7 @@ namespace Expert
         {
             if (null != problemTreeView.SelectedNode)
             {
+                czyZmieniono = false;
                 wagiDataGridView.DataSource = null;
                 //try
                 //{
@@ -224,7 +225,9 @@ namespace Expert
                 {
                     if (j > 0)
                     {
-                        decimal value = decimal.Parse(wagiDataGridView.Rows[i].Cells[j].Value.ToString(), NumberStyles.AllowThousands | NumberStyles.AllowDecimalPoint | NumberStyles.AllowCurrencySymbol);
+                        String wartosc = wagiDataGridView.Rows[i].Cells[j].Value.ToString();
+                        wartosc = wartosc.Replace(',', '.');
+                        decimal value = decimal.Parse(wartosc, NumberStyles.AllowThousands | NumberStyles.AllowDecimalPoint | NumberStyles.AllowCurrencySymbol);
                         value = decimal.Round(value, 10);
                         int idKolumny = listaIdKryteriow[wagiDataGridView.Columns[j].HeaderCell.Value.ToString()];
                         int idWiersza = listaIdKryteriow[wagiDataGridView.Rows[i].Cells[0].Value.ToString()];

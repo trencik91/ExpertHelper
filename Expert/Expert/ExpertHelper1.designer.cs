@@ -39,7 +39,7 @@ namespace Expert
     #endregion
 		
 		public ExpertHelperDataContext() : 
-				base(global::Expert.Properties.Settings.Default.ExpertConnectionString, mappingSource)
+				base(global::Expert.Properties.Settings.Default.ExpertConnectionString1, mappingSource)
 		{
 			OnCreated();
 		}
@@ -93,7 +93,7 @@ namespace Expert
 		
 		private int _ID;
 		
-		private System.Nullable<int> _ID_Rodzica;
+		private int _ID_Rodzica;
 		
 		private string _Nazwa;
 		
@@ -103,15 +103,11 @@ namespace Expert
 		
 		private int _Liczba_Podkryteriow;
 		
-		private bool _Czy_wariant;
-		
-		private EntitySet<Kryterium> _Kryteriums;
+		private bool _Czy_Wariant;
 		
 		private EntitySet<Waga> _Wagas;
 		
 		private EntitySet<Waga> _Wagas1;
-		
-		private EntityRef<Kryterium> _Kryterium1;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -119,7 +115,7 @@ namespace Expert
     partial void OnCreated();
     partial void OnIDChanging(int value);
     partial void OnIDChanged();
-    partial void OnID_RodzicaChanging(System.Nullable<int> value);
+    partial void OnID_RodzicaChanging(int value);
     partial void OnID_RodzicaChanged();
     partial void OnNazwaChanging(string value);
     partial void OnNazwaChanged();
@@ -129,16 +125,14 @@ namespace Expert
     partial void OnData_utworzeniaChanged();
     partial void OnLiczba_PodkryteriowChanging(int value);
     partial void OnLiczba_PodkryteriowChanged();
-    partial void OnCzy_wariantChanging(bool value);
-    partial void OnCzy_wariantChanged();
+    partial void OnCzy_WariantChanging(bool value);
+    partial void OnCzy_WariantChanged();
     #endregion
 		
 		public Kryterium()
 		{
-			this._Kryteriums = new EntitySet<Kryterium>(new Action<Kryterium>(this.attach_Kryteriums), new Action<Kryterium>(this.detach_Kryteriums));
 			this._Wagas = new EntitySet<Waga>(new Action<Waga>(this.attach_Wagas), new Action<Waga>(this.detach_Wagas));
 			this._Wagas1 = new EntitySet<Waga>(new Action<Waga>(this.attach_Wagas1), new Action<Waga>(this.detach_Wagas1));
-			this._Kryterium1 = default(EntityRef<Kryterium>);
 			OnCreated();
 		}
 		
@@ -162,8 +156,8 @@ namespace Expert
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_Rodzica", DbType="Int")]
-		public System.Nullable<int> ID_Rodzica
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_Rodzica", DbType="Int NOT NULL")]
+		public int ID_Rodzica
 		{
 			get
 			{
@@ -173,10 +167,6 @@ namespace Expert
 			{
 				if ((this._ID_Rodzica != value))
 				{
-					if (this._Kryterium1.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
 					this.OnID_RodzicaChanging(value);
 					this.SendPropertyChanging();
 					this._ID_Rodzica = value;
@@ -266,36 +256,23 @@ namespace Expert
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Czy_wariant", DbType="Bit NOT NULL")]
-		public bool Czy_wariant
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Czy_Wariant", DbType="Bit NOT NULL")]
+		public bool Czy_Wariant
 		{
 			get
 			{
-				return this._Czy_wariant;
+				return this._Czy_Wariant;
 			}
 			set
 			{
-				if ((this._Czy_wariant != value))
+				if ((this._Czy_Wariant != value))
 				{
-					this.OnCzy_wariantChanging(value);
+					this.OnCzy_WariantChanging(value);
 					this.SendPropertyChanging();
-					this._Czy_wariant = value;
-					this.SendPropertyChanged("Czy_wariant");
-					this.OnCzy_wariantChanged();
+					this._Czy_Wariant = value;
+					this.SendPropertyChanged("Czy_Wariant");
+					this.OnCzy_WariantChanged();
 				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Kryterium_Kryterium", Storage="_Kryteriums", ThisKey="ID", OtherKey="ID_Rodzica")]
-		public EntitySet<Kryterium> Kryteriums
-		{
-			get
-			{
-				return this._Kryteriums;
-			}
-			set
-			{
-				this._Kryteriums.Assign(value);
 			}
 		}
 		
@@ -325,40 +302,6 @@ namespace Expert
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Kryterium_Kryterium", Storage="_Kryterium1", ThisKey="ID_Rodzica", OtherKey="ID", IsForeignKey=true)]
-		public Kryterium Kryterium1
-		{
-			get
-			{
-				return this._Kryterium1.Entity;
-			}
-			set
-			{
-				Kryterium previousValue = this._Kryterium1.Entity;
-				if (((previousValue != value) 
-							|| (this._Kryterium1.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Kryterium1.Entity = null;
-						previousValue.Kryteriums.Remove(this);
-					}
-					this._Kryterium1.Entity = value;
-					if ((value != null))
-					{
-						value.Kryteriums.Add(this);
-						this._ID_Rodzica = value.ID;
-					}
-					else
-					{
-						this._ID_Rodzica = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Kryterium1");
-				}
-			}
-		}
-		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -377,18 +320,6 @@ namespace Expert
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
-		}
-		
-		private void attach_Kryteriums(Kryterium entity)
-		{
-			this.SendPropertyChanging();
-			entity.Kryterium1 = this;
-		}
-		
-		private void detach_Kryteriums(Kryterium entity)
-		{
-			this.SendPropertyChanging();
-			entity.Kryterium1 = null;
 		}
 		
 		private void attach_Wagas(Waga entity)

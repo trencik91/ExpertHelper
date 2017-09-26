@@ -26,7 +26,7 @@ namespace Expert
                 Data_utworzenia = DateTime.Now,
                 ID_Rodzica = idRodzica,
                 Liczba_Podkryteriow = 0,
-                Czy_wariant = czyWariant
+                Czy_Wariant = czyWariant
             };
 
             db.Kryteriums.InsertOnSubmit(kryterium);
@@ -96,7 +96,7 @@ namespace Expert
             ExpertHelperDataContext db = new ExpertHelperDataContext();
 
             var lista = from d in db.Kryteriums
-                        where d.Czy_wariant == false
+                        where !d.Czy_Wariant
                         select new
                         {
                             id = d.ID,
@@ -104,7 +104,7 @@ namespace Expert
                             cel = d.Nazwa,
                             opis = d.Opis,
                             liczbaPodkryteriow = d.Liczba_Podkryteriow,
-                            czyWariant = d.Czy_wariant
+                            czyWariant = d.Czy_Wariant
                         };
 
             int lp = 1;
@@ -185,7 +185,7 @@ namespace Expert
         public static Kryterium pobierzKryterium(int id, ExpertHelperDataContext db, bool czyWariant)
         {
             var kryterium = (from kr in db.Kryteriums
-                             where kr.ID == id && kr.Czy_wariant == czyWariant
+                             where kr.ID == id && kr.Czy_Wariant == czyWariant
                              select kr).FirstOrDefault();
 
             if (null != kryterium)
@@ -214,7 +214,7 @@ namespace Expert
                 Nazwa = row["Cel"].ToString(),
                 Opis = row["Opis"].ToString(),
                 Liczba_Podkryteriow = int.Parse(row["Liczba_Podkryteriow"].ToString()),
-                Czy_wariant = bool.Parse(row["Czy_Wariant"].ToString())
+                Czy_Wariant = bool.Parse(row["Czy_Wariant"].ToString())
             }).Where(row => row.ID_Rodzica == idRoot).ToList();
         }
 
@@ -228,7 +228,7 @@ namespace Expert
             ExpertHelperDataContext db = new ExpertHelperDataContext();
 
             var lista = from w in db.Kryteriums
-                        where w.ID_Rodzica == idCelu && w.Czy_wariant
+                        where w.ID_Rodzica == idCelu && w.Czy_Wariant
                         select w.ID;
 
             foreach (var w in lista)
@@ -256,7 +256,7 @@ namespace Expert
             ExpertHelperDataContext db = new ExpertHelperDataContext();
 
             var lista = from w in db.Kryteriums
-                        where w.ID_Rodzica == idCelu
+                        where w.ID_Rodzica == idCelu && w.Czy_Wariant
                         select w.ID;
 
             foreach (var w in lista)

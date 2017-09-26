@@ -84,19 +84,19 @@ namespace Expert
             if (null != problemTreeView.SelectedNode)
             {
                 wagiDataGridView.DataSource = null;
-                try
-                {
-                    TreeNode item = problemTreeView.SelectedNode;
-                    int id = int.Parse(item.Name.ToString());
+                //try
+                //{
+                TreeNode item = problemTreeView.SelectedNode;
+                int id = int.Parse(item.Name.ToString());
 
-                    stworzKolumnyDataGrid(GridViewController.stworzTabeleWag(idCelu, id, listaIdKryteriow));
+                stworzKolumnyDataGrid(GridViewController.stworzTabeleWag(idCelu, id, listaIdKryteriow));
 
-                    wagiTabControl.Visible = true;
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Błąd przy tworzeniu identyfikatora danych! " + ex.ToString(), "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                wagiTabControl.Visible = true;
+                //}
+                //catch (Exception ex)
+                //{
+                //    MessageBox.Show("Błąd przy tworzeniu identyfikatora danych! " + ex.ToString(), "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //}
             }
             else
             {
@@ -173,21 +173,28 @@ namespace Expert
 
         private void zaznaczKomorkeDataGridView()
         {
-            if (wagiDataGridView.SelectedCells[0].ColumnIndex > 0)
+            try
             {
-                zaznaczonaKomorka = wagiDataGridView.SelectedCells[0];
+                if (wagiDataGridView.SelectedCells[0].ColumnIndex > 0)
+                {
+                    zaznaczonaKomorka = wagiDataGridView.SelectedCells[0];
 
-                int rowIndex = zaznaczonaKomorka.RowIndex;
-                int columnIndex = zaznaczonaKomorka.ColumnIndex;
+                    int rowIndex = zaznaczonaKomorka.RowIndex;
+                    int columnIndex = zaznaczonaKomorka.ColumnIndex;
 
-                wierszTextBox.Text = wagiDataGridView.Rows[rowIndex].Cells[0].Value.ToString();
-                kolumnaTextBox.Text = wagiDataGridView.Columns[columnIndex].HeaderText;
+                    wierszTextBox.Text = wagiDataGridView.Rows[rowIndex].Cells[0].Value.ToString();
+                    kolumnaTextBox.Text = wagiDataGridView.Columns[columnIndex].HeaderText;
 
-                ustalWartoscNumeric();
+                    ustalWartoscNumeric();
+                }
+                else if (wagiDataGridView.SelectedCells.Count > 1)
+                {
+                    MessageBox.Show("Można edytować wartość tylko jednej komórki!", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
-            else if (wagiDataGridView.SelectedCells.Count > 1)
+            catch (Exception ex)
             {
-                MessageBox.Show("Można edytować wartość tylko jednej komórki!", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Console.WriteLine(ex.StackTrace);
             }
         }
 
@@ -218,6 +225,7 @@ namespace Expert
                     if (j > 0)
                     {
                         decimal value = decimal.Parse(wagiDataGridView.Rows[i].Cells[j].Value.ToString(), NumberStyles.AllowThousands | NumberStyles.AllowDecimalPoint | NumberStyles.AllowCurrencySymbol);
+                        value = decimal.Round(value, 10);
                         int idKolumny = listaIdKryteriow[wagiDataGridView.Columns[j].HeaderCell.Value.ToString()];
                         int idWiersza = listaIdKryteriow[wagiDataGridView.Rows[i].Cells[0].Value.ToString()];
 

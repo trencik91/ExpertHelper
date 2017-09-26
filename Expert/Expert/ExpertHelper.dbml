@@ -1,18 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Expert" Class="ExpertHelperDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database\Expert.mdf;Integrated Security=True" SettingsObjectName="Expert.Properties.Settings" SettingsPropertyName="ExpertConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database\Expert.mdf;Integrated Security=True;Connect Timeout=30" SettingsObjectName="Expert.Properties.Settings" SettingsPropertyName="ExpertConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Kryterium" Member="Kryteriums">
     <Type Name="Kryterium">
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="ID_Rodzica" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ID_Rodzica" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Nazwa" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Opis" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="Data_utworzenia" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="Liczba_Podkryteriow" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Czy_wariant" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Association Name="Kryterium_Kryterium" Member="Kryteriums" ThisKey="ID" OtherKey="ID_Rodzica" Type="Kryterium" />
+      <Column Name="Czy_Wariant" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Association Name="Kryterium_Waga" Member="Wagas" ThisKey="ID" OtherKey="Kryterium1" Type="Waga" />
       <Association Name="Kryterium_Waga1" Member="Wagas1" ThisKey="ID" OtherKey="Kryterium2" Type="Waga" />
-      <Association Name="Kryterium_Kryterium" Member="Kryterium1" ThisKey="ID_Rodzica" OtherKey="ID" Type="Kryterium" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Waga" Member="Wagas">

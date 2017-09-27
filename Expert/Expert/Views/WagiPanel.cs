@@ -18,10 +18,13 @@ namespace Expert
         private int idCelu = 0;
 
         private DataGridViewCell zaznaczonaKomorka = null;
+        private DataGridViewCell poprzedniaZaznaczonaKomorka = null;
 
         private Dictionary<String, int> listaIdKryteriow = new Dictionary<String, int>();
 
         private bool czyZmieniono = false;
+
+        private const int MAKSYMALNA_WAGA = 10;
 
         public WagiPanel()
         {
@@ -37,6 +40,7 @@ namespace Expert
             wariantyListBox.Items.Clear();
             uzupelnijProblemWarianty();
             listaIdKryteriow = KryteriumController.pobierzListeIdKryteriow();
+            wartoscNumericUpDown.Maximum = MAKSYMALNA_WAGA;
         }
 
         private void zatwierdzButton_Click(object sender, EventArgs e)
@@ -81,6 +85,11 @@ namespace Expert
 
         private void problemTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
+            wagiDataGridView.ClearSelection();
+
+            poprzedniaZaznaczonaKomorka = null;
+            zaznaczonaKomorka = null;
+
             if (null != problemTreeView.SelectedNode)
             {
                 czyZmieniono = false;
@@ -128,14 +137,17 @@ namespace Expert
 
         private void wartoscNumericUpDown_ValueChanged(object sender, EventArgs e)
         {
-            if (zaznaczonaKomorka.ReadOnly)
+            if (null != zaznaczonaKomorka)
             {
-                MessageBox.Show("Wartości tej komórki nie można edytować!", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            else
-            {
-                zaznaczonaKomorka.Value = wartoscNumericUpDown.Value;
-                czyZmieniono = true;
+                if (!zaznaczonaKomorka.ReadOnly)
+                {
+                    zaznaczonaKomorka.Value = wartoscNumericUpDown.Value;
+                    czyZmieniono = true;
+                }
+                else
+                {
+                    wartoscNumericUpDown.Enabled = false;
+                }
             }
         }
 
@@ -167,6 +179,19 @@ namespace Expert
 
         private void zaznaczKomorkeDataGridView()
         {
+            wartoscNumericUpDown.Enabled = true;
+
+            if (null != poprzedniaZaznaczonaKomorka && wagiDataGridView.SelectedCells.Count > 0)
+            {
+                double wartosc = 0.0;
+                bool czyLiczba = double.TryParse(poprzedniaZaznaczonaKomorka.Value.ToString(), out wartosc);
+
+                if (czyLiczba)
+                {
+                    poprzedniaZaznaczonaKomorka.Value = wartoscNumericUpDown.Value;
+                }
+            }
+
             wartoscNumericUpDown.Value = 0;
 
             try
@@ -196,28 +221,33 @@ namespace Expert
 
         private void ustalWartoscNumeric()
         {
-            int wartoscKomorki = 0;
+            wartoscNumericUpDown.Enabled = true;
 
-            bool czyWartosc = int.TryParse(zaznaczonaKomorka.Value.ToString(), out wartoscKomorki);
-
-            if (czyWartosc)
+            if (null != zaznaczonaKomorka)
             {
-                try
-                {
-                    wartoscNumericUpDown.Value = wartoscKomorki;
-                }
-                catch (ArgumentOutOfRangeException ex)
-                {
-                    wartoscNumericUpDown.Value = 0;
-                    zaznaczonaKomorka.Value = 0;
-                    MessageBox.Show("Maksymalna wartość wagi wynosi " + wartoscNumericUpDown.Maximum + "\n ", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                int wartoscKomorki = 0;
 
-                    Console.WriteLine(ex.StackTrace);
+                bool czyWartosc = int.TryParse(zaznaczonaKomorka.Value.ToString(), out wartoscKomorki);
+
+                if (czyWartosc)
+                {
+                    try
+                    {
+                        wartoscNumericUpDown.Value = wartoscKomorki;
+                    }
+                    catch (ArgumentOutOfRangeException ex)
+                    {
+                        wartoscNumericUpDown.Value = 0;
+                        zaznaczonaKomorka.Value = 0;
+                        MessageBox.Show("Maksymalna wartość wagi wynosi " + wartoscNumericUpDown.Maximum + "\n ", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                        Console.WriteLine(ex.StackTrace);
+                    }
                 }
-            }
-            else
-            {
-                MessageBox.Show("Wartość komórki musi być typu liczbowego!", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                else
+                {
+                    MessageBox.Show("Wartość komórki musi być typu liczbowego!", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
         }
 
@@ -245,6 +275,39 @@ namespace Expert
             }
 
             return listaWag;
+        }
+
+        private void wagiDataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            DataGridViewCell cell = wagiDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex];
+
+            double wartoscKomorki = 0.0;
+
+            bool czyLiczba = double.TryParse(cell.Value.ToString(), out wartoscKomorki);
+
+            if (czyLiczba && !cell.ReadOnly)
+            {
+                cell.ToolTipText = "Wartość wagi może wynosić maksymalnie: " + MAKSYMALNA_WAGA;
+            }
+            else if (cell.ReadOnly)
+            {
+                cell.ToolTipText = "Wartości tej komórki nie można edytować";
+            }
+        }
+
+        private void wagiDataGridView_CellLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            int rowIndex = e.RowIndex;
+            int columnIndex = e.ColumnIndex;
+
+            if (null != wagiDataGridView.Rows[rowIndex].Cells[columnIndex] && rowIndex >= 0 && columnIndex >= 0)
+            {
+                poprzedniaZaznaczonaKomorka = wagiDataGridView.Rows[rowIndex].Cells[columnIndex];
+            }
+            else
+            {
+                poprzedniaZaznaczonaKomorka = null;
+            }
         }
     }
 }

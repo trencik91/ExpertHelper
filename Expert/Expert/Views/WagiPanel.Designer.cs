@@ -115,6 +115,8 @@
             this.wagiDataGridView.TabIndex = 0;
             this.wagiDataGridView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.wagiDataGridView_CellBeginEdit);
             this.wagiDataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.wagiDataGridView_CellEndEdit);
+            this.wagiDataGridView.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.wagiDataGridView_CellFormatting);
+            this.wagiDataGridView.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.wagiDataGridView_CellLeave);
             this.wagiDataGridView.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.wagiDataGridView_CellMouseClick);
             this.wagiDataGridView.SelectionChanged += new System.EventHandler(this.wagiDataGridView_SelectionChanged);
             // 

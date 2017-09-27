@@ -86,6 +86,7 @@ namespace Expert
         private void problemTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
             wagiDataGridView.ClearSelection();
+            wartoscNumericUpDown.Value = 0;
 
             poprzedniaZaznaczonaKomorka = null;
             zaznaczonaKomorka = null;
@@ -181,18 +182,18 @@ namespace Expert
         {
             wartoscNumericUpDown.Enabled = true;
 
-            if (null != poprzedniaZaznaczonaKomorka && wagiDataGridView.SelectedCells.Count > 0)
+            if (null != poprzedniaZaznaczonaKomorka && wagiDataGridView.SelectedCells.Count > 0 && poprzedniaZaznaczonaKomorka.RowIndex >= 0 && poprzedniaZaznaczonaKomorka.ColumnIndex > 0)
             {
                 double wartosc = 0.0;
                 bool czyLiczba = double.TryParse(poprzedniaZaznaczonaKomorka.Value.ToString(), out wartosc);
 
                 if (czyLiczba)
                 {
-                    poprzedniaZaznaczonaKomorka.Value = wartoscNumericUpDown.Value;
+                    poprzedniaZaznaczonaKomorka.Value = wartosc;
                 }
             }
 
-            wartoscNumericUpDown.Value = 0;
+            //wartoscNumericUpDown.Value = 0;
 
             try
             {
@@ -300,7 +301,7 @@ namespace Expert
             int rowIndex = e.RowIndex;
             int columnIndex = e.ColumnIndex;
 
-            if (null != wagiDataGridView.Rows[rowIndex].Cells[columnIndex] && rowIndex >= 0 && columnIndex >= 0)
+            if (null != wagiDataGridView.Rows[rowIndex].Cells[columnIndex])
             {
                 poprzedniaZaznaczonaKomorka = wagiDataGridView.Rows[rowIndex].Cells[columnIndex];
             }

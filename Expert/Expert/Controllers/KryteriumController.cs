@@ -50,11 +50,9 @@ namespace Expert
             db.SubmitChanges();
         }
 
-        public static void usunKryterium(int id, bool czyWariant)
+        public static void usunKryterium(int id, ExpertHelperDataContext db)
         {
-            ExpertHelperDataContext db = new ExpertHelperDataContext();
-
-            Kryterium kryterium = pobierzKryterium(id, db, czyWariant);
+            Kryterium kryterium = pobierzKryteriumWariant(id, db);
 
             if (null != kryterium)
             {
@@ -96,7 +94,6 @@ namespace Expert
             ExpertHelperDataContext db = new ExpertHelperDataContext();
 
             var lista = from d in db.Kryteriums
-                        where !d.Czy_Wariant
                         select new
                         {
                             id = d.ID,
@@ -153,11 +150,6 @@ namespace Expert
 
             stworzListeIdPodkryteriow(idRoot, listaIdDoUsuniecia);
 
-            foreach (int id in listaIdDoUsuniecia)
-            {
-                Console.WriteLine("id = " + id);
-            }
-
             return listaIdDoUsuniecia;
         }
 
@@ -165,7 +157,7 @@ namespace Expert
         {
             DataTable listaKryteriow = pobierzListeKryteriow();
 
-            return listaKryteriow.AsEnumerable().Select(row => new Kryterium()).Where(row => row.ID_Rodzica == 0).ToList();
+            return listaKryteriow.AsEnumerable().Select(row => new Kryterium()).Where(row => row.ID_Rodzica == 0 && !row.Czy_Wariant).ToList();
         }
 
         public static DataTable pobierzTabeleCelow()
@@ -203,6 +195,20 @@ namespace Expert
             return pobierzKryterium(id, db, czyWariant);
         }
 
+        public static Kryterium pobierzKryteriumWariant(int id, ExpertHelperDataContext db)
+        {
+            var kryterium = (from kr in db.Kryteriums
+                             where kr.ID == id
+                             select kr).FirstOrDefault();
+
+            if (null != kryterium)
+            {
+                return kryterium;
+            }
+
+            return null;
+        }
+
         public static List<Kryterium> pobierzListePodkryteriow(int idRoot)
         {
             DataTable listaKryteriow = pobierzListeKryteriow();
@@ -215,7 +221,7 @@ namespace Expert
                 Opis = row["Opis"].ToString(),
                 Liczba_Podkryteriow = int.Parse(row["Liczba_Podkryteriow"].ToString()),
                 Czy_Wariant = bool.Parse(row["Czy_Wariant"].ToString())
-            }).Where(row => row.ID_Rodzica == idRoot).ToList();
+            }).Where(row => row.ID_Rodzica == idRoot && !row.Czy_Wariant).ToList();
         }
 
         public static DataTable pobierzTabeleWariantow(int idCelu)

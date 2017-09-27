@@ -52,6 +52,9 @@
             this.wariantRadioButton = new System.Windows.Forms.RadioButton();
             this.kryteriumRadioButton = new System.Windows.Forms.RadioButton();
             this.celRadioButton = new System.Windows.Forms.RadioButton();
+            this.celContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.dodajCelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.usuńCelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.problemGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.problemDataGridView)).BeginInit();
             this.kryteriaGroupBox.SuspendLayout();
@@ -59,6 +62,7 @@
             this.wariantyGroupBox.SuspendLayout();
             this.wariantyContextMenuStrip.SuspendLayout();
             this.dodajGroupBox.SuspendLayout();
+            this.celContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // problemGroupBox
@@ -74,6 +78,7 @@
             // problemDataGridView
             // 
             this.problemDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.problemDataGridView.ContextMenuStrip = this.celContextMenuStrip;
             this.problemDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.problemDataGridView.Location = new System.Drawing.Point(3, 16);
             this.problemDataGridView.Name = "problemDataGridView";
@@ -121,7 +126,8 @@
             // 
             this.usunKryteriumToolStripMenuItem.Name = "usunKryteriumToolStripMenuItem";
             this.usunKryteriumToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
-            this.usunKryteriumToolStripMenuItem.Text = "Usuń";
+            this.usunKryteriumToolStripMenuItem.Text = "Usuń kryterium";
+            this.usunKryteriumToolStripMenuItem.Click += new System.EventHandler(this.usunKryteriumToolStripMenuItem_Click);
             // 
             // wariantyGroupBox
             // 
@@ -283,6 +289,27 @@
             this.celRadioButton.UseVisualStyleBackColor = true;
             this.celRadioButton.CheckedChanged += new System.EventHandler(this.celRadioButton_CheckedChanged);
             // 
+            // celContextMenuStrip
+            // 
+            this.celContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dodajCelToolStripMenuItem,
+            this.usuńCelToolStripMenuItem});
+            this.celContextMenuStrip.Name = "celContextMenuStrip";
+            this.celContextMenuStrip.Size = new System.Drawing.Size(153, 70);
+            // 
+            // dodajCelToolStripMenuItem
+            // 
+            this.dodajCelToolStripMenuItem.Name = "dodajCelToolStripMenuItem";
+            this.dodajCelToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.dodajCelToolStripMenuItem.Text = "Dodaj cel";
+            this.dodajCelToolStripMenuItem.Click += new System.EventHandler(this.dodajCelToolStripMenuItem_Click);
+            // 
+            // usuńCelToolStripMenuItem
+            // 
+            this.usuńCelToolStripMenuItem.Name = "usuńCelToolStripMenuItem";
+            this.usuńCelToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.usuńCelToolStripMenuItem.Text = "Usuń cel";
+            // 
             // KryteriumPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -301,6 +328,7 @@
             this.wariantyContextMenuStrip.ResumeLayout(false);
             this.dodajGroupBox.ResumeLayout(false);
             this.dodajGroupBox.PerformLayout();
+            this.celContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -330,5 +358,8 @@
         private System.Windows.Forms.ContextMenuStrip wariantyContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem dodajWariantToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem usuńWariantToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip celContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem dodajCelToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem usuńCelToolStripMenuItem;
     }
 }

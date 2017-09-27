@@ -18,10 +18,8 @@ namespace Expert
         private int wariantID = 0;
         private int selectedIndex = 0;
         private int liczbaPodkryteriow = 0;
-        private int liczbaZaglebienDrzewa = 0;
 
         private const int PODKRYTERIA = 9;
-        private const int ZAGLEBIENIA = 3;
 
         public KryteriumPanel()
         {
@@ -131,6 +129,8 @@ namespace Expert
             wyczyscKontrolki();
             dodajButton.Enabled = false;
             zapiszButton.Enabled = true;
+            celRadioButton.Checked = true;
+            ustalZaznaczenie(wariantRadioButton, kryteriumRadioButton);
 
             if (problemDataGridView.SelectedRows.Count == 1)
             {
@@ -213,6 +213,11 @@ namespace Expert
             }
         }
 
+        private void usunKryteriumToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            usunKryterium();
+        }
+
         private void dodajWariantToolStripMenuItem_Click(object sender, EventArgs e)
         {
             wyczyscKontrolki();
@@ -261,20 +266,20 @@ namespace Expert
 
             if (problemDataGridView.Columns.Count > 1)
             {
-                problemDataGridView.Columns[0].Width = 41;
-                problemDataGridView.Columns[3].Width = 258;
+                problemDataGridView.Columns[0].Width = 43;
+                problemDataGridView.Columns[3].Width = 235;
                 problemDataGridView.Columns[1].Visible = false;
                 problemDataGridView.Columns[2].Visible = false;
                 problemDataGridView.Columns[4].Visible = false;
                 problemDataGridView.Columns[5].Visible = false;
+                problemDataGridView.Columns[6].Visible = false;
             }
         }
 
         private void ustalBlokadeKontrolek(bool czyOdblokowane)
         {
-            //dodajPodkryteriumMenuItem.IsEnabled = czyOdblokowane;
-            //usunMenuItem.IsEnabled = czyOdblokowane;
-            //ustalWagiButton.IsEnabled = czyOdblokowane;
+            dodajToolStripMenuItem.Enabled = czyOdblokowane;
+            usunKryteriumToolStripMenuItem.Enabled = czyOdblokowane;
         }
 
         private void wyczyscKontrolki()
@@ -291,22 +296,37 @@ namespace Expert
 
         private void usunKryterium()
         {
-            //if (kryteriaListView.SelectedItems.Count > 0)
-            //{
-            //    int id = int.Parse(((TreeViewItem)kryteriumTreeView.SelectedItem).Uid);
+            if (null != kryteriaTreeView.SelectedNode)
+            {
+                ExpertHelperDataContext db = new ExpertHelperDataContext();
 
-            //    MessageBoxResult resutlt = MessageBox.Show("Czy na pewno chcesz usunąć zaznaczone kryterium i wszystkie jego podkryteria?", "Usuń", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                TreeNode item = kryteriaTreeView.SelectedNode;
+                int id = int.Parse(item.Name.ToString());
 
-            //    if (resutlt == MessageBoxResult.Yes)
-            //    {
-            //        List<int> listaPodkryteriow = KryteriumController.stworzListeDoUsuniecia(id);
+                DialogResult result = MessageBox.Show("Czy na pewno chcesz usunąć zaznaczone kryterium i wszystkie jego podkryteria?", "Usuń", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-            //        foreach (int idPodkryterium in listaPodkryteriow)
-            //        {
-            //            KryteriumController.usunKryterium(idPodkryterium);
-            //        }
-            //    }
-            //}
+                if (result == DialogResult.Yes)
+                {
+                    List<int> listaPodkryteriow = KryteriumController.stworzListeDoUsuniecia(id);
+
+                    foreach (int idPodkryterium in listaPodkryteriow)
+                    {
+                        KryteriumController.usunKryterium(idPodkryterium, db);
+                    }
+                }
+            }
+
+            pobierzCele();
+        }
+
+        private void dodajCelToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            wyczyscKontrolki();
+            dodajButton.Enabled = true;
+            zapiszButton.Enabled = false;
+            celRadioButton.Checked = true;
+            ustalZaznaczenie(wariantRadioButton, kryteriumRadioButton);
+            nazwaTextBox.Focus();
         }
     }
 }

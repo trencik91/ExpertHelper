@@ -2,30 +2,37 @@
 <ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="ExpertHelper">
   <DataContextMoniker Name="/ExpertHelperDataContext" />
   <nestedChildShapes>
-    <classShape Id="96e8d892-80a4-4491-bc54-859c00a0f1f1" absoluteBounds="0.75, 0.875, 2, 2.1554996744791666">
+    <classShape Id="f2e04287-7b84-4adb-a99b-a627fe9b5621" absoluteBounds="0.75, 0.875, 2, 2.1554996744791666">
       <DataClassMoniker Name="/ExpertHelperDataContext/Kryterium" />
       <nestedChildShapes>
-        <elementListCompartment Id="2ca94f6f-901d-434a-8d01-e013ef83b640" absoluteBounds="0.765, 1.335, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="a2a70a51-415f-413f-bdbb-cb7dc8a61c66" absoluteBounds="0.765, 1.335, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="ebb77015-ef4a-49e9-bfb0-987a5b435b45" absoluteBounds="3.5, 1.25, 2, 1.5785953776041666">
+    <classShape Id="0155f9a3-90f5-4ff6-b434-58a99bc7a2cf" absoluteBounds="3.5, 1.125, 2, 1.7708968098958329">
       <DataClassMoniker Name="/ExpertHelperDataContext/Waga" />
       <nestedChildShapes>
-        <elementListCompartment Id="0896310f-9bfd-41da-a3b3-ed179a5f7e73" absoluteBounds="3.515, 1.71, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="cab97301-2658-4e0b-9739-27571f41eeaf" absoluteBounds="3.515, 1.585, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.75 : 2.03929768880208); (3.5 : 2.03929768880208)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 2.01044840494792); (3.5 : 2.01044840494792)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/ExpertHelperDataContext/Kryterium/Kryterium_Waga" />
       <nodes>
-        <classShapeMoniker Id="96e8d892-80a4-4491-bc54-859c00a0f1f1" />
-        <classShapeMoniker Id="ebb77015-ef4a-49e9-bfb0-987a5b435b45" />
+        <classShapeMoniker Id="f2e04287-7b84-4adb-a99b-a627fe9b5621" />
+        <classShapeMoniker Id="0155f9a3-90f5-4ff6-b434-58a99bc7a2cf" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(2.75 : 1.58214884440104); (3.5 : 1.58214884440104)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(2.75 : 1.50522420247396); (3.5 : 1.50522420247396)]" fixedFrom="Algorithm" fixedTo="Algorithm">
       <AssociationMoniker Name="/ExpertHelperDataContext/Kryterium/Kryterium_Waga1" />
       <nodes>
-        <classShapeMoniker Id="96e8d892-80a4-4491-bc54-859c00a0f1f1" />
-        <classShapeMoniker Id="ebb77015-ef4a-49e9-bfb0-987a5b435b45" />
+        <classShapeMoniker Id="f2e04287-7b84-4adb-a99b-a627fe9b5621" />
+        <classShapeMoniker Id="0155f9a3-90f5-4ff6-b434-58a99bc7a2cf" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 2.51567260742187); (3.5 : 2.51567260742187)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/ExpertHelperDataContext/Kryterium/Kryterium_Waga2" />
+      <nodes>
+        <classShapeMoniker Id="f2e04287-7b84-4adb-a99b-a627fe9b5621" />
+        <classShapeMoniker Id="0155f9a3-90f5-4ff6-b434-58a99bc7a2cf" />
       </nodes>
     </associationConnector>
   </nestedChildShapes>

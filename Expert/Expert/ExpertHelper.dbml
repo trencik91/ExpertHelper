@@ -11,16 +11,19 @@
       <Column Name="Czy_Wariant" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Association Name="Kryterium_Waga" Member="Wagas" ThisKey="ID" OtherKey="Kryterium1" Type="Waga" />
       <Association Name="Kryterium_Waga1" Member="Wagas1" ThisKey="ID" OtherKey="Kryterium2" Type="Waga" />
+      <Association Name="Kryterium_Waga2" Member="Wagas2" ThisKey="ID" OtherKey="KryteriumGlowne" Type="Waga" />
     </Type>
   </Table>
   <Table Name="dbo.Waga" Member="Wagas">
     <Type Name="Waga">
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="KryteriumGlowne" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Kryterium1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Kryterium2" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Waga" Member="Waga1" Type="System.Decimal" DbType="Decimal(18,18) NOT NULL" CanBeNull="false" />
+      <Column Name="Waga" Member="Waga1" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
       <Association Name="Kryterium_Waga" Member="Kryterium" ThisKey="Kryterium1" OtherKey="ID" Type="Kryterium" IsForeignKey="true" />
       <Association Name="Kryterium_Waga1" Member="Kryterium3" ThisKey="Kryterium2" OtherKey="ID" Type="Kryterium" IsForeignKey="true" />
+      <Association Name="Kryterium_Waga2" Member="Kryterium4" ThisKey="KryteriumGlowne" OtherKey="ID" Type="Kryterium" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>

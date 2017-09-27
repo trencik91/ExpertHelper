@@ -85,19 +85,19 @@ namespace Expert
             {
                 czyZmieniono = false;
                 wagiDataGridView.DataSource = null;
-                //try
-                //{
-                TreeNode item = problemTreeView.SelectedNode;
-                int id = int.Parse(item.Name.ToString());
+                try
+                {
+                    TreeNode item = problemTreeView.SelectedNode;
+                    int id = int.Parse(item.Name.ToString());
 
-                stworzKolumnyDataGrid(GridViewController.stworzTabeleWag(idCelu, id, listaIdKryteriow));
+                    stworzKolumnyDataGrid(GridViewController.stworzTabeleWag(idCelu, id, listaIdKryteriow));
 
-                wagiTabControl.Visible = true;
-                //}
-                //catch (Exception ex)
-                //{
-                //    MessageBox.Show("Błąd przy tworzeniu identyfikatora danych! " + ex.ToString(), "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                //}
+                    wagiTabControl.Visible = true;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Błąd przy tworzeniu identyfikatora danych! " + ex.ToString(), "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {
@@ -142,6 +142,7 @@ namespace Expert
         private void zapiszWagi(IEnumerable<Waga> listaWag)
         {
             WagaController.dodajListeWag(listaWag);
+            czyZmieniono = false;
         }
 
         private void stworzKolumnyDataGrid(DataTable tabelaWag)
@@ -153,16 +154,8 @@ namespace Expert
             {
                 foreach (DataGridViewColumn dc in wagiDataGridView.Columns)
                 {
-                    if (dr.Cells[0].Value.ToString() == dc.HeaderCell.Value.ToString() && tabelaWag.Rows.Count != tabelaWag.Columns.Count)
-                    {
-                        dr.Cells[dc.Index].Value = 1;
-                        dr.Cells[dc.Index].ReadOnly = true;
-                    }
-                    else if (dc.Index > 0)
-                    {
-                        dr.Cells[dc.Index].Value = 0;
-                    }
-                    else
+                    if ((dr.Cells[0].Value.ToString() == dc.HeaderCell.Value.ToString() && tabelaWag.Rows.Count != tabelaWag.Columns.Count)
+                        || dc.Index == 0)
                     {
                         dr.Cells[dc.Index].ReadOnly = true;
                     }
@@ -174,9 +167,11 @@ namespace Expert
 
         private void zaznaczKomorkeDataGridView()
         {
+            wartoscNumericUpDown.Value = 0;
+
             try
             {
-                if (wagiDataGridView.SelectedCells[0].ColumnIndex > 0)
+                if (wagiDataGridView.SelectedCells.Count > 0 && wagiDataGridView.SelectedCells[0].ColumnIndex > 0)
                 {
                     zaznaczonaKomorka = wagiDataGridView.SelectedCells[0];
 
@@ -207,7 +202,18 @@ namespace Expert
 
             if (czyWartosc)
             {
-                wartoscNumericUpDown.Value = wartoscKomorki;
+                try
+                {
+                    wartoscNumericUpDown.Value = wartoscKomorki;
+                }
+                catch (ArgumentOutOfRangeException ex)
+                {
+                    wartoscNumericUpDown.Value = 0;
+                    zaznaczonaKomorka.Value = 0;
+                    MessageBox.Show("Maksymalna wartość wagi wynosi " + wartoscNumericUpDown.Maximum + "\n ", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    Console.WriteLine(ex.StackTrace);
+                }
             }
             else
             {
@@ -225,14 +231,15 @@ namespace Expert
                 {
                     if (j > 0)
                     {
-                        String wartosc = wagiDataGridView.Rows[i].Cells[j].Value.ToString();
-                        wartosc = wartosc.Replace(',', '.');
-                        decimal value = decimal.Parse(wartosc, NumberStyles.AllowThousands | NumberStyles.AllowDecimalPoint | NumberStyles.AllowCurrencySymbol);
-                        value = decimal.Round(value, 10);
+                        decimal value = decimal.Parse(wagiDataGridView.Rows[i].Cells[j].Value.ToString(), NumberStyles.AllowThousands | NumberStyles.AllowDecimalPoint | NumberStyles.AllowCurrencySymbol);
+
+                        double doubleValue = Convert.ToDouble(value);
+
                         int idKolumny = listaIdKryteriow[wagiDataGridView.Columns[j].HeaderCell.Value.ToString()];
                         int idWiersza = listaIdKryteriow[wagiDataGridView.Rows[i].Cells[0].Value.ToString()];
+                        int idGlowne = listaIdKryteriow[wagiDataGridView.Columns[0].HeaderCell.Value.ToString()];
 
-                        listaWag.Add(WagaController.stworzWage(idWiersza, idKolumny, value));
+                        listaWag.Add(WagaController.stworzWage(idGlowne, idWiersza, idKolumny, doubleValue));
                     }
                 }
             }

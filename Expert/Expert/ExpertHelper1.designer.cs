@@ -109,6 +109,8 @@ namespace Expert
 		
 		private EntitySet<Waga> _Wagas1;
 		
+		private EntitySet<Waga> _Wagas2;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -133,6 +135,7 @@ namespace Expert
 		{
 			this._Wagas = new EntitySet<Waga>(new Action<Waga>(this.attach_Wagas), new Action<Waga>(this.detach_Wagas));
 			this._Wagas1 = new EntitySet<Waga>(new Action<Waga>(this.attach_Wagas1), new Action<Waga>(this.detach_Wagas1));
+			this._Wagas2 = new EntitySet<Waga>(new Action<Waga>(this.attach_Wagas2), new Action<Waga>(this.detach_Wagas2));
 			OnCreated();
 		}
 		
@@ -302,6 +305,19 @@ namespace Expert
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Kryterium_Waga2", Storage="_Wagas2", ThisKey="ID", OtherKey="KryteriumGlowne")]
+		public EntitySet<Waga> Wagas2
+		{
+			get
+			{
+				return this._Wagas2;
+			}
+			set
+			{
+				this._Wagas2.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -345,6 +361,18 @@ namespace Expert
 			this.SendPropertyChanging();
 			entity.Kryterium3 = null;
 		}
+		
+		private void attach_Wagas2(Waga entity)
+		{
+			this.SendPropertyChanging();
+			entity.Kryterium4 = this;
+		}
+		
+		private void detach_Wagas2(Waga entity)
+		{
+			this.SendPropertyChanging();
+			entity.Kryterium4 = null;
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Waga")]
@@ -355,15 +383,19 @@ namespace Expert
 		
 		private int _ID;
 		
+		private int _KryteriumGlowne;
+		
 		private int _Kryterium1;
 		
 		private int _Kryterium2;
 		
-		private decimal _Waga1;
+		private double _Waga1;
 		
 		private EntityRef<Kryterium> _Kryterium;
 		
 		private EntityRef<Kryterium> _Kryterium3;
+		
+		private EntityRef<Kryterium> _Kryterium4;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -371,11 +403,13 @@ namespace Expert
     partial void OnCreated();
     partial void OnIDChanging(int value);
     partial void OnIDChanged();
+    partial void OnKryteriumGlowneChanging(int value);
+    partial void OnKryteriumGlowneChanged();
     partial void OnKryterium1Changing(int value);
     partial void OnKryterium1Changed();
     partial void OnKryterium2Changing(int value);
     partial void OnKryterium2Changed();
-    partial void OnWaga1Changing(decimal value);
+    partial void OnWaga1Changing(double value);
     partial void OnWaga1Changed();
     #endregion
 		
@@ -383,6 +417,7 @@ namespace Expert
 		{
 			this._Kryterium = default(EntityRef<Kryterium>);
 			this._Kryterium3 = default(EntityRef<Kryterium>);
+			this._Kryterium4 = default(EntityRef<Kryterium>);
 			OnCreated();
 		}
 		
@@ -402,6 +437,30 @@ namespace Expert
 					this._ID = value;
 					this.SendPropertyChanged("ID");
 					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KryteriumGlowne", DbType="Int NOT NULL")]
+		public int KryteriumGlowne
+		{
+			get
+			{
+				return this._KryteriumGlowne;
+			}
+			set
+			{
+				if ((this._KryteriumGlowne != value))
+				{
+					if (this._Kryterium4.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnKryteriumGlowneChanging(value);
+					this.SendPropertyChanging();
+					this._KryteriumGlowne = value;
+					this.SendPropertyChanged("KryteriumGlowne");
+					this.OnKryteriumGlowneChanged();
 				}
 			}
 		}
@@ -454,8 +513,8 @@ namespace Expert
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="Waga", Storage="_Waga1", DbType="Decimal(18,18) NOT NULL")]
-		public decimal Waga1
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="Waga", Storage="_Waga1", DbType="Float NOT NULL")]
+		public double Waga1
 		{
 			get
 			{
@@ -538,6 +597,40 @@ namespace Expert
 						this._Kryterium2 = default(int);
 					}
 					this.SendPropertyChanged("Kryterium3");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Kryterium_Waga2", Storage="_Kryterium4", ThisKey="KryteriumGlowne", OtherKey="ID", IsForeignKey=true)]
+		public Kryterium Kryterium4
+		{
+			get
+			{
+				return this._Kryterium4.Entity;
+			}
+			set
+			{
+				Kryterium previousValue = this._Kryterium4.Entity;
+				if (((previousValue != value) 
+							|| (this._Kryterium4.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Kryterium4.Entity = null;
+						previousValue.Wagas2.Remove(this);
+					}
+					this._Kryterium4.Entity = value;
+					if ((value != null))
+					{
+						value.Wagas2.Add(this);
+						this._KryteriumGlowne = value.ID;
+					}
+					else
+					{
+						this._KryteriumGlowne = default(int);
+					}
+					this.SendPropertyChanged("Kryterium4");
 				}
 			}
 		}

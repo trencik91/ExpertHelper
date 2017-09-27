@@ -51,12 +51,21 @@ namespace Expert
                     {
                         int rowID = listaIdKryteriow[dr[0].ToString()];
                         int columnID = listaIdKryteriow[dc.ColumnName];
+                        int glowneID = listaIdKryteriow[dr.Table.Columns[0].ColumnName.ToString()];
 
-                        Waga waga = WagaController.pobierzWage(rowID, columnID, db);
+                        Waga waga = WagaController.pobierzWage(glowneID, rowID, columnID, db);
 
                         if (null != waga)
                         {
                             dr[dc] = waga.Waga1;
+                        }
+                        else if (rowID == columnID)
+                        {
+                            dr[dc] = 1;
+                        }
+                        else
+                        {
+                            dr[dc] = 0;
                         }
                     }
                 }

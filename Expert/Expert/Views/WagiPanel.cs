@@ -41,6 +41,7 @@ namespace Expert
             uzupelnijProblemWarianty();
             listaIdKryteriow = KryteriumController.pobierzListeIdKryteriow();
             wartoscNumericUpDown.Maximum = MAKSYMALNA_WAGA;
+            sliderTrackBar.SetRange(0, MAKSYMALNA_WAGA);
         }
 
         private void zatwierdzButton_Click(object sender, EventArgs e)
@@ -87,6 +88,7 @@ namespace Expert
         {
             wagiDataGridView.ClearSelection();
             wartoscNumericUpDown.Value = 0;
+            sliderTrackBar.Value = 0;
 
             poprzedniaZaznaczonaKomorka = null;
             zaznaczonaKomorka = null;
@@ -127,12 +129,12 @@ namespace Expert
 
         private void wagiDataGridView_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
-            ustalWartoscNumeric();
+            ustalWartoscKontrolek();
         }
 
         private void wagiDataGridView_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
-            ustalWartoscNumeric();
+            ustalWartoscKontrolek();
             czyZmieniono = true;
         }
 
@@ -143,6 +145,7 @@ namespace Expert
                 if (!zaznaczonaKomorka.ReadOnly)
                 {
                     zaznaczonaKomorka.Value = wartoscNumericUpDown.Value;
+                    sliderTrackBar.Value = int.Parse(wartoscNumericUpDown.Value.ToString());
                     czyZmieniono = true;
                 }
                 else
@@ -181,6 +184,7 @@ namespace Expert
         private void zaznaczKomorkeDataGridView()
         {
             wartoscNumericUpDown.Enabled = true;
+            sliderTrackBar.Enabled = true;
 
             if (null != poprzedniaZaznaczonaKomorka && wagiDataGridView.SelectedCells.Count > 0 && poprzedniaZaznaczonaKomorka.RowIndex >= 0 && poprzedniaZaznaczonaKomorka.ColumnIndex > 0)
             {
@@ -193,8 +197,6 @@ namespace Expert
                 }
             }
 
-            //wartoscNumericUpDown.Value = 0;
-
             try
             {
                 if (wagiDataGridView.SelectedCells.Count > 0 && wagiDataGridView.SelectedCells[0].ColumnIndex > 0)
@@ -206,8 +208,10 @@ namespace Expert
 
                     wierszTextBox.Text = wagiDataGridView.Rows[rowIndex].Cells[0].Value.ToString();
                     kolumnaTextBox.Text = wagiDataGridView.Columns[columnIndex].HeaderText;
+                    wierszSliderTextBox.Text = wagiDataGridView.Rows[rowIndex].Cells[0].Value.ToString();
+                    kolumnaSilderTextBox.Text = wagiDataGridView.Columns[columnIndex].HeaderText;
 
-                    ustalWartoscNumeric();
+                    ustalWartoscKontrolek();
                 }
                 else if (wagiDataGridView.SelectedCells.Count > 1)
                 {
@@ -220,9 +224,10 @@ namespace Expert
             }
         }
 
-        private void ustalWartoscNumeric()
+        private void ustalWartoscKontrolek()
         {
             wartoscNumericUpDown.Enabled = true;
+            sliderTrackBar.Enabled = true;
 
             if (null != zaznaczonaKomorka)
             {
@@ -235,11 +240,14 @@ namespace Expert
                     try
                     {
                         wartoscNumericUpDown.Value = wartoscKomorki;
+                        sliderTrackBar.Value = wartoscKomorki;
                     }
                     catch (ArgumentOutOfRangeException ex)
                     {
                         wartoscNumericUpDown.Value = 0;
+                        sliderTrackBar.Value = 0;
                         zaznaczonaKomorka.Value = 0;
+
                         MessageBox.Show("Maksymalna wartość wagi wynosi " + wartoscNumericUpDown.Maximum + "\n ", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 
                         Console.WriteLine(ex.StackTrace);
@@ -308,6 +316,23 @@ namespace Expert
             else
             {
                 poprzedniaZaznaczonaKomorka = null;
+            }
+        }
+
+        private void sliderTrackBar_Scroll(object sender, EventArgs e)
+        {
+            if (null != zaznaczonaKomorka)
+            {
+                if (!zaznaczonaKomorka.ReadOnly)
+                {
+                    zaznaczonaKomorka.Value = sliderTrackBar.Value;
+                    wartoscNumericUpDown.Value = sliderTrackBar.Value;
+                    czyZmieniono = true;
+                }
+                else
+                {
+                    sliderTrackBar.Enabled = false;
+                }
             }
         }
     }

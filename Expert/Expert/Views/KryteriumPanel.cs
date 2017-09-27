@@ -97,11 +97,11 @@ namespace Expert
         {
             if (celRadioButton.Checked || kryteriumRadioButton.Checked)
             {
-                KryteriumController.edytujKryterium(kryteriumID, nazwaTextBox.Text, opisRichTextBox.Text, true);
+                KryteriumController.edytujKryterium(kryteriumID, nazwaTextBox.Text, opisRichTextBox.Text, false);
             }
             else if (wariantRadioButton.Checked)
             {
-                KryteriumController.edytujKryterium(wariantID, nazwaTextBox.Text, opisRichTextBox.Text, false);
+                KryteriumController.edytujKryterium(wariantID, nazwaTextBox.Text, opisRichTextBox.Text, true);
             }
 
             pobierzCele();
@@ -155,8 +155,6 @@ namespace Expert
 
                     nazwaTextBox.Text = dataRow.Cells[3].Value.ToString();
                     opisRichTextBox.Text = dataRow.Cells[4].Value.ToString();
-
-                    //wagiButton.Enabled = false;
                 }
                 catch
                 {
@@ -242,7 +240,7 @@ namespace Expert
                 ustalBlokadeKontrolek(true);
                 TreeNode item = kryteriaTreeView.SelectedNode;
                 kryteriumID = int.Parse(item.Name.ToString());
-                Kryterium kryterium = KryteriumController.pobierzKryterium(kryteriumID, db, true);
+                Kryterium kryterium = KryteriumController.pobierzKryterium(kryteriumID, db, false);
 
                 if (null != kryterium)
                 {

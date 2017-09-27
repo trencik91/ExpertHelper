@@ -84,7 +84,6 @@
             // wariantyListBox
             // 
             this.wariantyListBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.wariantyListBox.Enabled = false;
             this.wariantyListBox.FormattingEnabled = true;
             this.wariantyListBox.Location = new System.Drawing.Point(3, 16);
             this.wariantyListBox.Name = "wariantyListBox";

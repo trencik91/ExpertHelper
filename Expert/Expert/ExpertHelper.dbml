@@ -3,15 +3,44 @@
   <Table Name="dbo.Kryterium" Member="Kryteriums">
     <Type Name="Kryterium">
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="ID_Rodzica" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ID_Rodzica" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Nazwa" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Opis" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="Data_utworzenia" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="Liczba_Podkryteriow" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Czy_Wariant" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Kryterium_Kryterium" Member="Kryteriums" ThisKey="ID" OtherKey="ID_Rodzica" Type="Kryterium" />
+      <Association Name="Kryterium_Wynik" Member="Wyniks" ThisKey="ID" OtherKey="KryteriumGlowne" Type="Wynik" />
+      <Association Name="Kryterium_Wynik1" Member="Wyniks1" ThisKey="ID" OtherKey="Kryterium1" Type="Wynik" />
+      <Association Name="Kryterium_Wynik2" Member="Wyniks2" ThisKey="ID" OtherKey="Kryterium2" Type="Wynik" />
+      <Association Name="Kryterium_Obliczenia" Member="Obliczenias" ThisKey="ID" OtherKey="ID_Kryterium" Type="Obliczenia" />
+      <Association Name="Kryterium_Obliczenia1" Member="Obliczenias1" ThisKey="ID" OtherKey="ID_Celu" Type="Obliczenia" />
       <Association Name="Kryterium_Waga" Member="Wagas" ThisKey="ID" OtherKey="Kryterium1" Type="Waga" />
       <Association Name="Kryterium_Waga1" Member="Wagas1" ThisKey="ID" OtherKey="Kryterium2" Type="Waga" />
       <Association Name="Kryterium_Waga2" Member="Wagas2" ThisKey="ID" OtherKey="KryteriumGlowne" Type="Waga" />
+      <Association Name="Kryterium_Kryterium" Member="Kryterium1" ThisKey="ID_Rodzica" OtherKey="ID" Type="Kryterium" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Wynik" Member="Wyniks">
+    <Type Name="Wynik">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="KryteriumGlowne" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Kryterium1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Kryterium2" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Waga" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Association Name="Kryterium_Wynik" Member="Kryterium" ThisKey="KryteriumGlowne" OtherKey="ID" Type="Kryterium" IsForeignKey="true" />
+      <Association Name="Kryterium_Wynik1" Member="Kryterium3" ThisKey="Kryterium1" OtherKey="ID" Type="Kryterium" IsForeignKey="true" />
+      <Association Name="Kryterium_Wynik2" Member="Kryterium4" ThisKey="Kryterium2" OtherKey="ID" Type="Kryterium" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Obliczenia" Member="Obliczenias">
+    <Type Name="Obliczenia">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ID_Celu" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ID_Kryterium" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Wyniki" Type="System.String" DbType="Text NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Association Name="Kryterium_Obliczenia" Member="Kryterium" ThisKey="ID_Kryterium" OtherKey="ID" Type="Kryterium" IsForeignKey="true" />
+      <Association Name="Kryterium_Obliczenia1" Member="Kryterium1" ThisKey="ID_Celu" OtherKey="ID" Type="Kryterium" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Waga" Member="Wagas">

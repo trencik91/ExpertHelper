@@ -232,6 +232,46 @@ namespace Expert
             wagiDataGridView.DataSource = wagi;
         }
 
+        private void zapiszButton_Click(object sender, EventArgs e)
+        {
+            DataTable tabelaWynikow = (DataTable)wagiDataGridView.DataSource;
+
+            List<Wynik> listaWynikow = new List<Wynik>();
+
+            if (null != problemTreeView.SelectedNode)
+            {
+                try
+                {
+                    TreeNode item = problemTreeView.SelectedNode;
+                    int id = int.Parse(item.Name.ToString());
+
+                    foreach (DataRow dr in tabelaWynikow.Rows)
+                    {
+                        foreach (DataColumn dc in tabelaWynikow.Columns)
+                        {
+                            int idWiersza = listaIdKryteriow[dr[0].ToString()];
+                            int idKolumny = listaIdKryteriow[wagiDataGridView.Columns[dc.Ordinal].HeaderCell.Value.ToString()];
+                            int idGlowne = listaIdKryteriow[wagiDataGridView.Columns[0].HeaderCell.Value.ToString()];
+
+                            decimal value = decimal.Parse(dr.ToString(), NumberStyles.AllowThousands | NumberStyles.AllowDecimalPoint | NumberStyles.AllowCurrencySymbol);
+
+                            double doubleValue = Convert.ToDouble(value);
+
+                            Wynik wynik = WynikController.stworzWynik(idGlowne, idWiersza, idKolumny, doubleValue);
+
+                            listaWynikow.Add(wynik);
+                        }
+                    }
+
+                    WynikController.dodajListeWynikow(listaWynikow);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Błąd przy tworzeniu identyfikatora danych! " + ex.ToString(), "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
         private void zapiszWagi(IEnumerable<Waga> listaWag)
         {
             WagaController.dodajListeWag(listaWag);

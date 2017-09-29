@@ -10,6 +10,8 @@ namespace Expert
 {
     class ObliczanieWag
     {
+        private const int ROUND = 4;
+
         protected ObliczanieWag()
         {
 
@@ -37,6 +39,45 @@ namespace Expert
                         }
                     }
                 }
+
+                foreach (DataRow dr in wagi.Rows)
+                {
+                    if (dr.Table.Columns[dc.ColumnName].Ordinal > 0)
+                    {
+                        decimal wartoscKomorki = decimal.Parse(dr[dc].ToString());
+                        decimal obliczonaWaga = decimal.Round(wartoscKomorki / sumaKolumn, ROUND);
+                        macierzWag.Rows[dr.Table.Rows.IndexOf(dr)][dc] = obliczonaWaga;
+                    }
+                }
+            }
+
+            macierzWag.Columns.Add("Suma elementów");
+            macierzWag.Columns.Add("Waga");
+
+            decimal sumaWszystkichKolumn = 0;
+
+            foreach (DataRow dr in wagi.Rows)
+            {
+                decimal sumaWierszy = 0;
+
+                foreach (DataColumn dc in wagi.Columns)
+                {
+                    if (dr.Table.Columns[dc.ColumnName].Ordinal > 0 && dr.Table.Columns[dc.ColumnName].Ordinal < dr.Table.Columns.Count - 2)
+                    {
+                        sumaWierszy = sumaWierszy + decimal.Parse(dr[dc].ToString());
+                    }
+                }
+
+                sumaWszystkichKolumn = sumaWszystkichKolumn + sumaWierszy;
+
+                dr["Suma elementów"] = decimal.Round(sumaWierszy, ROUND);
+            }
+
+            foreach (DataRow dr in wagi.Rows)
+            {
+                decimal wagaWiersza = decimal.Parse(dr["Suma elementów"].ToString()) / sumaWszystkichKolumn;
+
+                dr["Waga"] = decimal.Round(wagaWiersza, ROUND);
             }
 
             return macierzWag;

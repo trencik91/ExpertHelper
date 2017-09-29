@@ -102,6 +102,10 @@ namespace Expert
                     TreeNode item = problemTreeView.SelectedNode;
                     int id = int.Parse(item.Name.ToString());
 
+                    liczbowoLabel.Text = "Dokonaj oceny względem kryterium " + item.Text;
+                    graficznieLabel.Text = "Dokonaj oceny względem kryterium " + item.Text;
+                    slownieLabel.Text = "Dokonaj oceny względem kryterium " + item.Text;
+
                     stworzKolumnyDataGrid(GridViewController.stworzTabeleWag(idCelu, id, listaIdKryteriow));
 
                     wagiTabControl.Visible = true;
@@ -208,10 +212,15 @@ namespace Expert
                     int rowIndex = zaznaczonaKomorka.RowIndex;
                     int columnIndex = zaznaczonaKomorka.ColumnIndex;
 
-                    wierszTextBox.Text = wagiDataGridView.Rows[rowIndex].Cells[0].Value.ToString();
-                    kolumnaTextBox.Text = wagiDataGridView.Columns[columnIndex].HeaderText;
-                    wierszSliderTextBox.Text = wagiDataGridView.Rows[rowIndex].Cells[0].Value.ToString();
-                    kolumnaSilderTextBox.Text = wagiDataGridView.Columns[columnIndex].HeaderText;
+                    String wierszText = wagiDataGridView.Rows[rowIndex].Cells[0].Value.ToString();
+                    String kolumnaText = wagiDataGridView.Columns[columnIndex].HeaderText;
+
+                    wierszTextBox.Text = wierszText;
+                    kolumnaTextBox.Text = kolumnaText;
+                    wierszSliderTextBox.Text = wierszText;
+                    kolumnaSilderTextBox.Text = kolumnaText;
+                    wierszSlownieTextBox.Text = wierszText;
+                    kolumnaSlownieTextBox.Text = kolumnaText;
 
                     ustalWartoscKontrolek();
                 }
@@ -243,12 +252,14 @@ namespace Expert
                     {
                         wartoscNumericUpDown.Value = Convert.ToDecimal(wartoscKomorki);
                         sliderTrackBar.Value = Convert.ToInt32(wartoscKomorki * 100);
+                        wartoscSliderTextBox.Text = wartoscKomorki.ToString();
                     }
                     catch (ArgumentOutOfRangeException ex)
                     {
                         wartoscNumericUpDown.Value = 0;
                         sliderTrackBar.Value = 0;
                         zaznaczonaKomorka.Value = 0;
+                        wartoscSliderTextBox.Text = "0";
 
                         MessageBox.Show("Maksymalna wartość wagi wynosi " + wartoscNumericUpDown.Maximum + "\n ", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 

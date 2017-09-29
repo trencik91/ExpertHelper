@@ -46,6 +46,13 @@
             this.slownieTabPage = new System.Windows.Forms.TabPage();
             this.zatwierdzButton = new System.Windows.Forms.Button();
             this.wartoscSliderTextBox = new System.Windows.Forms.TextBox();
+            this.slownieListBox = new System.Windows.Forms.ListBox();
+            this.liczbowoLabel = new System.Windows.Forms.Label();
+            this.graficznieLabel = new System.Windows.Forms.Label();
+            this.slownieLabel = new System.Windows.Forms.Label();
+            this.wierszSlownieTextBox = new System.Windows.Forms.TextBox();
+            this.kolumnaSlownieTextBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.problemGroupBox.SuspendLayout();
             this.wariantyGroupBox.SuspendLayout();
             this.wagiGroupBox.SuspendLayout();
@@ -55,6 +62,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.wartoscNumericUpDown)).BeginInit();
             this.graficznieTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sliderTrackBar)).BeginInit();
+            this.slownieTabPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // problemGroupBox
@@ -139,6 +147,7 @@
             // 
             // liczbowoTabPage
             // 
+            this.liczbowoTabPage.Controls.Add(this.liczbowoLabel);
             this.liczbowoTabPage.Controls.Add(this.kolumnaTextBox);
             this.liczbowoTabPage.Controls.Add(this.wierszTextBox);
             this.liczbowoTabPage.Controls.Add(this.wartoscNumericUpDown);
@@ -162,7 +171,7 @@
             // wierszTextBox
             // 
             this.wierszTextBox.Enabled = false;
-            this.wierszTextBox.Location = new System.Drawing.Point(18, 42);
+            this.wierszTextBox.Location = new System.Drawing.Point(9, 42);
             this.wierszTextBox.Name = "wierszTextBox";
             this.wierszTextBox.Size = new System.Drawing.Size(100, 20);
             this.wierszTextBox.TabIndex = 1;
@@ -176,7 +185,7 @@
             0,
             0,
             131072});
-            this.wartoscNumericUpDown.Location = new System.Drawing.Point(136, 42);
+            this.wartoscNumericUpDown.Location = new System.Drawing.Point(133, 42);
             this.wartoscNumericUpDown.Name = "wartoscNumericUpDown";
             this.wartoscNumericUpDown.Size = new System.Drawing.Size(120, 20);
             this.wartoscNumericUpDown.TabIndex = 0;
@@ -185,6 +194,7 @@
             // 
             // graficznieTabPage
             // 
+            this.graficznieTabPage.Controls.Add(this.graficznieLabel);
             this.graficznieTabPage.Controls.Add(this.wartoscSliderTextBox);
             this.graficznieTabPage.Controls.Add(this.sliderTrackBar);
             this.graficznieTabPage.Controls.Add(this.kolumnaSilderTextBox);
@@ -199,7 +209,7 @@
             // 
             // sliderTrackBar
             // 
-            this.sliderTrackBar.Location = new System.Drawing.Point(140, 66);
+            this.sliderTrackBar.Location = new System.Drawing.Point(171, 67);
             this.sliderTrackBar.Name = "sliderTrackBar";
             this.sliderTrackBar.Size = new System.Drawing.Size(284, 45);
             this.sliderTrackBar.TabIndex = 5;
@@ -208,7 +218,7 @@
             // kolumnaSilderTextBox
             // 
             this.kolumnaSilderTextBox.Enabled = false;
-            this.kolumnaSilderTextBox.Location = new System.Drawing.Point(224, 148);
+            this.kolumnaSilderTextBox.Location = new System.Drawing.Point(484, 67);
             this.kolumnaSilderTextBox.Name = "kolumnaSilderTextBox";
             this.kolumnaSilderTextBox.Size = new System.Drawing.Size(121, 20);
             this.kolumnaSilderTextBox.TabIndex = 4;
@@ -217,7 +227,7 @@
             // wierszSliderTextBox
             // 
             this.wierszSliderTextBox.Enabled = false;
-            this.wierszSliderTextBox.Location = new System.Drawing.Point(224, 16);
+            this.wierszSliderTextBox.Location = new System.Drawing.Point(9, 67);
             this.wierszSliderTextBox.Name = "wierszSliderTextBox";
             this.wierszSliderTextBox.Size = new System.Drawing.Size(121, 20);
             this.wierszSliderTextBox.TabIndex = 3;
@@ -225,6 +235,11 @@
             // 
             // slownieTabPage
             // 
+            this.slownieTabPage.Controls.Add(this.label1);
+            this.slownieTabPage.Controls.Add(this.kolumnaSlownieTextBox);
+            this.slownieTabPage.Controls.Add(this.wierszSlownieTextBox);
+            this.slownieTabPage.Controls.Add(this.slownieLabel);
+            this.slownieTabPage.Controls.Add(this.slownieListBox);
             this.slownieTabPage.Location = new System.Drawing.Point(4, 22);
             this.slownieTabPage.Name = "slownieTabPage";
             this.slownieTabPage.Size = new System.Drawing.Size(632, 187);
@@ -245,11 +260,75 @@
             // wartoscSliderTextBox
             // 
             this.wartoscSliderTextBox.Enabled = false;
-            this.wartoscSliderTextBox.Location = new System.Drawing.Point(439, 78);
+            this.wartoscSliderTextBox.Location = new System.Drawing.Point(282, 118);
             this.wartoscSliderTextBox.Name = "wartoscSliderTextBox";
             this.wartoscSliderTextBox.Size = new System.Drawing.Size(51, 20);
             this.wartoscSliderTextBox.TabIndex = 6;
             this.wartoscSliderTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // slownieListBox
+            // 
+            this.slownieListBox.FormattingEnabled = true;
+            this.slownieListBox.Items.AddRange(new object[] {
+            "Brak",
+            "Słaba",
+            "Umiarkowana",
+            "Silna",
+            "Bardzo silna"});
+            this.slownieListBox.Location = new System.Drawing.Point(260, 54);
+            this.slownieListBox.Name = "slownieListBox";
+            this.slownieListBox.Size = new System.Drawing.Size(100, 82);
+            this.slownieListBox.TabIndex = 0;
+            // 
+            // liczbowoLabel
+            // 
+            this.liczbowoLabel.AutoSize = true;
+            this.liczbowoLabel.Location = new System.Drawing.Point(6, 12);
+            this.liczbowoLabel.Name = "liczbowoLabel";
+            this.liczbowoLabel.Size = new System.Drawing.Size(177, 13);
+            this.liczbowoLabel.TabIndex = 3;
+            this.liczbowoLabel.Text = "Dokonaj oceny względem kryterium ";
+            // 
+            // graficznieLabel
+            // 
+            this.graficznieLabel.AutoSize = true;
+            this.graficznieLabel.Location = new System.Drawing.Point(6, 13);
+            this.graficznieLabel.Name = "graficznieLabel";
+            this.graficznieLabel.Size = new System.Drawing.Size(177, 13);
+            this.graficznieLabel.TabIndex = 7;
+            this.graficznieLabel.Text = "Dokonaj oceny względem kryterium ";
+            // 
+            // slownieLabel
+            // 
+            this.slownieLabel.AutoSize = true;
+            this.slownieLabel.Location = new System.Drawing.Point(3, 12);
+            this.slownieLabel.Name = "slownieLabel";
+            this.slownieLabel.Size = new System.Drawing.Size(177, 13);
+            this.slownieLabel.TabIndex = 8;
+            this.slownieLabel.Text = "Dokonaj oceny względem kryterium ";
+            // 
+            // wierszSlownieTextBox
+            // 
+            this.wierszSlownieTextBox.Location = new System.Drawing.Point(260, 28);
+            this.wierszSlownieTextBox.Name = "wierszSlownieTextBox";
+            this.wierszSlownieTextBox.Size = new System.Drawing.Size(100, 20);
+            this.wierszSlownieTextBox.TabIndex = 9;
+            // 
+            // kolumnaSlownieTextBox
+            // 
+            this.kolumnaSlownieTextBox.Location = new System.Drawing.Point(260, 142);
+            this.kolumnaSlownieTextBox.Name = "kolumnaSlownieTextBox";
+            this.kolumnaSlownieTextBox.Size = new System.Drawing.Size(100, 20);
+            this.kolumnaSlownieTextBox.TabIndex = 10;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(366, 81);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(79, 13);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "w stosunku do:";
             // 
             // WagiPanel
             // 
@@ -273,6 +352,8 @@
             this.graficznieTabPage.ResumeLayout(false);
             this.graficznieTabPage.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.sliderTrackBar)).EndInit();
+            this.slownieTabPage.ResumeLayout(false);
+            this.slownieTabPage.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -297,5 +378,12 @@
         private System.Windows.Forms.TextBox kolumnaSilderTextBox;
         private System.Windows.Forms.TextBox wierszSliderTextBox;
         private System.Windows.Forms.TextBox wartoscSliderTextBox;
+        private System.Windows.Forms.Label liczbowoLabel;
+        private System.Windows.Forms.Label graficznieLabel;
+        private System.Windows.Forms.ListBox slownieListBox;
+        private System.Windows.Forms.Label slownieLabel;
+        private System.Windows.Forms.TextBox kolumnaSlownieTextBox;
+        private System.Windows.Forms.TextBox wierszSlownieTextBox;
+        private System.Windows.Forms.Label label1;
     }
 }

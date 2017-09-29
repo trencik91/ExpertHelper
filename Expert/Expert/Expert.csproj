@@ -66,6 +66,7 @@
     <Compile Include="Controllers\KryteriumController.cs" />
     <Compile Include="Controllers\WagaController.cs" />
     <Compile Include="Controllers\ObliczeniaController.cs" />
+    <Compile Include="Controllers\WynikController.cs" />
     <Compile Include="ExpertHelper.cs">
       <SubType>Form</SubType>
     </Compile>

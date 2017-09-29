@@ -41,7 +41,7 @@ namespace Expert
             uzupelnijProblemWarianty();
             listaIdKryteriow = KryteriumController.pobierzListeIdKryteriow();
             wartoscNumericUpDown.Maximum = MAKSYMALNA_WAGA;
-            sliderTrackBar.SetRange(0, MAKSYMALNA_WAGA);
+            sliderTrackBar.SetRange(0, MAKSYMALNA_WAGA * 100);
         }
 
         private void zatwierdzButton_Click(object sender, EventArgs e)
@@ -145,7 +145,8 @@ namespace Expert
                 if (!zaznaczonaKomorka.ReadOnly)
                 {
                     zaznaczonaKomorka.Value = wartoscNumericUpDown.Value;
-                    sliderTrackBar.Value = int.Parse(wartoscNumericUpDown.Value.ToString());
+                    int wartosc = Convert.ToInt32(double.Parse(wartoscNumericUpDown.Value.ToString()));
+                    sliderTrackBar.Value = wartosc * 100;
                     czyZmieniono = true;
                 }
                 else
@@ -240,7 +241,7 @@ namespace Expert
                     try
                     {
                         wartoscNumericUpDown.Value = wartoscKomorki;
-                        sliderTrackBar.Value = wartoscKomorki;
+                        sliderTrackBar.Value = wartoscKomorki * 100;
                     }
                     catch (ArgumentOutOfRangeException ex)
                     {
@@ -325,8 +326,9 @@ namespace Expert
             {
                 if (!zaznaczonaKomorka.ReadOnly)
                 {
-                    zaznaczonaKomorka.Value = sliderTrackBar.Value;
-                    wartoscNumericUpDown.Value = sliderTrackBar.Value;
+                    double wartosc = sliderTrackBar.Value / 100.00;
+                    zaznaczonaKomorka.Value = wartosc;
+                    wartoscNumericUpDown.Value = decimal.Parse(wartosc.ToString());
                     czyZmieniono = true;
                 }
                 else

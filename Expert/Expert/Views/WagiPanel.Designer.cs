@@ -40,11 +40,11 @@
             this.wierszTextBox = new System.Windows.Forms.TextBox();
             this.wartoscNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.graficznieTabPage = new System.Windows.Forms.TabPage();
-            this.slownieTabPage = new System.Windows.Forms.TabPage();
-            this.zatwierdzButton = new System.Windows.Forms.Button();
+            this.sliderTrackBar = new System.Windows.Forms.TrackBar();
             this.kolumnaSilderTextBox = new System.Windows.Forms.TextBox();
             this.wierszSliderTextBox = new System.Windows.Forms.TextBox();
-            this.sliderTrackBar = new System.Windows.Forms.TrackBar();
+            this.slownieTabPage = new System.Windows.Forms.TabPage();
+            this.zatwierdzButton = new System.Windows.Forms.Button();
             this.problemGroupBox.SuspendLayout();
             this.wariantyGroupBox.SuspendLayout();
             this.wagiGroupBox.SuspendLayout();
@@ -167,6 +167,12 @@
             // 
             // wartoscNumericUpDown
             // 
+            this.wartoscNumericUpDown.DecimalPlaces = 2;
+            this.wartoscNumericUpDown.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
             this.wartoscNumericUpDown.Location = new System.Drawing.Point(136, 42);
             this.wartoscNumericUpDown.Name = "wartoscNumericUpDown";
             this.wartoscNumericUpDown.Size = new System.Drawing.Size(120, 20);
@@ -186,6 +192,30 @@
             this.graficznieTabPage.Text = "Graficznie";
             this.graficznieTabPage.UseVisualStyleBackColor = true;
             // 
+            // sliderTrackBar
+            // 
+            this.sliderTrackBar.Location = new System.Drawing.Point(140, 66);
+            this.sliderTrackBar.Name = "sliderTrackBar";
+            this.sliderTrackBar.Size = new System.Drawing.Size(284, 45);
+            this.sliderTrackBar.TabIndex = 5;
+            this.sliderTrackBar.Scroll += new System.EventHandler(this.sliderTrackBar_Scroll);
+            // 
+            // kolumnaSilderTextBox
+            // 
+            this.kolumnaSilderTextBox.Enabled = false;
+            this.kolumnaSilderTextBox.Location = new System.Drawing.Point(224, 148);
+            this.kolumnaSilderTextBox.Name = "kolumnaSilderTextBox";
+            this.kolumnaSilderTextBox.Size = new System.Drawing.Size(121, 20);
+            this.kolumnaSilderTextBox.TabIndex = 4;
+            // 
+            // wierszSliderTextBox
+            // 
+            this.wierszSliderTextBox.Enabled = false;
+            this.wierszSliderTextBox.Location = new System.Drawing.Point(224, 16);
+            this.wierszSliderTextBox.Name = "wierszSliderTextBox";
+            this.wierszSliderTextBox.Size = new System.Drawing.Size(121, 20);
+            this.wierszSliderTextBox.TabIndex = 3;
+            // 
             // slownieTabPage
             // 
             this.slownieTabPage.Location = new System.Drawing.Point(4, 22);
@@ -204,30 +234,6 @@
             this.zatwierdzButton.Text = "Zatwierdź";
             this.zatwierdzButton.UseVisualStyleBackColor = true;
             this.zatwierdzButton.Click += new System.EventHandler(this.zatwierdzButton_Click);
-            // 
-            // kolumnaSilderTextBox
-            // 
-            this.kolumnaSilderTextBox.Enabled = false;
-            this.kolumnaSilderTextBox.Location = new System.Drawing.Point(224, 148);
-            this.kolumnaSilderTextBox.Name = "kolumnaSilderTextBox";
-            this.kolumnaSilderTextBox.Size = new System.Drawing.Size(121, 20);
-            this.kolumnaSilderTextBox.TabIndex = 4;
-            // 
-            // wierszSliderTextBox
-            // 
-            this.wierszSliderTextBox.Enabled = false;
-            this.wierszSliderTextBox.Location = new System.Drawing.Point(224, 16);
-            this.wierszSliderTextBox.Name = "wierszSliderTextBox";
-            this.wierszSliderTextBox.Size = new System.Drawing.Size(121, 20);
-            this.wierszSliderTextBox.TabIndex = 3;
-            // 
-            // sliderTrackBar
-            // 
-            this.sliderTrackBar.Location = new System.Drawing.Point(140, 66);
-            this.sliderTrackBar.Name = "sliderTrackBar";
-            this.sliderTrackBar.Size = new System.Drawing.Size(284, 45);
-            this.sliderTrackBar.TabIndex = 5;
-            this.sliderTrackBar.Scroll += new System.EventHandler(this.sliderTrackBar_Scroll);
             // 
             // WagiPanel
             // 

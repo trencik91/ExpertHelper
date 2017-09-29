@@ -36,23 +36,23 @@
             this.wagiDataGridView = new System.Windows.Forms.DataGridView();
             this.wagiTabControl = new System.Windows.Forms.TabControl();
             this.liczbowoTabPage = new System.Windows.Forms.TabPage();
+            this.liczbowoLabel = new System.Windows.Forms.Label();
             this.kolumnaTextBox = new System.Windows.Forms.TextBox();
             this.wierszTextBox = new System.Windows.Forms.TextBox();
             this.wartoscNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.graficznieTabPage = new System.Windows.Forms.TabPage();
+            this.graficznieLabel = new System.Windows.Forms.Label();
+            this.wartoscSliderTextBox = new System.Windows.Forms.TextBox();
             this.sliderTrackBar = new System.Windows.Forms.TrackBar();
             this.kolumnaSilderTextBox = new System.Windows.Forms.TextBox();
             this.wierszSliderTextBox = new System.Windows.Forms.TextBox();
             this.slownieTabPage = new System.Windows.Forms.TabPage();
-            this.zatwierdzButton = new System.Windows.Forms.Button();
-            this.wartoscSliderTextBox = new System.Windows.Forms.TextBox();
-            this.slownieListBox = new System.Windows.Forms.ListBox();
-            this.liczbowoLabel = new System.Windows.Forms.Label();
-            this.graficznieLabel = new System.Windows.Forms.Label();
-            this.slownieLabel = new System.Windows.Forms.Label();
-            this.wierszSlownieTextBox = new System.Windows.Forms.TextBox();
-            this.kolumnaSlownieTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.kolumnaSlownieTextBox = new System.Windows.Forms.TextBox();
+            this.wierszSlownieTextBox = new System.Windows.Forms.TextBox();
+            this.slownieLabel = new System.Windows.Forms.Label();
+            this.slownieListBox = new System.Windows.Forms.ListBox();
+            this.zatwierdzButton = new System.Windows.Forms.Button();
             this.problemGroupBox.SuspendLayout();
             this.wariantyGroupBox.SuspendLayout();
             this.wagiGroupBox.SuspendLayout();
@@ -159,6 +159,15 @@
             this.liczbowoTabPage.Text = "Liczbowo";
             this.liczbowoTabPage.UseVisualStyleBackColor = true;
             // 
+            // liczbowoLabel
+            // 
+            this.liczbowoLabel.AutoSize = true;
+            this.liczbowoLabel.Location = new System.Drawing.Point(6, 12);
+            this.liczbowoLabel.Name = "liczbowoLabel";
+            this.liczbowoLabel.Size = new System.Drawing.Size(177, 13);
+            this.liczbowoLabel.TabIndex = 3;
+            this.liczbowoLabel.Text = "Dokonaj oceny względem kryterium ";
+            // 
             // kolumnaTextBox
             // 
             this.kolumnaTextBox.Enabled = false;
@@ -207,6 +216,24 @@
             this.graficznieTabPage.Text = "Graficznie";
             this.graficznieTabPage.UseVisualStyleBackColor = true;
             // 
+            // graficznieLabel
+            // 
+            this.graficznieLabel.AutoSize = true;
+            this.graficznieLabel.Location = new System.Drawing.Point(6, 13);
+            this.graficznieLabel.Name = "graficznieLabel";
+            this.graficznieLabel.Size = new System.Drawing.Size(177, 13);
+            this.graficznieLabel.TabIndex = 7;
+            this.graficznieLabel.Text = "Dokonaj oceny względem kryterium ";
+            // 
+            // wartoscSliderTextBox
+            // 
+            this.wartoscSliderTextBox.Enabled = false;
+            this.wartoscSliderTextBox.Location = new System.Drawing.Point(296, 118);
+            this.wartoscSliderTextBox.Name = "wartoscSliderTextBox";
+            this.wartoscSliderTextBox.Size = new System.Drawing.Size(37, 20);
+            this.wartoscSliderTextBox.TabIndex = 6;
+            this.wartoscSliderTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
             // sliderTrackBar
             // 
             this.sliderTrackBar.Location = new System.Drawing.Point(171, 67);
@@ -247,24 +274,39 @@
             this.slownieTabPage.Text = "Słownie";
             this.slownieTabPage.UseVisualStyleBackColor = true;
             // 
-            // zatwierdzButton
+            // label1
             // 
-            this.zatwierdzButton.Location = new System.Drawing.Point(920, 341);
-            this.zatwierdzButton.Name = "zatwierdzButton";
-            this.zatwierdzButton.Size = new System.Drawing.Size(75, 23);
-            this.zatwierdzButton.TabIndex = 4;
-            this.zatwierdzButton.Text = "Zatwierdź";
-            this.zatwierdzButton.UseVisualStyleBackColor = true;
-            this.zatwierdzButton.Click += new System.EventHandler(this.zatwierdzButton_Click);
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(366, 81);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(79, 13);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "w stosunku do:";
             // 
-            // wartoscSliderTextBox
+            // kolumnaSlownieTextBox
             // 
-            this.wartoscSliderTextBox.Enabled = false;
-            this.wartoscSliderTextBox.Location = new System.Drawing.Point(282, 118);
-            this.wartoscSliderTextBox.Name = "wartoscSliderTextBox";
-            this.wartoscSliderTextBox.Size = new System.Drawing.Size(51, 20);
-            this.wartoscSliderTextBox.TabIndex = 6;
-            this.wartoscSliderTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.kolumnaSlownieTextBox.Location = new System.Drawing.Point(260, 142);
+            this.kolumnaSlownieTextBox.Name = "kolumnaSlownieTextBox";
+            this.kolumnaSlownieTextBox.Size = new System.Drawing.Size(100, 20);
+            this.kolumnaSlownieTextBox.TabIndex = 10;
+            this.kolumnaSlownieTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // wierszSlownieTextBox
+            // 
+            this.wierszSlownieTextBox.Location = new System.Drawing.Point(260, 28);
+            this.wierszSlownieTextBox.Name = "wierszSlownieTextBox";
+            this.wierszSlownieTextBox.Size = new System.Drawing.Size(100, 20);
+            this.wierszSlownieTextBox.TabIndex = 9;
+            this.wierszSlownieTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // slownieLabel
+            // 
+            this.slownieLabel.AutoSize = true;
+            this.slownieLabel.Location = new System.Drawing.Point(3, 12);
+            this.slownieLabel.Name = "slownieLabel";
+            this.slownieLabel.Size = new System.Drawing.Size(177, 13);
+            this.slownieLabel.TabIndex = 8;
+            this.slownieLabel.Text = "Dokonaj oceny względem kryterium ";
             // 
             // slownieListBox
             // 
@@ -279,56 +321,17 @@
             this.slownieListBox.Name = "slownieListBox";
             this.slownieListBox.Size = new System.Drawing.Size(100, 82);
             this.slownieListBox.TabIndex = 0;
+            this.slownieListBox.SelectedValueChanged += new System.EventHandler(this.slownieListBox_SelectedValueChanged);
             // 
-            // liczbowoLabel
+            // zatwierdzButton
             // 
-            this.liczbowoLabel.AutoSize = true;
-            this.liczbowoLabel.Location = new System.Drawing.Point(6, 12);
-            this.liczbowoLabel.Name = "liczbowoLabel";
-            this.liczbowoLabel.Size = new System.Drawing.Size(177, 13);
-            this.liczbowoLabel.TabIndex = 3;
-            this.liczbowoLabel.Text = "Dokonaj oceny względem kryterium ";
-            // 
-            // graficznieLabel
-            // 
-            this.graficznieLabel.AutoSize = true;
-            this.graficznieLabel.Location = new System.Drawing.Point(6, 13);
-            this.graficznieLabel.Name = "graficznieLabel";
-            this.graficznieLabel.Size = new System.Drawing.Size(177, 13);
-            this.graficznieLabel.TabIndex = 7;
-            this.graficznieLabel.Text = "Dokonaj oceny względem kryterium ";
-            // 
-            // slownieLabel
-            // 
-            this.slownieLabel.AutoSize = true;
-            this.slownieLabel.Location = new System.Drawing.Point(3, 12);
-            this.slownieLabel.Name = "slownieLabel";
-            this.slownieLabel.Size = new System.Drawing.Size(177, 13);
-            this.slownieLabel.TabIndex = 8;
-            this.slownieLabel.Text = "Dokonaj oceny względem kryterium ";
-            // 
-            // wierszSlownieTextBox
-            // 
-            this.wierszSlownieTextBox.Location = new System.Drawing.Point(260, 28);
-            this.wierszSlownieTextBox.Name = "wierszSlownieTextBox";
-            this.wierszSlownieTextBox.Size = new System.Drawing.Size(100, 20);
-            this.wierszSlownieTextBox.TabIndex = 9;
-            // 
-            // kolumnaSlownieTextBox
-            // 
-            this.kolumnaSlownieTextBox.Location = new System.Drawing.Point(260, 142);
-            this.kolumnaSlownieTextBox.Name = "kolumnaSlownieTextBox";
-            this.kolumnaSlownieTextBox.Size = new System.Drawing.Size(100, 20);
-            this.kolumnaSlownieTextBox.TabIndex = 10;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(366, 81);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(79, 13);
-            this.label1.TabIndex = 11;
-            this.label1.Text = "w stosunku do:";
+            this.zatwierdzButton.Location = new System.Drawing.Point(920, 341);
+            this.zatwierdzButton.Name = "zatwierdzButton";
+            this.zatwierdzButton.Size = new System.Drawing.Size(75, 23);
+            this.zatwierdzButton.TabIndex = 4;
+            this.zatwierdzButton.Text = "Zatwierdź";
+            this.zatwierdzButton.UseVisualStyleBackColor = true;
+            this.zatwierdzButton.Click += new System.EventHandler(this.zatwierdzButton_Click);
             // 
             // WagiPanel
             // 

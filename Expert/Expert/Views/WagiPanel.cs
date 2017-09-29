@@ -153,11 +153,77 @@ namespace Expert
                     sliderTrackBar.Value = wartosc * 100;
                     wartoscSliderTextBox.Text = wartoscNumericUpDown.Value.ToString();
                     czyZmieniono = true;
+                    ustawListe(wartoscNumericUpDown.Value);
                 }
                 else
                 {
                     wartoscNumericUpDown.Enabled = false;
                 }
+            }
+        }
+
+        private void wagiDataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            DataGridViewCell cell = wagiDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex];
+
+            double wartoscKomorki = 0.0;
+
+            bool czyLiczba = double.TryParse(cell.Value.ToString(), out wartoscKomorki);
+
+            if (czyLiczba && !cell.ReadOnly)
+            {
+                cell.ToolTipText = "Wartość wagi może wynosić maksymalnie: " + MAKSYMALNA_WAGA;
+            }
+            else if (cell.ReadOnly)
+            {
+                cell.ToolTipText = "Wartości tej komórki nie można edytować";
+            }
+        }
+
+        private void wagiDataGridView_CellLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            int rowIndex = e.RowIndex;
+            int columnIndex = e.ColumnIndex;
+
+            if (null != wagiDataGridView.Rows[rowIndex].Cells[columnIndex])
+            {
+                poprzedniaZaznaczonaKomorka = wagiDataGridView.Rows[rowIndex].Cells[columnIndex];
+            }
+            else
+            {
+                poprzedniaZaznaczonaKomorka = null;
+            }
+        }
+
+        private void sliderTrackBar_Scroll(object sender, EventArgs e)
+        {
+            if (null != zaznaczonaKomorka)
+            {
+                if (!zaznaczonaKomorka.ReadOnly)
+                {
+                    double wartosc = sliderTrackBar.Value / 100.00;
+                    zaznaczonaKomorka.Value = wartosc;
+                    wartoscNumericUpDown.Value = decimal.Parse(wartosc.ToString());
+                    wartoscSliderTextBox.Text = wartosc.ToString();
+                    ustawListe(decimal.Parse(wartosc.ToString()));
+                    czyZmieniono = true;
+                }
+                else
+                {
+                    sliderTrackBar.Enabled = false;
+                }
+            }
+        }
+
+        private void slownieListBox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (null != zaznaczonaKomorka)
+            {
+                decimal wartosc = stworzWageListy();
+                zaznaczonaKomorka.Value = wartosc;
+                wartoscNumericUpDown.Value = wartosc;
+                double wartoscDouble = Convert.ToDouble(wartosc) * 100;
+                sliderTrackBar.Value = int.Parse(wartoscDouble.ToString());
             }
         }
 
@@ -299,55 +365,48 @@ namespace Expert
             return listaWag;
         }
 
-        private void wagiDataGridView_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        private decimal stworzWageListy()
         {
-            DataGridViewCell cell = wagiDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex];
-
-            double wartoscKomorki = 0.0;
-
-            bool czyLiczba = double.TryParse(cell.Value.ToString(), out wartoscKomorki);
-
-            if (czyLiczba && !cell.ReadOnly)
+            switch (slownieListBox.SelectedItem.ToString())
             {
-                cell.ToolTipText = "Wartość wagi może wynosić maksymalnie: " + MAKSYMALNA_WAGA;
-            }
-            else if (cell.ReadOnly)
-            {
-                cell.ToolTipText = "Wartości tej komórki nie można edytować";
+                case "Brak":
+                    return 0;
+                case "Słaba":
+                    return MAKSYMALNA_WAGA * Convert.ToDecimal(25) / Convert.ToDecimal(100);
+                case "Umiarkowana":
+                    return MAKSYMALNA_WAGA * Convert.ToDecimal(50) / Convert.ToDecimal(100);
+                case "Silna":
+                    return MAKSYMALNA_WAGA * Convert.ToDecimal(75) / Convert.ToDecimal(100);
+                case "Bardzo silna":
+                    return MAKSYMALNA_WAGA;
+                default:
+                    return 0;
             }
         }
 
-        private void wagiDataGridView_CellLeave(object sender, DataGridViewCellEventArgs e)
+        private void ustawListe(decimal waga)
         {
-            int rowIndex = e.RowIndex;
-            int columnIndex = e.ColumnIndex;
+            double wagaD = Convert.ToDouble(waga);
 
-            if (null != wagiDataGridView.Rows[rowIndex].Cells[columnIndex])
+            if (wagaD < 2.5)
             {
-                poprzedniaZaznaczonaKomorka = wagiDataGridView.Rows[rowIndex].Cells[columnIndex];
+                slownieListBox.SelectedItem = "Brak";
+            }
+            else if (wagaD >= 2.5 && wagaD < 5)
+            {
+                slownieListBox.SelectedItem = "Słaba";
+            }
+            else if (wagaD >= 5 && wagaD < 7.5)
+            {
+                slownieListBox.SelectedItem = "Umiarkowana";
+            }
+            else if (wagaD >= 7.5 && wagaD < 10)
+            {
+                slownieListBox.SelectedItem = "Silna";
             }
             else
             {
-                poprzedniaZaznaczonaKomorka = null;
-            }
-        }
-
-        private void sliderTrackBar_Scroll(object sender, EventArgs e)
-        {
-            if (null != zaznaczonaKomorka)
-            {
-                if (!zaznaczonaKomorka.ReadOnly)
-                {
-                    double wartosc = sliderTrackBar.Value / 100.00;
-                    zaznaczonaKomorka.Value = wartosc;
-                    wartoscNumericUpDown.Value = decimal.Parse(wartosc.ToString());
-                    wartoscSliderTextBox.Text = wartosc.ToString();
-                    czyZmieniono = true;
-                }
-                else
-                {
-                    sliderTrackBar.Enabled = false;
-                }
+                slownieListBox.SelectedItem = "Bardzo silna";
             }
         }
     }

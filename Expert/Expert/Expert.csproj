@@ -76,6 +76,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ExpertHelper.dbml</DependentUpon>
     </Compile>
+    <Compile Include="ObliczanieWag.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\KryteriumPanel.cs">

@@ -148,12 +148,11 @@ namespace Expert
             {
                 if (!zaznaczonaKomorka.ReadOnly)
                 {
-                    zaznaczonaKomorka.Value = wartoscNumericUpDown.Value;
                     int wartosc = Convert.ToInt32(double.Parse(wartoscNumericUpDown.Value.ToString()));
                     sliderTrackBar.Value = wartosc * 100;
                     wartoscSliderTextBox.Text = wartoscNumericUpDown.Value.ToString();
                     czyZmieniono = true;
-                    ustawListe(wartoscNumericUpDown.Value);
+                    zaznaczonaKomorka.Value = wartoscNumericUpDown.Value;
                 }
                 else
                 {
@@ -202,10 +201,9 @@ namespace Expert
                 if (!zaznaczonaKomorka.ReadOnly)
                 {
                     double wartosc = sliderTrackBar.Value / 100.00;
-                    zaznaczonaKomorka.Value = wartosc;
                     wartoscNumericUpDown.Value = decimal.Parse(wartosc.ToString());
                     wartoscSliderTextBox.Text = wartosc.ToString();
-                    ustawListe(decimal.Parse(wartosc.ToString()));
+                    zaznaczonaKomorka.Value = wartosc;
                     czyZmieniono = true;
                 }
                 else
@@ -215,9 +213,9 @@ namespace Expert
             }
         }
 
-        private void slownieListBox_SelectedValueChanged(object sender, EventArgs e)
+        private void slownieListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (null != zaznaczonaKomorka)
+            if (null != zaznaczonaKomorka && !zaznaczonaKomorka.ReadOnly)
             {
                 decimal wartosc = stworzWageListy();
                 zaznaczonaKomorka.Value = wartosc;
@@ -225,6 +223,13 @@ namespace Expert
                 double wartoscDouble = Convert.ToDouble(wartosc) * 100;
                 sliderTrackBar.Value = int.Parse(wartoscDouble.ToString());
             }
+        }
+
+        private void obliczButton_Click(object sender, EventArgs e)
+        {
+            DataTable wagi = ObliczanieWag.ustalMacierzWag((DataTable)wagiDataGridView.DataSource);
+
+            wagiDataGridView.DataSource = wagi;
         }
 
         private void zapiszWagi(IEnumerable<Waga> listaWag)
@@ -370,43 +375,17 @@ namespace Expert
             switch (slownieListBox.SelectedItem.ToString())
             {
                 case "Brak":
-                    return 0;
+                    return 1;
                 case "Słaba":
-                    return MAKSYMALNA_WAGA * Convert.ToDecimal(25) / Convert.ToDecimal(100);
+                    return 3;
                 case "Umiarkowana":
-                    return MAKSYMALNA_WAGA * Convert.ToDecimal(50) / Convert.ToDecimal(100);
+                    return 5;
                 case "Silna":
-                    return MAKSYMALNA_WAGA * Convert.ToDecimal(75) / Convert.ToDecimal(100);
+                    return 7;
                 case "Bardzo silna":
-                    return MAKSYMALNA_WAGA;
+                    return 9;
                 default:
                     return 0;
-            }
-        }
-
-        private void ustawListe(decimal waga)
-        {
-            double wagaD = Convert.ToDouble(waga);
-
-            if (wagaD < 2.5)
-            {
-                slownieListBox.SelectedItem = "Brak";
-            }
-            else if (wagaD >= 2.5 && wagaD < 5)
-            {
-                slownieListBox.SelectedItem = "Słaba";
-            }
-            else if (wagaD >= 5 && wagaD < 7.5)
-            {
-                slownieListBox.SelectedItem = "Umiarkowana";
-            }
-            else if (wagaD >= 7.5 && wagaD < 10)
-            {
-                slownieListBox.SelectedItem = "Silna";
-            }
-            else
-            {
-                slownieListBox.SelectedItem = "Bardzo silna";
             }
         }
     }

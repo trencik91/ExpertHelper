@@ -53,6 +53,7 @@
             this.slownieLabel = new System.Windows.Forms.Label();
             this.slownieListBox = new System.Windows.Forms.ListBox();
             this.zatwierdzButton = new System.Windows.Forms.Button();
+            this.obliczButton = new System.Windows.Forms.Button();
             this.problemGroupBox.SuspendLayout();
             this.wariantyGroupBox.SuspendLayout();
             this.wagiGroupBox.SuspendLayout();
@@ -321,11 +322,11 @@
             this.slownieListBox.Name = "slownieListBox";
             this.slownieListBox.Size = new System.Drawing.Size(100, 82);
             this.slownieListBox.TabIndex = 0;
-            this.slownieListBox.SelectedValueChanged += new System.EventHandler(this.slownieListBox_SelectedValueChanged);
+            this.slownieListBox.SelectedIndexChanged += new System.EventHandler(this.slownieListBox_SelectedIndexChanged);
             // 
             // zatwierdzButton
             // 
-            this.zatwierdzButton.Location = new System.Drawing.Point(920, 341);
+            this.zatwierdzButton.Location = new System.Drawing.Point(839, 341);
             this.zatwierdzButton.Name = "zatwierdzButton";
             this.zatwierdzButton.Size = new System.Drawing.Size(75, 23);
             this.zatwierdzButton.TabIndex = 4;
@@ -333,10 +334,21 @@
             this.zatwierdzButton.UseVisualStyleBackColor = true;
             this.zatwierdzButton.Click += new System.EventHandler(this.zatwierdzButton_Click);
             // 
+            // obliczButton
+            // 
+            this.obliczButton.Location = new System.Drawing.Point(920, 341);
+            this.obliczButton.Name = "obliczButton";
+            this.obliczButton.Size = new System.Drawing.Size(75, 23);
+            this.obliczButton.TabIndex = 5;
+            this.obliczButton.Text = "Oblicz";
+            this.obliczButton.UseVisualStyleBackColor = true;
+            this.obliczButton.Click += new System.EventHandler(this.obliczButton_Click);
+            // 
             // WagiPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.obliczButton);
             this.Controls.Add(this.zatwierdzButton);
             this.Controls.Add(this.wagiTabControl);
             this.Controls.Add(this.wagiGroupBox);
@@ -388,5 +400,6 @@
         private System.Windows.Forms.TextBox kolumnaSlownieTextBox;
         private System.Windows.Forms.TextBox wierszSlownieTextBox;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button obliczButton;
     }
 }

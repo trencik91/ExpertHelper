@@ -45,6 +45,7 @@
             this.wierszSliderTextBox = new System.Windows.Forms.TextBox();
             this.slownieTabPage = new System.Windows.Forms.TabPage();
             this.zatwierdzButton = new System.Windows.Forms.Button();
+            this.wartoscSliderTextBox = new System.Windows.Forms.TextBox();
             this.problemGroupBox.SuspendLayout();
             this.wariantyGroupBox.SuspendLayout();
             this.wagiGroupBox.SuspendLayout();
@@ -156,6 +157,7 @@
             this.kolumnaTextBox.Name = "kolumnaTextBox";
             this.kolumnaTextBox.Size = new System.Drawing.Size(100, 20);
             this.kolumnaTextBox.TabIndex = 2;
+            this.kolumnaTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // wierszTextBox
             // 
@@ -164,6 +166,7 @@
             this.wierszTextBox.Name = "wierszTextBox";
             this.wierszTextBox.Size = new System.Drawing.Size(100, 20);
             this.wierszTextBox.TabIndex = 1;
+            this.wierszTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // wartoscNumericUpDown
             // 
@@ -177,10 +180,12 @@
             this.wartoscNumericUpDown.Name = "wartoscNumericUpDown";
             this.wartoscNumericUpDown.Size = new System.Drawing.Size(120, 20);
             this.wartoscNumericUpDown.TabIndex = 0;
+            this.wartoscNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             this.wartoscNumericUpDown.ValueChanged += new System.EventHandler(this.wartoscNumericUpDown_ValueChanged);
             // 
             // graficznieTabPage
             // 
+            this.graficznieTabPage.Controls.Add(this.wartoscSliderTextBox);
             this.graficznieTabPage.Controls.Add(this.sliderTrackBar);
             this.graficznieTabPage.Controls.Add(this.kolumnaSilderTextBox);
             this.graficznieTabPage.Controls.Add(this.wierszSliderTextBox);
@@ -207,6 +212,7 @@
             this.kolumnaSilderTextBox.Name = "kolumnaSilderTextBox";
             this.kolumnaSilderTextBox.Size = new System.Drawing.Size(121, 20);
             this.kolumnaSilderTextBox.TabIndex = 4;
+            this.kolumnaSilderTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // wierszSliderTextBox
             // 
@@ -215,6 +221,7 @@
             this.wierszSliderTextBox.Name = "wierszSliderTextBox";
             this.wierszSliderTextBox.Size = new System.Drawing.Size(121, 20);
             this.wierszSliderTextBox.TabIndex = 3;
+            this.wierszSliderTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // slownieTabPage
             // 
@@ -234,6 +241,15 @@
             this.zatwierdzButton.Text = "Zatwierdź";
             this.zatwierdzButton.UseVisualStyleBackColor = true;
             this.zatwierdzButton.Click += new System.EventHandler(this.zatwierdzButton_Click);
+            // 
+            // wartoscSliderTextBox
+            // 
+            this.wartoscSliderTextBox.Enabled = false;
+            this.wartoscSliderTextBox.Location = new System.Drawing.Point(439, 78);
+            this.wartoscSliderTextBox.Name = "wartoscSliderTextBox";
+            this.wartoscSliderTextBox.Size = new System.Drawing.Size(51, 20);
+            this.wartoscSliderTextBox.TabIndex = 6;
+            this.wartoscSliderTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // WagiPanel
             // 
@@ -280,5 +296,6 @@
         private System.Windows.Forms.TrackBar sliderTrackBar;
         private System.Windows.Forms.TextBox kolumnaSilderTextBox;
         private System.Windows.Forms.TextBox wierszSliderTextBox;
+        private System.Windows.Forms.TextBox wartoscSliderTextBox;
     }
 }

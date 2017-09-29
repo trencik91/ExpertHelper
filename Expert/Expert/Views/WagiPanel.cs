@@ -147,6 +147,7 @@ namespace Expert
                     zaznaczonaKomorka.Value = wartoscNumericUpDown.Value;
                     int wartosc = Convert.ToInt32(double.Parse(wartoscNumericUpDown.Value.ToString()));
                     sliderTrackBar.Value = wartosc * 100;
+                    wartoscSliderTextBox.Text = wartoscNumericUpDown.Value.ToString();
                     czyZmieniono = true;
                 }
                 else
@@ -232,16 +233,16 @@ namespace Expert
 
             if (null != zaznaczonaKomorka)
             {
-                int wartoscKomorki = 0;
+                double wartoscKomorki = 0.0;
 
-                bool czyWartosc = int.TryParse(zaznaczonaKomorka.Value.ToString(), out wartoscKomorki);
+                bool czyWartosc = double.TryParse(zaznaczonaKomorka.Value.ToString().Replace('.', ','), out wartoscKomorki);
 
                 if (czyWartosc)
                 {
                     try
                     {
-                        wartoscNumericUpDown.Value = wartoscKomorki;
-                        sliderTrackBar.Value = wartoscKomorki * 100;
+                        wartoscNumericUpDown.Value = Convert.ToDecimal(wartoscKomorki);
+                        sliderTrackBar.Value = Convert.ToInt32(wartoscKomorki * 100);
                     }
                     catch (ArgumentOutOfRangeException ex)
                     {
@@ -329,6 +330,7 @@ namespace Expert
                     double wartosc = sliderTrackBar.Value / 100.00;
                     zaznaczonaKomorka.Value = wartosc;
                     wartoscNumericUpDown.Value = decimal.Parse(wartosc.ToString());
+                    wartoscSliderTextBox.Text = wartosc.ToString();
                     czyZmieniono = true;
                 }
                 else

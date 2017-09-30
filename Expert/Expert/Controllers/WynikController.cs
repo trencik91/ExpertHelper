@@ -85,13 +85,13 @@ namespace Expert
             return listaWynikow;
         }
 
-        public static List<Wynik> pobierzWynikiCelu(int idCelu, int idKryterium, List<Kryterium> listaKryteriow)
+        public static List<Wynik> pobierzWynikiKryterium(int idCelu, int idKryterium, List<Kryterium> listaPodkryteriowWariantow)
         {
             ExpertHelperDataContext db = new ExpertHelperDataContext();
 
             List<Wynik> listaWynikow = new List<Wynik>();
 
-            foreach (Kryterium k in listaKryteriow)
+            foreach (Kryterium k in listaPodkryteriowWariantow)
             {
                 Wynik wynik = pobierzWynik(idCelu, k.ID, idKryterium, db);
                 listaWynikow.Add(wynik);

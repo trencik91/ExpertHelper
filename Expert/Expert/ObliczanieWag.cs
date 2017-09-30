@@ -87,7 +87,7 @@ namespace Expert
         { 
             List<Kryterium> listaWariantow = KryteriumController.pobierzListeWariantow(idCelu);
 
-            return WynikController.pobierzWynikiCelu(idCelu, idKryterium, listaWariantow);
+            return WynikController.pobierzWynikiKryterium(idCelu, idKryterium, listaWariantow);
         }
     }
 }

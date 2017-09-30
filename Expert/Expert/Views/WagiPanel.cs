@@ -24,6 +24,8 @@ namespace Expert
         private Dictionary<String, int> listaIdKryteriow = new Dictionary<String, int>();
         private Dictionary<int, String> listaNazwKryteriow = new Dictionary<int, string>();
 
+        private TreeNode listaNodow = null;
+
         private bool czyZmieniono = false;
 
         private const int MAKSYMALNA_WAGA = 10;
@@ -40,6 +42,7 @@ namespace Expert
             this.idCelu = idCelu;
             problemTreeView.Nodes.Clear();
             wariantyListBox.Items.Clear();
+            listaNodow = KryteriumController.pobierzDrzewo(idCelu);
             uzupelnijProblemWarianty();
             listaIdKryteriow = KryteriumController.pobierzListeIdKryteriow();
             listaNazwKryteriow = KryteriumController.pobierzListeNazwKryteriow();
@@ -59,7 +62,6 @@ namespace Expert
 
         private void uzupelnijProblemWarianty()
         {
-            TreeNode listaNodow = KryteriumController.pobierzDrzewo(idCelu);
             problemTreeView.Nodes.AddRange(new TreeNode[] { listaNodow });
 
             DataTable tabelaWariantow = KryteriumController.pobierzTabeleWariantow(idCelu);
@@ -425,20 +427,20 @@ namespace Expert
             }
         }
 
-        private void wynikiButton_Click(object sender, EventArgs e)
+        private void wagiButton_Click(object sender, EventArgs e)
         {
             DataTable dt = new DataTable();
             dt.Columns.Add(listaNazwKryteriow[idKryterium]);
             dt.Columns.Add("Waga");
 
-            List<Kryterium> listaKryteriow = KryteriumController.pobierzListePodkryteriow(idKryterium);
+            List<Kryterium> listaPodkryteriowWariantow = KryteriumController.pobierzListePodkryteriow(idKryterium);
 
-            if (listaKryteriow.Count == 0)
+            if (listaPodkryteriowWariantow.Count == 0)
             {
-                listaKryteriow = KryteriumController.pobierzListeWariantow(idKryterium);
+                listaPodkryteriowWariantow = KryteriumController.pobierzListeWariantow(idKryterium);
             }
 
-            List<Wynik> listaWynikow = WynikController.pobierzWynikiCelu(idCelu, idKryterium, listaKryteriow);
+            List<Wynik> listaWynikow = WynikController.pobierzWynikiKryterium(idCelu, idKryterium, listaPodkryteriowWariantow);
 
             listaWynikow.ForEach(w =>
             {
@@ -452,7 +454,11 @@ namespace Expert
             {
                 wagiDataGridView.DataSource = dt;
             }
+        }
 
+        private void wynikButton_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

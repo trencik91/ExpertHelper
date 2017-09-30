@@ -55,7 +55,8 @@
             this.zatwierdzButton = new System.Windows.Forms.Button();
             this.obliczButton = new System.Windows.Forms.Button();
             this.zapiszButton = new System.Windows.Forms.Button();
-            this.wynikiButton = new System.Windows.Forms.Button();
+            this.wagiButton = new System.Windows.Forms.Button();
+            this.wynikButton = new System.Windows.Forms.Button();
             this.problemGroupBox.SuspendLayout();
             this.wariantyGroupBox.SuspendLayout();
             this.wagiGroupBox.SuspendLayout();
@@ -328,7 +329,7 @@
             // 
             // zatwierdzButton
             // 
-            this.zatwierdzButton.Location = new System.Drawing.Point(758, 341);
+            this.zatwierdzButton.Location = new System.Drawing.Point(588, 341);
             this.zatwierdzButton.Name = "zatwierdzButton";
             this.zatwierdzButton.Size = new System.Drawing.Size(75, 23);
             this.zatwierdzButton.TabIndex = 4;
@@ -338,17 +339,17 @@
             // 
             // obliczButton
             // 
-            this.obliczButton.Location = new System.Drawing.Point(839, 341);
+            this.obliczButton.Location = new System.Drawing.Point(669, 341);
             this.obliczButton.Name = "obliczButton";
             this.obliczButton.Size = new System.Drawing.Size(75, 23);
             this.obliczButton.TabIndex = 5;
-            this.obliczButton.Text = "Oblicz";
+            this.obliczButton.Text = "Oblicz wagi";
             this.obliczButton.UseVisualStyleBackColor = true;
             this.obliczButton.Click += new System.EventHandler(this.obliczButton_Click);
             // 
             // zapiszButton
             // 
-            this.zapiszButton.Location = new System.Drawing.Point(920, 341);
+            this.zapiszButton.Location = new System.Drawing.Point(750, 341);
             this.zapiszButton.Name = "zapiszButton";
             this.zapiszButton.Size = new System.Drawing.Size(75, 23);
             this.zapiszButton.TabIndex = 6;
@@ -356,21 +357,32 @@
             this.zapiszButton.UseVisualStyleBackColor = true;
             this.zapiszButton.Click += new System.EventHandler(this.zapiszButton_Click);
             // 
-            // wynikiButton
+            // wagiButton
             // 
-            this.wynikiButton.Location = new System.Drawing.Point(355, 341);
-            this.wynikiButton.Name = "wynikiButton";
-            this.wynikiButton.Size = new System.Drawing.Size(75, 23);
-            this.wynikiButton.TabIndex = 7;
-            this.wynikiButton.Text = "Wyniki";
-            this.wynikiButton.UseVisualStyleBackColor = true;
-            this.wynikiButton.Click += new System.EventHandler(this.wynikiButton_Click);
+            this.wagiButton.Location = new System.Drawing.Point(355, 341);
+            this.wagiButton.Name = "wagiButton";
+            this.wagiButton.Size = new System.Drawing.Size(75, 23);
+            this.wagiButton.TabIndex = 7;
+            this.wagiButton.Text = "Wagi";
+            this.wagiButton.UseVisualStyleBackColor = true;
+            this.wagiButton.Click += new System.EventHandler(this.wagiButton_Click);
+            // 
+            // wynikButton
+            // 
+            this.wynikButton.Location = new System.Drawing.Point(920, 343);
+            this.wynikButton.Name = "wynikButton";
+            this.wynikButton.Size = new System.Drawing.Size(75, 23);
+            this.wynikButton.TabIndex = 8;
+            this.wynikButton.Text = "Wynik";
+            this.wynikButton.UseVisualStyleBackColor = true;
+            this.wynikButton.Click += new System.EventHandler(this.wynikButton_Click);
             // 
             // WagiPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.wynikiButton);
+            this.Controls.Add(this.wynikButton);
+            this.Controls.Add(this.wagiButton);
             this.Controls.Add(this.zapiszButton);
             this.Controls.Add(this.obliczButton);
             this.Controls.Add(this.zatwierdzButton);
@@ -426,6 +438,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button obliczButton;
         private System.Windows.Forms.Button zapiszButton;
-        private System.Windows.Forms.Button wynikiButton;
+        private System.Windows.Forms.Button wagiButton;
+        private System.Windows.Forms.Button wynikButton;
     }
 }

@@ -458,7 +458,45 @@ namespace Expert
 
         private void wynikButton_Click(object sender, EventArgs e)
         {
-            
+            List<Wynik> listaWynikow = WynikController.pobierzWynikiCelu(idCelu);
+            List<Kryterium> listaWariantow = KryteriumController.pobierzListeWariantow(idCelu);
+
+            foreach (Kryterium kryteriumWariant in listaWariantow)
+            {
+                decimal waga = 0;
+                decimal wagaMnozona = 1;
+
+                List<Wynik> listaWagWariantu = listaWynikow.Where(w => w.Kryterium1 == kryteriumWariant.ID).Select(w => new Wynik { ID = w.ID, Kryterium1 = w.Kryterium1, Kryterium2 = w.Kryterium2, Waga = w.Waga }).ToList();
+
+                foreach(Wynik w in listaWagWariantu)
+                {
+                    wagaMnozona = Convert.ToDecimal(w.Waga);
+
+                    int idKryterium2 = w.Kryterium2;
+
+                    do
+                    {
+                        wagaMnozona = wagaMnozona * pobierzWage(idKryterium2, listaWynikow);
+                    } while (idKryterium2 == idCelu);
+
+                    waga = waga + wagaMnozona;
+                }
+
+                Console.WriteLine(kryteriumWariant.ID + "   " + waga);
+            }
+        }
+
+        private decimal pobierzWage(int idKryterium2, IEnumerable<Wynik> listaWynikow)
+        {
+            decimal waga = 0;
+            bool czyPoprawne = decimal.TryParse(listaWynikow.Where(w => w.Kryterium1 == idKryterium2).Select(w => w.Waga).First().ToString(), out waga);
+
+            if(czyPoprawne)
+            {
+                return waga;
+            }
+
+            return 0;
         }
     }
 }

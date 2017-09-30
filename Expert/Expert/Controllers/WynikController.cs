@@ -18,13 +18,6 @@ namespace Expert
             ExpertHelperDataContext db = new ExpertHelperDataContext();
             db.Wyniks.InsertAllOnSubmit(listaWynikow);
             db.SubmitChanges();
-
-            List<Wynik> lw = pobierzWszystkieWyniki(db);
-
-            foreach (Wynik w in lw)
-            {
-                Console.WriteLine(w.ID + "   " + w.KryteriumGlowne + "   " + w.Kryterium1 + "   " + w.Kryterium2 + "   " + w.Waga);
-            }
         }
 
         public static void dodajWynik(int kryteriumGlowne, int idKryteriumJeden, int idKryteriumDwa, double wartosc, ExpertHelperDataContext db)
@@ -94,6 +87,33 @@ namespace Expert
             foreach (Kryterium k in listaPodkryteriowWariantow)
             {
                 Wynik wynik = pobierzWynik(idCelu, k.ID, idKryterium, db);
+                listaWynikow.Add(wynik);
+            }
+
+            return listaWynikow;
+        }
+
+        public static List<Wynik> pobierzWynikiCelu(int idCelu)
+        {
+            ExpertHelperDataContext db = new ExpertHelperDataContext();
+
+            List<Wynik> listaWynikow = new List<Wynik>();
+
+            var lista = from w in db.Wyniks
+                        where w.KryteriumGlowne == idCelu
+                        select w;
+
+            foreach(var w in lista)
+            {
+                Wynik wynik = new Wynik()
+                {
+                    ID = w.ID,
+                    KryteriumGlowne = w.KryteriumGlowne,
+                    Kryterium1 = w.Kryterium1,
+                    Kryterium2 = w.Kryterium2,
+                    Waga = w.Waga
+                };
+
                 listaWynikow.Add(wynik);
             }
 

@@ -290,6 +290,23 @@ namespace Expert
             return listaIdKryteriow;
         }
 
+        public static Dictionary<int, String> pobierzListeNazwKryteriow()
+        {
+            Dictionary<int, String> listaIdKryteriow = new Dictionary<int, String>();
+
+            ExpertHelperDataContext db = new ExpertHelperDataContext();
+
+            var lista = from w in db.Kryteriums
+                        select w;
+
+            foreach (var w in lista)
+            {
+                listaIdKryteriow.Add(w.ID, w.Nazwa);
+            }
+
+            return listaIdKryteriow;
+        }
+
         private static TreeNode stworzDrzewo(TreeNode root)
         {
             List<Kryterium> listaDzieci = pobierzListePodkryteriow(int.Parse(root.Name.ToString()));

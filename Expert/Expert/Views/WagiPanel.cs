@@ -16,11 +16,13 @@ namespace Expert
         private Form mainForm;
 
         private int idCelu = 0;
+        private int idKryterium = 0;
 
         private DataGridViewCell zaznaczonaKomorka = null;
         private DataGridViewCell poprzedniaZaznaczonaKomorka = null;
 
         private Dictionary<String, int> listaIdKryteriow = new Dictionary<String, int>();
+        private Dictionary<int, String> listaNazwKryteriow = new Dictionary<int, string>();
 
         private bool czyZmieniono = false;
 
@@ -40,6 +42,7 @@ namespace Expert
             wariantyListBox.Items.Clear();
             uzupelnijProblemWarianty();
             listaIdKryteriow = KryteriumController.pobierzListeIdKryteriow();
+            listaNazwKryteriow = KryteriumController.pobierzListeNazwKryteriow();
             wartoscNumericUpDown.Maximum = MAKSYMALNA_WAGA;
             sliderTrackBar.SetRange(0, MAKSYMALNA_WAGA * 100);
         }
@@ -100,13 +103,13 @@ namespace Expert
                 try
                 {
                     TreeNode item = problemTreeView.SelectedNode;
-                    int id = int.Parse(item.Name.ToString());
+                    idKryterium = int.Parse(item.Name.ToString());
 
                     liczbowoLabel.Text = "Dokonaj oceny względem kryterium " + item.Text;
                     graficznieLabel.Text = "Dokonaj oceny względem kryterium " + item.Text;
                     slownieLabel.Text = "Dokonaj oceny względem kryterium " + item.Text;
 
-                    stworzKolumnyDataGrid(GridViewController.stworzTabeleWag(idCelu, id, listaIdKryteriow));
+                    stworzKolumnyDataGrid(GridViewController.stworzTabeleWag(idCelu, idKryterium, listaIdKryteriow));
 
                     wagiTabControl.Visible = true;
                 }
@@ -420,6 +423,36 @@ namespace Expert
                     MessageBox.Show("Błąd przy tworzeniu identyfikatora danych! " + ex.ToString(), "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void wynikiButton_Click(object sender, EventArgs e)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add(listaNazwKryteriow[idKryterium]);
+            dt.Columns.Add("Waga");
+
+            List<Kryterium> listaKryteriow = KryteriumController.pobierzListePodkryteriow(idKryterium);
+
+            if (listaKryteriow.Count == 0)
+            {
+                listaKryteriow = KryteriumController.pobierzListeWariantow(idKryterium);
+            }
+
+            List<Wynik> listaWynikow = WynikController.pobierzWynikiCelu(idCelu, idKryterium, listaKryteriow);
+
+            listaWynikow.ForEach(w =>
+            {
+                DataRow dr = dt.NewRow();
+                dr[0] = listaNazwKryteriow[w.Kryterium1];
+                dr["Waga"] = w.Waga;
+                dt.Rows.Add(dr);
+            });
+
+            if (dt.Rows.Count > 0)
+            {
+                wagiDataGridView.DataSource = dt;
+            }
+
         }
     }
 }

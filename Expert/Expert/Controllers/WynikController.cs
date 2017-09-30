@@ -93,7 +93,7 @@ namespace Expert
 
             foreach (Kryterium k in listaKryteriow)
             {
-                Wynik wynik = pobierzWynik(idCelu, idKryterium, k.ID, db);
+                Wynik wynik = pobierzWynik(idCelu, k.ID, idKryterium, db);
                 listaWynikow.Add(wynik);
             }
 

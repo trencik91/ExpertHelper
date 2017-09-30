@@ -55,6 +55,7 @@
             this.zatwierdzButton = new System.Windows.Forms.Button();
             this.obliczButton = new System.Windows.Forms.Button();
             this.zapiszButton = new System.Windows.Forms.Button();
+            this.wynikiButton = new System.Windows.Forms.Button();
             this.problemGroupBox.SuspendLayout();
             this.wariantyGroupBox.SuspendLayout();
             this.wagiGroupBox.SuspendLayout();
@@ -355,10 +356,21 @@
             this.zapiszButton.UseVisualStyleBackColor = true;
             this.zapiszButton.Click += new System.EventHandler(this.zapiszButton_Click);
             // 
+            // wynikiButton
+            // 
+            this.wynikiButton.Location = new System.Drawing.Point(355, 341);
+            this.wynikiButton.Name = "wynikiButton";
+            this.wynikiButton.Size = new System.Drawing.Size(75, 23);
+            this.wynikiButton.TabIndex = 7;
+            this.wynikiButton.Text = "Wyniki";
+            this.wynikiButton.UseVisualStyleBackColor = true;
+            this.wynikiButton.Click += new System.EventHandler(this.wynikiButton_Click);
+            // 
             // WagiPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.wynikiButton);
             this.Controls.Add(this.zapiszButton);
             this.Controls.Add(this.obliczButton);
             this.Controls.Add(this.zatwierdzButton);
@@ -414,5 +426,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button obliczButton;
         private System.Windows.Forms.Button zapiszButton;
+        private System.Windows.Forms.Button wynikiButton;
     }
 }

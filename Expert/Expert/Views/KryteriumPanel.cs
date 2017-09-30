@@ -109,12 +109,20 @@ namespace Expert
 
         private void wagiButton_Click(object sender, EventArgs e)
         {
+            Console.WriteLine(liczbaPodkryteriow);
             if (wariantyListBox.Items.Count > 1)
             {
-                this.Visible = false;
-                WagiPanel wagiPanel = new WagiPanel(mainForm, kryteriumID);
-                mainForm.Controls.Add(wagiPanel);
-                wagiPanel.Visible = true;
+                if (liczbaPodkryteriow >= 2)
+                {
+                    this.Visible = false;
+                    WagiPanel wagiPanel = new WagiPanel(mainForm, kryteriumID);
+                    mainForm.Controls.Add(wagiPanel);
+                    wagiPanel.Visible = true;
+                }
+                else
+                {
+                    MessageBox.Show("Musisz dodać przynajmniej 2 podkryteria!", "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             else
             {

@@ -489,6 +489,7 @@ namespace Expert
             WynikPanel wynikPanel = new WynikPanel(listaWagWariantow);
             mainForm.Controls.Add(wynikPanel);
             wynikPanel.Visible = true;
+            this.Visible = false;
         }
 
         private decimal pobierzWage(int idKryterium2, IEnumerable<Wynik> listaWynikow)

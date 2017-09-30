@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace Expert
 {
@@ -27,6 +28,8 @@ namespace Expert
 
         private void setChartData()
         {
+            wynikChart = new Chart();
+
             DataTable dt = new DataTable();
             dt.Columns.Add("Wariant");
             dt.Columns.Add("Waga");
@@ -39,7 +42,13 @@ namespace Expert
                 dt.Rows.Add(dr);
             }
 
-            wynikChart.DataBindTable(dt.DefaultView, "Warianty");
+            var enumerableTable = (dt as IListSource).GetList();
+
+            wynikChart.DataBindTable(enumerableTable, "Wariant");
+
+            this.Controls.Add(wynikChart);
+
+            wynikChart.Visible = true;
         }
     }
 }

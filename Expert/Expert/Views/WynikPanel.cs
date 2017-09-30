@@ -44,7 +44,13 @@ namespace Expert
 
             var enumerableTable = (dt as IListSource).GetList();
 
-            wynikChart.DataBindTable(enumerableTable, "Wariant");
+            for(int i = 0; i<dt.Rows.Count;i++)
+            {
+                wynikChart.Series.Add(dt.Rows[i]["Wariant"].ToString());
+                wynikChart.Series["Wariant"].ChartType = SeriesChartType.Column;
+                wynikChart.Series[i].Points.AddY(dt.Rows[i]["Waga"].ToString());
+                wynikChart.Series["Series2"].ChartArea = "Wariant";
+            }
 
             this.Controls.Add(wynikChart);
 

@@ -460,6 +460,7 @@ namespace Expert
         {
             List<Wynik> listaWynikow = WynikController.pobierzWynikiCelu(idCelu);
             List<Kryterium> listaWariantow = KryteriumController.pobierzListeWariantow(idCelu);
+            Dictionary<int, decimal> listaWagWariantow = new Dictionary<int, decimal>();
 
             foreach (Kryterium kryteriumWariant in listaWariantow)
             {
@@ -468,7 +469,7 @@ namespace Expert
 
                 List<Wynik> listaWagWariantu = listaWynikow.Where(w => w.Kryterium1 == kryteriumWariant.ID).Select(w => new Wynik { ID = w.ID, Kryterium1 = w.Kryterium1, Kryterium2 = w.Kryterium2, Waga = w.Waga }).ToList();
 
-                foreach(Wynik w in listaWagWariantu)
+                foreach (Wynik w in listaWagWariantu)
                 {
                     wagaMnozona = Convert.ToDecimal(w.Waga);
 
@@ -482,18 +483,27 @@ namespace Expert
                     waga = waga + wagaMnozona;
                 }
 
-                Console.WriteLine(kryteriumWariant.ID + "   " + waga);
+                listaWagWariantow.Add(kryteriumWariant.ID, waga);
             }
+
+            WynikPanel wynikPanel = new WynikPanel(listaWagWariantow);
+            mainForm.Controls.Add(wynikPanel);
+            wynikPanel.Visible = true;
         }
 
         private decimal pobierzWage(int idKryterium2, IEnumerable<Wynik> listaWynikow)
         {
             decimal waga = 0;
-            bool czyPoprawne = decimal.TryParse(listaWynikow.Where(w => w.Kryterium1 == idKryterium2).Select(w => w.Waga).First().ToString(), out waga);
-
-            if(czyPoprawne)
+            double wagaDouble = listaWynikow.Where(w => w.Kryterium1 == idKryterium2).Select(w => w.Waga).FirstOrDefault();
+            
+            if (wagaDouble > 0)
             {
-                return waga;
+                bool czyPoprawne = decimal.TryParse(wagaDouble.ToString(), out waga);
+
+                if (czyPoprawne)
+                {
+                    return waga;
+                }
             }
 
             return 0;

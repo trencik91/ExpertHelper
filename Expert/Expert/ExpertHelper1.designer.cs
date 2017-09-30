@@ -45,7 +45,7 @@ namespace Expert
     #endregion
 		
 		public ExpertHelperDataContext() : 
-				base(global::Expert.Properties.Settings.Default.ExpertConnectionString1, mappingSource)
+				base(global::Expert.Properties.Settings.Default.ExpertConnectionString, mappingSource)
 		{
 			OnCreated();
 		}

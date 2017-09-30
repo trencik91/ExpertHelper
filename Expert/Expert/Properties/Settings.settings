@@ -10,8 +10,5 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database\Expert.mdf;Integrated Security=True</Value>
     </Setting>
-    <Setting Name="ExpertConnectionString1" Type="(Connection String)" Scope="Application">
-      <Value Profile="(Default)">Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database\Expert.mdf;Integrated Security=True;Connect Timeout=30</Value>
-    </Setting>
   </Settings>
 </SettingsFile>

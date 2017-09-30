@@ -388,5 +388,38 @@ namespace Expert
                     return 0;
             }
         }
+
+        private void zapiszButton_Click(object sender, EventArgs e)
+        {
+            DataTable tabelaWynikow = (DataTable)wagiDataGridView.DataSource;
+
+            List<Wynik> listaWynikow = new List<Wynik>();
+
+            if (null != problemTreeView.SelectedNode)
+            {
+                try
+                {
+                    foreach (DataRow dr in tabelaWynikow.Rows)
+                    {
+                        int idWiersza = listaIdKryteriow[dr[0].ToString()];
+                        int idKolumny = listaIdKryteriow[wagiDataGridView.Columns[0].HeaderCell.Value.ToString()];
+
+                        decimal value = decimal.Parse(dr["Waga"].ToString(), NumberStyles.AllowThousands | NumberStyles.AllowDecimalPoint | NumberStyles.AllowCurrencySymbol);
+
+                        double doubleValue = Convert.ToDouble(value);
+
+                        Wynik wynik = WynikController.stworzWynik(idCelu, idWiersza, idKolumny, doubleValue);
+
+                        listaWynikow.Add(wynik);
+                    }
+
+                    WynikController.dodajListeWynikow(listaWynikow);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Błąd przy tworzeniu identyfikatora danych! " + ex.ToString(), "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
     }
 }

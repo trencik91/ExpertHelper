@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Expert
+namespace Expert.Controllers
 {
     class WynikController
     {
@@ -41,7 +41,7 @@ namespace Expert
             db.SubmitChanges();
         }
 
-        public static Wynik pobierzWynik(int kryteriumGlowne, int idKryteriumJeden, int idKryteriumDwa, ExpertHelperDataContext db)
+        public static Wynik pobierzWage(int kryteriumGlowne, int idKryteriumJeden, int idKryteriumDwa, ExpertHelperDataContext db)
         {
             var wynik = (from w in db.Wyniks
                          where w.KryteriumGlowne == kryteriumGlowne && w.Kryterium1 == idKryteriumJeden && w.Kryterium2 == idKryteriumDwa
@@ -50,7 +50,7 @@ namespace Expert
             return wynik;
         }
 
-        public static Wynik stworzWynik(int kryteriumGlowne, int idKryteriumJeden, int idKryteriumDwa, double wartosc)
+        public static Wynik stworzWage(int kryteriumGlowne, int idKryteriumJeden, int idKryteriumDwa, double wartosc)
         {
             Wynik wynik = new Wynik();
             wynik.KryteriumGlowne = kryteriumGlowne;
@@ -61,7 +61,7 @@ namespace Expert
             return wynik;
         }
 
-        public static List<Wynik> pobierzWszystkieWyniki(ExpertHelperDataContext db)
+        public static List<Wynik> pobierzWszystkieWagi(ExpertHelperDataContext db)
         {
             List<Wynik> listaWynikow = new List<Wynik>();
 

@@ -39,7 +39,7 @@ namespace Expert
             return null;
         }
 
-        private static string stworzWierszObliczen(DataRow dr)
+        private static String stworzWierszObliczen(DataRow dr)
         {
             StringBuilder sb = new StringBuilder();
 

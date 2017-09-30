@@ -20,7 +20,7 @@ namespace Expert
         private DataGridViewCell zaznaczonaKomorka = null;
         private DataGridViewCell poprzedniaZaznaczonaKomorka = null;
 
-        private Dictionary<string, int> listaIdKryteriow = new Dictionary<string, int>();
+        private Dictionary<String, int> listaIdKryteriow = new Dictionary<String, int>();
 
         private bool czyZmieniono = false;
 
@@ -318,8 +318,8 @@ namespace Expert
                     int rowIndex = zaznaczonaKomorka.RowIndex;
                     int columnIndex = zaznaczonaKomorka.ColumnIndex;
 
-                    string wierszText = wagiDataGridView.Rows[rowIndex].Cells[0].Value.ToString();
-                    string kolumnaText = wagiDataGridView.Columns[columnIndex].HeaderText;
+                    String wierszText = wagiDataGridView.Rows[rowIndex].Cells[0].Value.ToString();
+                    String kolumnaText = wagiDataGridView.Columns[columnIndex].HeaderText;
 
                     wierszTextBox.Text = wierszText;
                     kolumnaTextBox.Text = kolumnaText;

@@ -14,7 +14,7 @@ namespace Expert
 
         }
 
-        public static DataTable stworzTabeleWag(int idCelu, int idKryterium, Dictionary<string, int> listaIdKryteriow)
+        public static DataTable stworzTabeleWag(int idCelu, int idKryterium, Dictionary<String, int> listaIdKryteriow)
         {
             DataTable tabelaWag = new DataTable();
             List<Kryterium> listaPodkryteriow = KryteriumController.pobierzListePodkryteriow(idKryterium);

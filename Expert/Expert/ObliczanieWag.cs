@@ -82,5 +82,21 @@ namespace Expert
 
             return macierzWag;
         }
+
+        public static List<int> pobierzWektorWag(int idCelu, int idKryterium)
+        {
+            List<int> wektorWagWariantow = new List<int>();
+
+            List<Kryterium> listaWariantow = KryteriumController.pobierzListeWariantow(idCelu);
+
+            List<Wynik> listaWynikow = WynikController.pobierzWynikiCelu(idCelu, idKryterium, listaWariantow);
+
+            foreach (Wynik w in listaWynikow)
+            {
+                Console.WriteLine(w.KryteriumGlowne + "   " + w.Kryterium1 + "   " + w.Kryterium2 + "   " + w.Waga);
+            }
+
+            return wektorWagWariantow;
+        }
     }
 }

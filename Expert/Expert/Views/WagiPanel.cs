@@ -109,6 +109,8 @@ namespace Expert
                     stworzKolumnyDataGrid(GridViewController.stworzTabeleWag(idCelu, id, listaIdKryteriow));
 
                     wagiTabControl.Visible = true;
+
+                    ObliczanieWag.pobierzWektorWag(idCelu, id);
                 }
                 catch (Exception ex)
                 {

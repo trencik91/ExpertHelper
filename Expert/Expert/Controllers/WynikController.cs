@@ -21,7 +21,7 @@ namespace Expert
 
             List<Wynik> lw = pobierzWszystkieWyniki(db);
 
-            foreach(Wynik w in lw)
+            foreach (Wynik w in lw)
             {
                 Console.WriteLine(w.ID + "   " + w.KryteriumGlowne + "   " + w.Kryterium1 + "   " + w.Kryterium2 + "   " + w.Waga);
             }
@@ -80,6 +80,21 @@ namespace Expert
                 };
 
                 listaWynikow.Add(w);
+            }
+
+            return listaWynikow;
+        }
+
+        public static List<Wynik> pobierzWynikiCelu(int idCelu, int idKryterium, List<Kryterium> listaKryteriow)
+        {
+            ExpertHelperDataContext db = new ExpertHelperDataContext();
+
+            List<Wynik> listaWynikow = new List<Wynik>();
+
+            foreach (Kryterium k in listaKryteriow)
+            {
+                Wynik wynik = pobierzWynik(idCelu, idKryterium, k.ID, db);
+                listaWynikow.Add(wynik);
             }
 
             return listaWynikow;

@@ -18,6 +18,13 @@ namespace Expert
             ExpertHelperDataContext db = new ExpertHelperDataContext();
             db.Wyniks.InsertAllOnSubmit(listaWynikow);
             db.SubmitChanges();
+
+            List<Wynik> lw = pobierzWszystkieWyniki(db);
+
+            foreach(Wynik w in lw)
+            {
+                Console.WriteLine(w.ID + "   " + w.KryteriumGlowne + "   " + w.Kryterium1 + "   " + w.Kryterium2 + "   " + w.Waga);
+            }
         }
 
         public static void dodajWynik(int kryteriumGlowne, int idKryteriumJeden, int idKryteriumDwa, double wartosc, ExpertHelperDataContext db)

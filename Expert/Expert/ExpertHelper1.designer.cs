@@ -45,7 +45,7 @@ namespace Expert
     #endregion
 		
 		public ExpertHelperDataContext() : 
-				base(global::Expert.Properties.Settings.Default.ExpertConnectionString1, mappingSource)
+				base(global::Expert.Properties.Settings.Default.ExpertConnectionstring1, mappingSource)
 		{
 			OnCreated();
 		}
@@ -111,7 +111,7 @@ namespace Expert
 	public partial class Kryterium : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(string.Empty);
 		
 		private int _ID;
 		
@@ -489,7 +489,7 @@ namespace Expert
 			}
 		}
 		
-		protected virtual void SendPropertyChanged(String propertyName)
+		protected virtual void SendPropertyChanged(string propertyName)
 		{
 			if ((this.PropertyChanged != null))
 			{
@@ -610,7 +610,7 @@ namespace Expert
 	public partial class Wynik : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(string.Empty);
 		
 		private int _ID;
 		
@@ -878,7 +878,7 @@ namespace Expert
 			}
 		}
 		
-		protected virtual void SendPropertyChanged(String propertyName)
+		protected virtual void SendPropertyChanged(string propertyName)
 		{
 			if ((this.PropertyChanged != null))
 			{
@@ -891,7 +891,7 @@ namespace Expert
 	public partial class Obliczenia : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(string.Empty);
 		
 		private int _ID;
 		
@@ -1094,7 +1094,7 @@ namespace Expert
 			}
 		}
 		
-		protected virtual void SendPropertyChanged(String propertyName)
+		protected virtual void SendPropertyChanged(string propertyName)
 		{
 			if ((this.PropertyChanged != null))
 			{
@@ -1107,7 +1107,7 @@ namespace Expert
 	public partial class Waga : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(string.Empty);
 		
 		private int _ID;
 		
@@ -1375,7 +1375,7 @@ namespace Expert
 			}
 		}
 		
-		protected virtual void SendPropertyChanged(String propertyName)
+		protected virtual void SendPropertyChanged(string propertyName)
 		{
 			if ((this.PropertyChanged != null))
 			{

@@ -15,7 +15,7 @@ namespace Expert
 
         }
 
-        public static Kryterium dodajKryterium(String nazwa, String opis, int idRodzica, bool czyWariant)
+        public static Kryterium dodajKryterium(string nazwa, string opis, int idRodzica, bool czyWariant)
         {
             ExpertHelperDataContext db = new ExpertHelperDataContext();
 
@@ -35,7 +35,7 @@ namespace Expert
             return kryterium;
         }
 
-        public static void edytujKryterium(int id, String nazwa, String opis, bool czyWariant)
+        public static void edytujKryterium(int id, string nazwa, string opis, bool czyWariant)
         {
             ExpertHelperDataContext db = new ExpertHelperDataContext();
 
@@ -273,9 +273,9 @@ namespace Expert
             return listaWariantow;
         }
 
-        public static Dictionary<String, int> pobierzListeIdKryteriow()
+        public static Dictionary<string, int> pobierzListeIdKryteriow()
         {
-            Dictionary<String, int> listaIdKryteriow = new Dictionary<string, int>();
+            Dictionary<string, int> listaIdKryteriow = new Dictionary<string, int>();
 
             ExpertHelperDataContext db = new ExpertHelperDataContext();
 

@@ -25,23 +25,23 @@ namespace Expert.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.Connectionstring)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Database\\Expe" +
             "rt.mdf;Integrated Security=True")]
-        public string ExpertConnectionString {
+        public string ExpertConnectionstring {
             get {
-                return ((string)(this["ExpertConnectionString"]));
+                return ((string)(this["ExpertConnectionstring"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.Connectionstring)]
         [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\\Database\\Expe" +
             "rt.mdf;Integrated Security=True;Connect Timeout=30")]
-        public string ExpertConnectionString1 {
+        public string ExpertConnectionstring1 {
             get {
-                return ((string)(this["ExpertConnectionString1"]));
+                return ((string)(this["ExpertConnectionstring1"]));
             }
         }
     }

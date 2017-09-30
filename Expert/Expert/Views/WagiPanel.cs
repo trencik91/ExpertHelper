@@ -20,7 +20,7 @@ namespace Expert
         private DataGridViewCell zaznaczonaKomorka = null;
         private DataGridViewCell poprzedniaZaznaczonaKomorka = null;
 
-        private Dictionary<String, int> listaIdKryteriow = new Dictionary<String, int>();
+        private Dictionary<string, int> listaIdKryteriow = new Dictionary<string, int>();
 
         private bool czyZmieniono = false;
 
@@ -242,25 +242,18 @@ namespace Expert
             {
                 try
                 {
-                    TreeNode item = problemTreeView.SelectedNode;
-                    int id = int.Parse(item.Name.ToString());
-
                     foreach (DataRow dr in tabelaWynikow.Rows)
                     {
-                        foreach (DataColumn dc in tabelaWynikow.Columns)
-                        {
-                            int idWiersza = listaIdKryteriow[dr[0].ToString()];
-                            int idKolumny = listaIdKryteriow[wagiDataGridView.Columns[dc.Ordinal].HeaderCell.Value.ToString()];
-                            int idGlowne = listaIdKryteriow[wagiDataGridView.Columns[0].HeaderCell.Value.ToString()];
+                        int idWiersza = listaIdKryteriow[dr[0].ToString()];
+                        int idKolumny = listaIdKryteriow[wagiDataGridView.Columns[0].HeaderCell.Value.ToString()];
 
-                            decimal value = decimal.Parse(dr.ToString(), NumberStyles.AllowThousands | NumberStyles.AllowDecimalPoint | NumberStyles.AllowCurrencySymbol);
+                        decimal value = decimal.Parse(dr["Waga"].ToString(), NumberStyles.AllowThousands | NumberStyles.AllowDecimalPoint | NumberStyles.AllowCurrencySymbol);
 
-                            double doubleValue = Convert.ToDouble(value);
+                        double doubleValue = Convert.ToDouble(value);
 
-                            Wynik wynik = WynikController.stworzWynik(idGlowne, idWiersza, idKolumny, doubleValue);
+                        Wynik wynik = WynikController.stworzWynik(idCelu, idWiersza, idKolumny, doubleValue);
 
-                            listaWynikow.Add(wynik);
-                        }
+                        listaWynikow.Add(wynik);
                     }
 
                     WynikController.dodajListeWynikow(listaWynikow);
@@ -323,8 +316,8 @@ namespace Expert
                     int rowIndex = zaznaczonaKomorka.RowIndex;
                     int columnIndex = zaznaczonaKomorka.ColumnIndex;
 
-                    String wierszText = wagiDataGridView.Rows[rowIndex].Cells[0].Value.ToString();
-                    String kolumnaText = wagiDataGridView.Columns[columnIndex].HeaderText;
+                    string wierszText = wagiDataGridView.Rows[rowIndex].Cells[0].Value.ToString();
+                    string kolumnaText = wagiDataGridView.Columns[columnIndex].HeaderText;
 
                     wierszTextBox.Text = wierszText;
                     kolumnaTextBox.Text = kolumnaText;

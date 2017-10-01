@@ -13,6 +13,7 @@ namespace Expert
 {
     public partial class WynikPanel : UserControl
     {
+        private int maksymalnaWaga;
         private Dictionary<int, decimal> listaWariantowWag = null;
 
         public WynikPanel()
@@ -20,15 +21,17 @@ namespace Expert
             InitializeComponent();
         }
 
-        public WynikPanel(Dictionary<int, decimal> listaWariantowWag)
+        public WynikPanel(Dictionary<int, decimal> listaWariantowWag, int maksymalnaWaga)
         {
+            InitializeComponent();
+            this.maksymalnaWaga = maksymalnaWaga;
             this.listaWariantowWag = listaWariantowWag;
             setChartData();
         }
 
         private void setChartData()
         {
-            wynikChart = new Chart();
+            ExpertHelperDataContext db = new ExpertHelperDataContext();
 
             DataTable dt = new DataTable();
             dt.Columns.Add("Wariant");
@@ -42,17 +45,23 @@ namespace Expert
                 dt.Rows.Add(dr);
             }
 
-            var enumerableTable = (dt as IListSource).GetList();
+            ChartArea area = new ChartArea("Wykres");
+            wynikChart.ChartAreas.Add(area);
 
-            for(int i = 0; i<dt.Rows.Count;i++)
+            foreach (KeyValuePair<int, decimal> wariant in listaWariantowWag)
             {
-                wynikChart.Series.Add(dt.Rows[i]["Wariant"].ToString());
-                wynikChart.Series["Wariant"].ChartType = SeriesChartType.Column;
-                wynikChart.Series[i].Points.AddY(dt.Rows[i]["Waga"].ToString());
-                wynikChart.Series["Series2"].ChartArea = "Wariant";
-            }
+                Kryterium kryterium = KryteriumController.pobierzKryterium(wariant.Key, db, true);
 
-            this.Controls.Add(wynikChart);
+                Series wykres = new Series(kryterium.Nazwa, maksymalnaWaga);
+                wynikChart.Series.Add(wykres);
+                wykres.ChartType = SeriesChartType.StackedBar;
+
+                Legend legend = new Legend(kryterium.Nazwa);
+                wykres.Legend = legend.Name;
+
+                wykres.ChartArea = "Wykres";
+                wynikChart.Series[kryterium.Nazwa].Points.AddXY(kryterium.Nazwa, Convert.ToDouble(wariant.Value));
+            }
 
             wynikChart.Visible = true;
         }

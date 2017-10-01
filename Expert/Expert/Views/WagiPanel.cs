@@ -486,7 +486,7 @@ namespace Expert
                 listaWagWariantow.Add(kryteriumWariant.ID, waga);
             }
 
-            WynikPanel wynikPanel = new WynikPanel(listaWagWariantow);
+            WynikPanel wynikPanel = new WynikPanel(listaWagWariantow, MAKSYMALNA_WAGA);
             mainForm.Controls.Add(wynikPanel);
             wynikPanel.Visible = true;
             this.Visible = false;
@@ -496,7 +496,7 @@ namespace Expert
         {
             decimal waga = 0;
             double wagaDouble = listaWynikow.Where(w => w.Kryterium1 == idKryterium2).Select(w => w.Waga).FirstOrDefault();
-            
+
             if (wagaDouble > 0)
             {
                 bool czyPoprawne = decimal.TryParse(wagaDouble.ToString(), out waga);

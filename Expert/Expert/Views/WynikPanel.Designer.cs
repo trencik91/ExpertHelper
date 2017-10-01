@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.wagiPanel = new System.Windows.Forms.Panel();
             this.wynikChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.wagiPanel.SuspendLayout();
@@ -49,15 +47,9 @@
             // 
             chartArea1.Name = "ChartArea1";
             this.wynikChart.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.wynikChart.Legends.Add(legend1);
             this.wynikChart.Location = new System.Drawing.Point(0, 3);
             this.wynikChart.Name = "wynikChart";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.wynikChart.Series.Add(series1);
-            this.wynikChart.Size = new System.Drawing.Size(1026, 636);
+            this.wynikChart.Size = new System.Drawing.Size(1026, 590);
             this.wynikChart.TabIndex = 0;
             this.wynikChart.Text = "Wynik";
             // 

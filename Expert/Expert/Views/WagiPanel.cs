@@ -486,7 +486,7 @@ namespace Expert
                 listaWagWariantow.Add(kryteriumWariant.ID, waga);
             }
 
-            WynikPanel wynikPanel = new WynikPanel(listaWagWariantow, MAKSYMALNA_WAGA);
+            WynikPanel wynikPanel = new WynikPanel(listaWagWariantow, idCelu, MAKSYMALNA_WAGA);
             mainForm.Controls.Add(wynikPanel);
             wynikPanel.Visible = true;
             this.Visible = false;

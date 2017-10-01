@@ -14,6 +14,8 @@ namespace Expert
     public partial class WynikPanel : UserControl
     {
         private int maksymalnaWaga;
+        private int idCelu;
+
         private Dictionary<int, decimal> listaWariantowWag = null;
 
         public WynikPanel()
@@ -21,11 +23,12 @@ namespace Expert
             InitializeComponent();
         }
 
-        public WynikPanel(Dictionary<int, decimal> listaWariantowWag, int maksymalnaWaga)
+        public WynikPanel(Dictionary<int, decimal> listaWariantowWag, int idCelu, int maksymalnaWaga)
         {
             InitializeComponent();
             this.maksymalnaWaga = maksymalnaWaga;
             this.listaWariantowWag = listaWariantowWag;
+            this.idCelu = idCelu;
             setChartData();
         }
 
@@ -45,6 +48,8 @@ namespace Expert
                 dt.Rows.Add(dr);
             }
 
+            Kryterium cel = KryteriumController.pobierzKryterium(idCelu, false);
+
             ChartArea area = new ChartArea("Wykres");
             wynikChart.ChartAreas.Add(area);
 
@@ -54,7 +59,7 @@ namespace Expert
 
                 Series wykres = new Series(kryterium.Nazwa, 1);
                 wynikChart.Series.Add(wykres);
-                wykres.ChartType = SeriesChartType.Bar;
+                wykres.ChartType = SeriesChartType.Column;
 
                 Legend legend = new Legend(kryterium.Nazwa);
                 wynikChart.Legends.Add(legend);
@@ -63,8 +68,11 @@ namespace Expert
 
                 wykres.ChartArea = "Wykres";
                 wynikChart.Series[kryterium.Nazwa].Points.AddXY(kryterium.Nazwa, Convert.ToDouble(wariant.Value));
+                wynikChart.Series[kryterium.Nazwa].Label = wariant.Value.ToString();
+                wynikChart.Series[kryterium.Nazwa].LegendText = kryterium.Nazwa;
             }
 
+            wynikChart.Name = "Ranking końcowy dla celu: " + cel.Nazwa;
             wynikChart.Visible = true;
         }
     }

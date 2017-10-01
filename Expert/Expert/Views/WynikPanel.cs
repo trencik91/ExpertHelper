@@ -52,11 +52,13 @@ namespace Expert
             {
                 Kryterium kryterium = KryteriumController.pobierzKryterium(wariant.Key, db, true);
 
-                Series wykres = new Series(kryterium.Nazwa, maksymalnaWaga);
+                Series wykres = new Series(kryterium.Nazwa, 1);
                 wynikChart.Series.Add(wykres);
-                wykres.ChartType = SeriesChartType.StackedBar;
+                wykres.ChartType = SeriesChartType.Bar;
 
                 Legend legend = new Legend(kryterium.Nazwa);
+                wynikChart.Legends.Add(legend);
+
                 wykres.Legend = legend.Name;
 
                 wykres.ChartArea = "Wykres";

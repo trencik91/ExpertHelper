@@ -65,6 +65,7 @@ namespace Expert
                 wynikChart.Legends.Add(legend);
 
                 wykres.Legend = legend.Name;
+                wykres.Label = kryterium.Nazwa;
 
                 wykres.ChartArea = "Wykres";
                 wynikChart.Series[kryterium.Nazwa].Points.AddXY(kryterium.Nazwa, Convert.ToDouble(wariant.Value));
@@ -72,7 +73,12 @@ namespace Expert
                 wynikChart.Series[kryterium.Nazwa].LegendText = kryterium.Nazwa;
             }
 
-            wynikChart.Name = "Ranking końcowy dla celu: " + cel.Nazwa;
+            Title tytul = new Title("Ranking końcowy dla celu: " + cel.Nazwa);
+            Font font = new Font(tytul.Font.FontFamily, 20, FontStyle.Bold);
+            tytul.Font = font;
+
+            wynikChart.Titles.Add(tytul);
+
             wynikChart.Visible = true;
         }
     }

@@ -45,11 +45,14 @@
             // 
             // wynikChart
             // 
+            this.wynikChart.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             chartArea1.Name = "ChartArea1";
             this.wynikChart.ChartAreas.Add(chartArea1);
-            this.wynikChart.Location = new System.Drawing.Point(0, 3);
+            this.wynikChart.Location = new System.Drawing.Point(0, 49);
             this.wynikChart.Name = "wynikChart";
-            this.wynikChart.Size = new System.Drawing.Size(1026, 590);
+            this.wynikChart.Size = new System.Drawing.Size(1026, 526);
             this.wynikChart.TabIndex = 0;
             this.wynikChart.Text = "Wynik";
             // 

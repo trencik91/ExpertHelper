@@ -50,8 +50,14 @@ namespace Expert
 
             Kryterium cel = KryteriumController.pobierzKryterium(idCelu, false);
 
-            ChartArea area = new ChartArea("Wykres");
+            ChartArea area = new ChartArea("Ranking");
+            area.AxisY.Interval = 0.1;
+            area.AxisY.Maximum = 1;
             wynikChart.ChartAreas.Add(area);
+
+            Legend legend = new Legend("Warianty");
+            legend.LegendStyle = LegendStyle.Column;
+            wynikChart.Legends.Add(legend);
 
             foreach (KeyValuePair<int, decimal> wariant in listaWariantowWag)
             {
@@ -60,17 +66,13 @@ namespace Expert
                 Series wykres = new Series(kryterium.Nazwa, 1);
                 wynikChart.Series.Add(wykres);
                 wykres.ChartType = SeriesChartType.Column;
+                wykres.ChartArea = "Ranking";
 
-                Legend legend = new Legend(kryterium.Nazwa);
-                wynikChart.Legends.Add(legend);
-
-                wykres.Legend = legend.Name;
                 wykres.Label = kryterium.Nazwa;
 
-                wykres.ChartArea = "Wykres";
-                wynikChart.Series[kryterium.Nazwa].Points.AddXY(kryterium.Nazwa, Convert.ToDouble(wariant.Value));
+                wynikChart.Series[kryterium.Nazwa].Points.AddXY("", Math.Round(Convert.ToDouble(wariant.Value)), 3);
+                wynikChart.Series[kryterium.Nazwa].Points[0].AxisLabel = "Ranking końcowy";
                 wynikChart.Series[kryterium.Nazwa].Label = wariant.Value.ToString();
-                wynikChart.Series[kryterium.Nazwa].LegendText = kryterium.Nazwa;
             }
 
             Title tytul = new Title("Ranking końcowy dla celu: " + cel.Nazwa);

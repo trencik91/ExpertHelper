@@ -16,7 +16,26 @@ namespace Expert
         public static void dodajListeWynikow(IEnumerable<Wynik> listaWynikow)
         {
             ExpertHelperDataContext db = new ExpertHelperDataContext();
-            db.Wyniks.InsertAllOnSubmit(listaWynikow);
+
+            foreach (Wynik w in listaWynikow)
+            {
+                int idWyniku = sprawdzCzyWynikIstnieje(w, db);
+
+                if (idWyniku == 0)
+                {
+                    db.Wyniks.InsertOnSubmit(w);
+                }
+                else
+                {
+                    Wynik wynik = pobierzWynik(idWyniku, db);
+
+                    if (null != wynik)
+                    {
+                        wynik.Waga = w.Waga;
+                    }
+                }
+            }
+
             db.SubmitChanges();
         }
 
@@ -87,7 +106,11 @@ namespace Expert
             foreach (Kryterium k in listaPodkryteriowWariantow)
             {
                 Wynik wynik = pobierzWynik(idCelu, k.ID, idKryterium, db);
-                listaWynikow.Add(wynik);
+
+                if (null != wynik)
+                {
+                    listaWynikow.Add(wynik);
+                }
             }
 
             return listaWynikow;
@@ -103,7 +126,7 @@ namespace Expert
                         where w.KryteriumGlowne == idCelu
                         select w;
 
-            foreach(var w in lista)
+            foreach (var w in lista)
             {
                 Wynik wynik = new Wynik()
                 {
@@ -118,6 +141,34 @@ namespace Expert
             }
 
             return listaWynikow;
+        }
+
+        public static Wynik pobierzWynik(int idWyniku, ExpertHelperDataContext db)
+        {
+            var wynik = (from w in db.Wyniks
+                         where w.ID == idWyniku
+                         select w).FirstOrDefault();
+
+            if (null != wynik)
+            {
+                return wynik;
+            }
+
+            return null;
+        }
+
+        public static int sprawdzCzyWynikIstnieje(Wynik wynik, ExpertHelperDataContext db)
+        {
+            var idWyniku = (from w in db.Wyniks
+                            where w.KryteriumGlowne == wynik.KryteriumGlowne && w.Kryterium1 == wynik.Kryterium1 && w.Kryterium2 == wynik.Kryterium2
+                            select w).FirstOrDefault();
+
+            if (null != idWyniku)
+            {
+                return idWyniku.ID;
+            }
+
+            return 0;
         }
     }
 }

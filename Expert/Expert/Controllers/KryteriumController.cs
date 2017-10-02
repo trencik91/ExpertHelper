@@ -273,13 +273,14 @@ namespace Expert
             return listaWariantow;
         }
 
-        public static Dictionary<String, int> pobierzListeIdKryteriow()
+        public static Dictionary<String, int> pobierzListeIdKryteriow(int idCelu)
         {
             Dictionary<String, int> listaIdKryteriow = new Dictionary<String, int>();
 
             ExpertHelperDataContext db = new ExpertHelperDataContext();
 
             var lista = from w in db.Kryteriums
+                        where w.ID_Rodzica == idCelu || w.ID == idCelu
                         select w;
 
             foreach (var w in lista)
@@ -290,13 +291,14 @@ namespace Expert
             return listaIdKryteriow;
         }
 
-        public static Dictionary<int, String> pobierzListeNazwKryteriow()
+        public static Dictionary<int, String> pobierzListeNazwKryteriow(int idCelu)
         {
             Dictionary<int, String> listaIdKryteriow = new Dictionary<int, String>();
 
             ExpertHelperDataContext db = new ExpertHelperDataContext();
 
             var lista = from w in db.Kryteriums
+                        where w.ID_Rodzica == idCelu || w.ID == idCelu
                         select w;
 
             foreach (var w in lista)

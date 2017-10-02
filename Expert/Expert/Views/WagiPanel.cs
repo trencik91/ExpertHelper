@@ -44,8 +44,8 @@ namespace Expert
             wariantyListBox.Items.Clear();
             listaNodow = KryteriumController.pobierzDrzewo(idCelu);
             uzupelnijProblemWarianty();
-            listaIdKryteriow = KryteriumController.pobierzListeIdKryteriow();
-            listaNazwKryteriow = KryteriumController.pobierzListeNazwKryteriow();
+            listaIdKryteriow = KryteriumController.pobierzListeIdKryteriow(idCelu);
+            listaNazwKryteriow = KryteriumController.pobierzListeNazwKryteriow(idCelu);
             wartoscNumericUpDown.Maximum = MAKSYMALNA_WAGA;
             sliderTrackBar.SetRange(0, MAKSYMALNA_WAGA * 100);
         }
@@ -442,17 +442,24 @@ namespace Expert
 
             List<Wynik> listaWynikow = WynikController.pobierzWynikiKryterium(idCelu, idKryterium, listaPodkryteriowWariantow);
 
-            listaWynikow.ForEach(w =>
+            if (listaWynikow.Count > 0)
             {
-                DataRow dr = dt.NewRow();
-                dr[0] = listaNazwKryteriow[w.Kryterium1];
-                dr["Waga"] = w.Waga;
-                dt.Rows.Add(dr);
-            });
+                listaWynikow.ForEach(w =>
+                {
+                    DataRow dr = dt.NewRow();
+                    dr[0] = listaNazwKryteriow[w.Kryterium1];
+                    dr["Waga"] = w.Waga;
+                    dt.Rows.Add(dr);
+                });
 
-            if (dt.Rows.Count > 0)
+                if (dt.Rows.Count > 0)
+                {
+                    wagiDataGridView.DataSource = dt;
+                }
+            }
+            else
             {
-                wagiDataGridView.DataSource = dt;
+                MessageBox.Show("Nie obliczono wyników dla danego kryterium!", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

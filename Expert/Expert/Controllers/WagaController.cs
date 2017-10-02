@@ -115,7 +115,7 @@ namespace Expert
         {
             var waga = (from w in db.Wagas
                         where w.ID == idWagi
-                        select w).First();
+                        select w).FirstOrDefault();
 
             if (null != waga)
             {
@@ -129,7 +129,7 @@ namespace Expert
         {
             var idWagi = (from w in db.Wagas
                           where w.KryteriumGlowne == waga.KryteriumGlowne && w.Kryterium1 == waga.Kryterium1 && w.Kryterium2 == waga.Kryterium2
-                          select w).First();
+                          select w).FirstOrDefault();
 
             if (null != idWagi)
             {

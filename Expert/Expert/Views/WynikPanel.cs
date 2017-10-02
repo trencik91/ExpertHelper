@@ -70,7 +70,7 @@ namespace Expert
 
                 wykres.Label = kryterium.Nazwa;
 
-                wynikChart.Series[kryterium.Nazwa].Points.AddXY("", Math.Round(Convert.ToDouble(wariant.Value)), 3);
+                wynikChart.Series[kryterium.Nazwa].Points.AddXY(kryterium.Nazwa, Math.Round(Convert.ToDouble(wariant.Value), 3));
                 wynikChart.Series[kryterium.Nazwa].Points[0].AxisLabel = "Ranking końcowy";
                 wynikChart.Series[kryterium.Nazwa].Label = wariant.Value.ToString();
             }

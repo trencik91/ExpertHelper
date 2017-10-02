@@ -19,7 +19,7 @@ namespace Expert
         private int selectedIndex = 0;
         private int liczbaPodkryteriow = 0;
 
-        private const int PODKRYTERIA = 9;
+        private const int PODKRYTERIA = 15;
 
         public KryteriumPanel()
         {
@@ -109,7 +109,6 @@ namespace Expert
 
         private void wagiButton_Click(object sender, EventArgs e)
         {
-            Console.WriteLine(liczbaPodkryteriow);
             if (wariantyListBox.Items.Count > 1)
             {
                 if (liczbaPodkryteriow >= 2)
@@ -163,6 +162,8 @@ namespace Expert
 
                     nazwaTextBox.Text = dataRow.Cells[3].Value.ToString();
                     opisRichTextBox.Text = dataRow.Cells[4].Value.ToString();
+
+                    ustalLiczbePodkryteriow();
                 }
                 catch
                 {
@@ -335,6 +336,23 @@ namespace Expert
             celRadioButton.Checked = true;
             ustalZaznaczenie(wariantRadioButton, kryteriumRadioButton);
             nazwaTextBox.Focus();
+        }
+
+        private void ustalLiczbePodkryteriow()
+        {
+            if (kryteriaTreeView.Nodes.Count > 0)
+            {
+                TreeNode root = kryteriaTreeView.Nodes[0];
+
+                if (null != root)
+                {
+                    liczbaPodkryteriow = root.Nodes.Count;
+                }
+                else
+                {
+                    liczbaPodkryteriow = 0;
+                }
+            }
         }
     }
 }

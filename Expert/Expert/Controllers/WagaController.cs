@@ -16,7 +16,26 @@ namespace Expert
         public static void dodajListeWag(IEnumerable<Waga> listaWag)
         {
             ExpertHelperDataContext db = new ExpertHelperDataContext();
-            db.Wagas.InsertAllOnSubmit(listaWag);
+
+            foreach (Waga w in listaWag)
+            {
+                int idWagi = sprawdzCzyWagaIstnieje(w, db);
+
+                if (idWagi == 0)
+                {
+                    db.Wagas.InsertOnSubmit(w);
+                }
+                else
+                {
+                    Waga waga = pobierzWage(idWagi, db);
+
+                    if (null != waga)
+                    {
+                        waga.Waga1 = w.Waga1;
+                    }
+                }
+            }
+
             db.SubmitChanges();
         }
 
@@ -90,6 +109,34 @@ namespace Expert
             }
 
             return listaWag;
+        }
+
+        public static Waga pobierzWage(int idWagi, ExpertHelperDataContext db)
+        {
+            var waga = (from w in db.Wagas
+                        where w.ID == idWagi
+                        select w).First();
+
+            if (null != waga)
+            {
+                return waga;
+            }
+
+            return null;
+        }
+
+        public static int sprawdzCzyWagaIstnieje(Waga waga, ExpertHelperDataContext db)
+        {
+            var idWagi = (from w in db.Wagas
+                          where w.KryteriumGlowne == waga.KryteriumGlowne && w.Kryterium1 == waga.Kryterium1 && w.Kryterium2 == waga.Kryterium2
+                          select w).First();
+
+            if (null != idWagi)
+            {
+                return idWagi.ID;
+            }
+
+            return 0;
         }
     }
 }

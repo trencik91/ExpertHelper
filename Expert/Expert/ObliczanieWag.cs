@@ -20,67 +20,69 @@ namespace Expert
         public static DataTable ustalMacierzWag(DataTable wagi)
         {
             DataTable macierzWag = wagi.Copy();
-            DataTable macierzDoKwadratu = podniesMacierzDoKwardratu(wagi).Copy();
+            macierzWag.Columns.Add("Suma elementów");
+            macierzWag.Columns.Add("Waga");
 
-            foreach (DataColumn dc in macierzDoKwadratu.Columns)
+            for (int i = 0; i < 2; i++)
             {
-                decimal sumaKolumn = 0;
+                wagi = podniesMacierzDoKwardratu(wagi);
 
-                foreach (DataRow dr in macierzDoKwadratu.Rows)
+                foreach (DataColumn dc in wagi.Columns)
                 {
-                    if (dr.Table.Columns[dc.ColumnName].Ordinal > 0)
+                    decimal sumaKolumn = 0;
+
+                    foreach (DataRow dr in wagi.Rows)
                     {
-                        decimal wartoscWierszaKolumny = 0;
-
-                        bool czyWartoscPoprawna = decimal.TryParse(dr[dc].ToString(), out wartoscWierszaKolumny);
-
-                        if (czyWartoscPoprawna)
+                        if (dr.Table.Columns[dc.ColumnName].Ordinal > 0)
                         {
-                            sumaKolumn = sumaKolumn + wartoscWierszaKolumny;
+                            decimal wartoscWierszaKolumny = 0;
+
+                            bool czyWartoscPoprawna = decimal.TryParse(dr[dc].ToString(), out wartoscWierszaKolumny);
+
+                            if (czyWartoscPoprawna)
+                            {
+                                sumaKolumn = sumaKolumn + wartoscWierszaKolumny;
+                            }
+                        }
+                    }
+
+                    foreach (DataRow dr in wagi.Rows)
+                    {
+                        if (dr.Table.Columns[dc.ColumnName].Ordinal > 0)
+                        {
+
+                            decimal wartoscKomorki = decimal.Parse(dr[dc].ToString());
+                            decimal obliczonaWaga = decimal.Round(wartoscKomorki / sumaKolumn, ROUND);
+                            macierzWag.Rows[dr.Table.Rows.IndexOf(dr)][dc.Ordinal] = obliczonaWaga;
                         }
                     }
                 }
 
-                foreach (DataRow dr in macierzDoKwadratu.Rows)
+                decimal sumaWszystkichKolumn = 0;
+
+                foreach (DataRow dr in macierzWag.Rows)
                 {
-                    if (dr.Table.Columns[dc.ColumnName].Ordinal > 0)
+                    decimal sumaWierszy = 0;
+
+                    foreach (DataColumn dc in macierzWag.Columns)
                     {
-                        decimal wartoscKomorki = decimal.Parse(dr[dc].ToString());
-                        decimal obliczonaWaga = decimal.Round(wartoscKomorki / sumaKolumn, ROUND);
-                        macierzWag.Rows[dr.Table.Rows.IndexOf(dr)][dc] = obliczonaWaga;
+                        if (dr.Table.Columns[dc.ColumnName].Ordinal > 0 && dr.Table.Columns[dc.ColumnName].Ordinal < dr.Table.Columns.Count - 2)
+                        {
+                            sumaWierszy = sumaWierszy + decimal.Parse(dr[dc].ToString());
+                        }
                     }
-                }
-            }
 
-            macierzWag.Columns.Add("Suma elementów");
-            macierzWag.Columns.Add("Waga");
+                    sumaWszystkichKolumn = sumaWszystkichKolumn + sumaWierszy;
 
-            decimal sumaWszystkichKolumn = 0;
-
-            foreach (DataRow dr in macierzDoKwadratu.Rows)
-            {
-                decimal sumaWierszy = 0;
-
-                foreach (DataColumn dc in macierzDoKwadratu.Columns)
-                {
-                    if (dr.Table.Columns[dc.ColumnName].Ordinal > 0 && dr.Table.Columns[dc.ColumnName].Ordinal < dr.Table.Columns.Count - 2)
-                    {
-                        sumaWierszy = sumaWierszy + decimal.Parse(dr[dc].ToString());
-                    }
+                    dr["Suma elementów"] = decimal.Round(sumaWierszy, ROUND);
                 }
 
-                sumaWszystkichKolumn = sumaWszystkichKolumn + sumaWierszy;
+                foreach (DataRow dr in macierzWag.Rows)
+                {
+                    decimal wagaWiersza = decimal.Parse(dr["Suma elementów"].ToString()) / sumaWszystkichKolumn;
 
-                dr["Suma elementów"] = decimal.Round(sumaWierszy, ROUND);
-            }
-
-            Console.WriteLine("suma kolumn " + sumaWszystkichKolumn);
-
-            foreach (DataRow dr in macierzDoKwadratu.Rows)
-            {
-                decimal wagaWiersza = decimal.Parse(dr["Suma elementów"].ToString()) / sumaWszystkichKolumn;
-
-                dr["Waga"] = decimal.Round(wagaWiersza, ROUND);
+                    dr["Waga"] = decimal.Round(wagaWiersza, ROUND);
+                }
             }
 
             return macierzWag;

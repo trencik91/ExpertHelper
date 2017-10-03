@@ -280,7 +280,6 @@ namespace Expert
             ExpertHelperDataContext db = new ExpertHelperDataContext();
 
             var lista = from w in db.Kryteriums
-                        where w.ID_Rodzica == idCelu || w.ID == idCelu
                         select w;
 
             foreach (var w in lista)

@@ -476,18 +476,12 @@ namespace Expert
 
                 List<Wynik> listaWagWariantu = listaWynikow.Where(w => w.Kryterium1 == kryteriumWariant.ID).Select(w => new Wynik { ID = w.ID, Kryterium1 = w.Kryterium1, Kryterium2 = w.Kryterium2, Waga = w.Waga }).ToList();
 
-                foreach (Wynik w in listaWagWariantu)
+                foreach (Wynik w in listaWagWariantu.OrderByDescending(o => o.ID))
                 {
                     wagaMnozona = Convert.ToDecimal(w.Waga);
 
                     int idKryterium2 = w.Kryterium2;
-
-                    do
-                    {
-                        wagaMnozona = wagaMnozona * pobierzWage(idKryterium2, listaWynikow);
-                    } while (idKryterium2 == idCelu);
-
-                    waga = waga + wagaMnozona;
+                    wagaMnozona = wagaMnozona * pobierzWage(idKryterium2, listaWynikow);
                 }
 
                 listaWagWariantow.Add(kryteriumWariant.ID, waga);

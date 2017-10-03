@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Expert" Class="ExpertHelperDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database\Expert.mdf;Integrated Security=True;Connect Timeout=30" SettingsObjectName="Expert.Properties.Settings" SettingsPropertyName="ExpertConnectionString1" Provider="System.Data.SqlClient" />
+<Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database\Expert.mdf;Integrated Security=True;Connect Timeout=30" SettingsObjectName="Expert.Properties.Settings" SettingsPropertyName="ExpertConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Kryterium" Member="Kryteriums">
     <Type Name="Kryterium">
       <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="ID_Rodzica" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ID_Celu" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="Nazwa" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Opis" Type="System.String" DbType="Text" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="Data_utworzenia" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />

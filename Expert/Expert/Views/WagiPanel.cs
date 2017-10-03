@@ -433,7 +433,7 @@ namespace Expert
             dt.Columns.Add(listaNazwKryteriow[idKryterium]);
             dt.Columns.Add("Waga");
 
-            List<Kryterium> listaPodkryteriowWariantow = KryteriumController.pobierzListePodkryteriow(idKryterium);
+            List<Kryterium> listaPodkryteriowWariantow = KryteriumController.pobierzListePodkryteriow(idKryterium, idCelu);
 
             if (listaPodkryteriowWariantow.Count == 0)
             {
@@ -474,7 +474,7 @@ namespace Expert
                 decimal waga = 0;
                 decimal wagaMnozona = 1;
 
-                List<Wynik> listaWagWariantu = listaWynikow.Where(w => w.Kryterium1 == kryteriumWariant.ID).Select(w => new Wynik { ID = w.ID, KryteriumGlowne = w.KryteriumGlowne, Kryterium1= w.Kryterium1, Kryterium2 = w.Kryterium2, Waga = w.Waga }).ToList();
+                List<Wynik> listaWagWariantu = listaWynikow.Where(w => w.Kryterium1 == kryteriumWariant.ID).Select(w => new Wynik { ID = w.ID, KryteriumGlowne = w.KryteriumGlowne, Kryterium1 = w.Kryterium1, Kryterium2 = w.Kryterium2, Waga = w.Waga }).ToList();
 
                 List<Wynik> listaPosortowana = listaWagWariantu.OrderByDescending(o => o.ID).ThenByDescending(o => o.Kryterium1).ToList();
 
@@ -486,8 +486,18 @@ namespace Expert
 
                     do
                     {
-                        wagaMnozona = wagaMnozona * pobierzWage(idKryterium2, listaWynikow);
-                    } while (idKryterium2 == idCelu);
+                        Wynik wynikOjca = pobierzWage(idKryterium2, listaWynikow);
+
+                        if (null != wynikOjca)
+                        {
+                            wagaMnozona = wagaMnozona * Convert.ToDecimal(wynikOjca.Waga);
+                            idKryterium2 = wynikOjca.Kryterium2;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    } while (idKryterium2 != idCelu);
 
                     waga = waga + wagaMnozona;
                 }
@@ -501,22 +511,9 @@ namespace Expert
             this.Visible = false;
         }
 
-        private decimal pobierzWage(int idKryterium2, IEnumerable<Wynik> listaWynikow)
+        private Wynik pobierzWage(int idKryterium2, IEnumerable<Wynik> listaWynikow)
         {
-            decimal waga = 0;
-            double wagaDouble = listaWynikow.Where(w => w.Kryterium1 == idKryterium2).Select(w => w.Waga).FirstOrDefault();
-
-            if (wagaDouble > 0)
-            {
-                bool czyPoprawne = decimal.TryParse(wagaDouble.ToString(), out waga);
-
-                if (czyPoprawne)
-                {
-                    return waga;
-                }
-            }
-
-            return 0;
+            return listaWynikow.Where(w => w.Kryterium1 == idKryterium2).Select(w => new Wynik() { ID = w.ID, KryteriumGlowne = w.KryteriumGlowne, Kryterium1 = w.Kryterium1, Kryterium2 = w.Kryterium2, Waga = w.Waga }).FirstOrDefault();
         }
     }
 }

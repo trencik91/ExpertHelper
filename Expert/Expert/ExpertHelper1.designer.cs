@@ -117,6 +117,8 @@ namespace Expert
 		
 		private System.Nullable<int> _ID_Rodzica;
 		
+		private int _ID_Celu;
+		
 		private string _Nazwa;
 		
 		private string _Opis;
@@ -155,6 +157,8 @@ namespace Expert
     partial void OnIDChanged();
     partial void OnID_RodzicaChanging(System.Nullable<int> value);
     partial void OnID_RodzicaChanged();
+    partial void OnID_CeluChanging(int value);
+    partial void OnID_CeluChanged();
     partial void OnNazwaChanging(string value);
     partial void OnNazwaChanged();
     partial void OnOpisChanging(string value);
@@ -222,6 +226,26 @@ namespace Expert
 					this._ID_Rodzica = value;
 					this.SendPropertyChanged("ID_Rodzica");
 					this.OnID_RodzicaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_Celu", DbType="Int NOT NULL")]
+		public int ID_Celu
+		{
+			get
+			{
+				return this._ID_Celu;
+			}
+			set
+			{
+				if ((this._ID_Celu != value))
+				{
+					this.OnID_CeluChanging(value);
+					this.SendPropertyChanging();
+					this._ID_Celu = value;
+					this.SendPropertyChanged("ID_Celu");
+					this.OnID_CeluChanged();
 				}
 			}
 		}

@@ -10,29 +10,57 @@ namespace Expert
 {
     class KryteriumController
     {
+        public List<Kryterium> listaKryteriowBezPodkryteriow = new List<Kryterium>();
+
         protected KryteriumController()
         {
 
         }
 
-        public static Kryterium dodajKryterium(String nazwa, String opis, int idRodzica, bool czyWariant)
+        public static Kryterium dodajKryterium(String nazwa, String opis, int idRodzica, bool czyWariant, int idCelu)
         {
             ExpertHelperDataContext db = new ExpertHelperDataContext();
 
-            Kryterium kryterium = new Kryterium
+            if (idCelu == 0)
             {
-                Nazwa = nazwa,
-                Opis = opis,
-                Data_utworzenia = DateTime.Now,
-                ID_Rodzica = idRodzica,
-                Liczba_Podkryteriow = 0,
-                Czy_Wariant = czyWariant
-            };
+                Kryterium kryterium = new Kryterium
+                {
+                    Nazwa = nazwa,
+                    Opis = opis,
+                    Data_utworzenia = DateTime.Now,
+                    ID_Rodzica = idRodzica,
+                    Liczba_Podkryteriow = 0,
+                    Czy_Wariant = czyWariant
+                };
 
-            db.Kryteriums.InsertOnSubmit(kryterium);
-            db.SubmitChanges();
+                db.Kryteriums.InsertOnSubmit(kryterium);
+                db.SubmitChanges();
 
-            return kryterium;
+                kryterium.ID_Celu = kryterium.ID;
+                db.SubmitChanges();
+
+                return kryterium;
+            }
+            else
+            {
+                Kryterium kryterium = new Kryterium
+                {
+                    Nazwa = nazwa,
+                    Opis = opis,
+                    Data_utworzenia = DateTime.Now,
+                    ID_Rodzica = idRodzica,
+                    ID_Celu = idCelu,
+                    Liczba_Podkryteriow = 0,
+                    Czy_Wariant = czyWariant
+                };
+
+                db.Kryteriums.InsertOnSubmit(kryterium);
+                db.SubmitChanges();
+
+                return kryterium;
+            }
+
+            return null;
         }
 
         public static void edytujKryterium(int id, String nazwa, String opis, bool czyWariant)
@@ -86,6 +114,7 @@ namespace Expert
             listaKryteriow.Columns.Add("Lp");
             listaKryteriow.Columns.Add("ID");
             listaKryteriow.Columns.Add("ID_Rodzica");
+            listaKryteriow.Columns.Add("ID_Celu");
             listaKryteriow.Columns.Add("Cel");
             listaKryteriow.Columns.Add("Opis");
             listaKryteriow.Columns.Add("Liczba_Podkryteriow");
@@ -98,6 +127,7 @@ namespace Expert
                         {
                             id = d.ID,
                             idRodzica = d.ID_Rodzica,
+                            idCelu = d.ID_Celu,
                             cel = d.Nazwa,
                             opis = d.Opis,
                             liczbaPodkryteriow = d.Liczba_Podkryteriow,
@@ -112,6 +142,7 @@ namespace Expert
                 dr["Lp"] = lp;
                 dr["ID"] = cel.id;
                 dr["ID_Rodzica"] = cel.idRodzica;
+                dr["ID_Celu"] = cel.idCelu;
                 dr["Cel"] = cel.cel;
                 dr["Opis"] = cel.opis;
                 dr["Liczba_Podkryteriow"] = cel.liczbaPodkryteriow;
@@ -138,17 +169,17 @@ namespace Expert
                 rootItem.Text = rootKryterium.Nazwa;
             }
 
-            stworzDrzewo(rootItem);
+            stworzDrzewo(rootItem, idRoot);
 
             return rootItem;
         }
 
-        public static List<int> stworzListeDoUsuniecia(int idRoot)
+        public static List<int> stworzListeDoUsuniecia(int idRoot, int idCelu)
         {
             List<int> listaIdDoUsuniecia = new List<int>();
             listaIdDoUsuniecia.Add(idRoot);
 
-            stworzListeIdPodkryteriow(idRoot, listaIdDoUsuniecia);
+            stworzListeIdPodkryteriow(idRoot, listaIdDoUsuniecia, idCelu);
 
             return listaIdDoUsuniecia;
         }
@@ -157,7 +188,7 @@ namespace Expert
         {
             DataTable listaKryteriow = pobierzListeKryteriow();
 
-            return listaKryteriow.AsEnumerable().Select(row => new Kryterium()).Where(row => row.ID_Rodzica == 0 && !row.Czy_Wariant).ToList();
+            return listaKryteriow.AsEnumerable().Select(row => new Kryterium()).Where(row => row.ID_Celu == row.ID).ToList();
         }
 
         public static DataTable pobierzTabeleCelow()
@@ -209,7 +240,7 @@ namespace Expert
             return null;
         }
 
-        public static List<Kryterium> pobierzListePodkryteriow(int idRoot)
+        public static List<Kryterium> pobierzListePodkryteriow(int idRoot, int idCelu)
         {
             DataTable listaKryteriow = pobierzListeKryteriow();
 
@@ -217,11 +248,12 @@ namespace Expert
             {
                 ID = int.Parse(row["ID"].ToString()),
                 ID_Rodzica = int.Parse(row["ID_Rodzica"].ToString()),
+                ID_Celu = int.Parse(row["ID_Celu"].ToString()),
                 Nazwa = row["Cel"].ToString(),
                 Opis = row["Opis"].ToString(),
                 Liczba_Podkryteriow = int.Parse(row["Liczba_Podkryteriow"].ToString()),
                 Czy_Wariant = bool.Parse(row["Czy_Wariant"].ToString())
-            }).Where(row => row.ID_Rodzica == idRoot && !row.Czy_Wariant).ToList();
+            }).Where(row => row.ID_Rodzica == idRoot && row.ID_Celu ==  idCelu && !row.Czy_Wariant).ToList();
         }
 
         public static DataTable pobierzTabeleWariantow(int idCelu)
@@ -280,6 +312,7 @@ namespace Expert
             ExpertHelperDataContext db = new ExpertHelperDataContext();
 
             var lista = from w in db.Kryteriums
+                        where w.ID_Celu == idCelu
                         select w;
 
             foreach (var w in lista)
@@ -297,7 +330,7 @@ namespace Expert
             ExpertHelperDataContext db = new ExpertHelperDataContext();
 
             var lista = from w in db.Kryteriums
-                        where w.ID_Rodzica == idCelu || w.ID == idCelu
+                        where w.ID_Celu == idCelu
                         select w;
 
             foreach (var w in lista)
@@ -308,9 +341,9 @@ namespace Expert
             return listaIdKryteriow;
         }
 
-        private static TreeNode stworzDrzewo(TreeNode root)
+        private static TreeNode stworzDrzewo(TreeNode root, int idCelu)
         {
-            List<Kryterium> listaDzieci = pobierzListePodkryteriow(int.Parse(root.Name.ToString()));
+            List<Kryterium> listaDzieci = pobierzListePodkryteriow(int.Parse(root.Name.ToString()), idCelu);
 
             listaDzieci.ForEach(k =>
             {
@@ -321,22 +354,22 @@ namespace Expert
                 root.Nodes.Add(rootItem);
                 root.Expand();
 
-                stworzDrzewo(rootItem);
+                stworzDrzewo(rootItem, idCelu);
 
             });
 
             return root;
         }
 
-        private static void stworzListeIdPodkryteriow(int idKryterium, List<int> lista)
+        private static void stworzListeIdPodkryteriow(int idKryterium, List<int> lista, int idCelu)
         {
-            List<Kryterium> listaDzieci = pobierzListePodkryteriow(idKryterium);
+            List<Kryterium> listaDzieci = pobierzListePodkryteriow(idKryterium, idCelu);
 
             listaDzieci.ForEach(k =>
             {
                 lista.Add(k.ID);
 
-                stworzListeIdPodkryteriow(k.ID, lista);
+                stworzListeIdPodkryteriow(k.ID, lista, idCelu);
 
             });
         }

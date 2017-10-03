@@ -14,6 +14,7 @@ namespace Expert
     {
         private Form mainForm;
 
+        private int celID = 0;
         private int kryteriumID = 0;
         private int wariantID = 0;
         private int selectedIndex = 0;
@@ -63,18 +64,18 @@ namespace Expert
         {
             if (celRadioButton.Checked)
             {
-                KryteriumController.dodajKryterium(nazwaTextBox.Text, opisRichTextBox.Text, 0, false);
+                KryteriumController.dodajKryterium(nazwaTextBox.Text, opisRichTextBox.Text, 0, false, 0);
             }
             else if (kryteriumRadioButton.Checked)
             {
-                KryteriumController.dodajKryterium(nazwaTextBox.Text, opisRichTextBox.Text, kryteriumID, false);
+                KryteriumController.dodajKryterium(nazwaTextBox.Text, opisRichTextBox.Text, kryteriumID, false, celID);
                 KryteriumController.dodajLiczbePodkryteriow(kryteriumID, false);
 
                 liczbaPodkryteriow++;
             }
             else if (wariantRadioButton.Checked)
             {
-                KryteriumController.dodajKryterium(nazwaTextBox.Text, opisRichTextBox.Text, kryteriumID, true);
+                KryteriumController.dodajKryterium(nazwaTextBox.Text, opisRichTextBox.Text, kryteriumID, true, celID);
                 DataTable tabelaWariantow = KryteriumController.pobierzTabeleWariantow(kryteriumID);
 
                 if (tabelaWariantow.Rows.Count > 0)
@@ -146,6 +147,7 @@ namespace Expert
                     DataGridViewRow dataRow = problemDataGridView.SelectedRows[0];
 
                     kryteriumID = int.Parse(dataRow.Cells[1].Value.ToString());
+                    celID = kryteriumID;
                     selectedIndex = problemDataGridView.SelectedRows[0].Index;
 
                     TreeNode listaNodow = KryteriumController.pobierzDrzewo(kryteriumID);
@@ -316,7 +318,7 @@ namespace Expert
 
                 if (result == DialogResult.Yes)
                 {
-                    List<int> listaPodkryteriow = KryteriumController.stworzListeDoUsuniecia(id);
+                    List<int> listaPodkryteriow = KryteriumController.stworzListeDoUsuniecia(id, celID);
 
                     foreach (int idPodkryterium in listaPodkryteriow)
                     {

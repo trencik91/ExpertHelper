@@ -111,12 +111,12 @@
     <Compile Include="Views\WynikPanel.Designer.cs">
       <DependentUpon>WynikPanel.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Views\WynikPanel.resx">
-      <DependentUpon>WynikPanel.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="ExpertHelper.dbml.layout">
       <DependentUpon>ExpertHelper.dbml</DependentUpon>
     </None>
+    <EmbeddedResource Include="Views\WynikPanel.resx">
+      <DependentUpon>WynikPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\KryteriumPanel.resx">
       <DependentUpon>KryteriumPanel.cs</DependentUpon>
     </EmbeddedResource>

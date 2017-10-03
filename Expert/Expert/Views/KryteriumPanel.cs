@@ -115,7 +115,7 @@ namespace Expert
                 if (liczbaPodkryteriow >= 2)
                 {
                     this.Visible = false;
-                    WagiPanel wagiPanel = new WagiPanel(mainForm, kryteriumID);
+                    WagiPanel wagiPanel = new WagiPanel(mainForm, celID);
                     mainForm.Controls.Add(wagiPanel);
                     wagiPanel.Visible = true;
                 }
@@ -284,6 +284,7 @@ namespace Expert
                 problemDataGridView.Columns[4].Visible = false;
                 problemDataGridView.Columns[5].Visible = false;
                 problemDataGridView.Columns[6].Visible = false;
+                problemDataGridView.Columns[7].Visible = false;
             }
         }
 

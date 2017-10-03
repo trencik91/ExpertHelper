@@ -114,11 +114,11 @@ namespace Expert
             listaKryteriow.Columns.Add("Lp");
             listaKryteriow.Columns.Add("ID");
             listaKryteriow.Columns.Add("ID_Rodzica");
-            listaKryteriow.Columns.Add("ID_Celu");
             listaKryteriow.Columns.Add("Cel");
             listaKryteriow.Columns.Add("Opis");
             listaKryteriow.Columns.Add("Liczba_Podkryteriow");
             listaKryteriow.Columns.Add("Czy_Wariant");
+            listaKryteriow.Columns.Add("ID_Celu");
 
             ExpertHelperDataContext db = new ExpertHelperDataContext();
 
@@ -142,11 +142,11 @@ namespace Expert
                 dr["Lp"] = lp;
                 dr["ID"] = cel.id;
                 dr["ID_Rodzica"] = cel.idRodzica;
-                dr["ID_Celu"] = cel.idCelu;
                 dr["Cel"] = cel.cel;
                 dr["Opis"] = cel.opis;
                 dr["Liczba_Podkryteriow"] = cel.liczbaPodkryteriow;
                 dr["Czy_Wariant"] = cel.czyWariant;
+                dr["ID_Celu"] = cel.idCelu;
 
                 lp++;
 

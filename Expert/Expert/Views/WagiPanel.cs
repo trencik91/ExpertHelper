@@ -474,14 +474,22 @@ namespace Expert
                 decimal waga = 0;
                 decimal wagaMnozona = 1;
 
-                List<Wynik> listaWagWariantu = listaWynikow.Where(w => w.Kryterium1 == kryteriumWariant.ID).Select(w => new Wynik { ID = w.ID, Kryterium1 = w.Kryterium1, Kryterium2 = w.Kryterium2, Waga = w.Waga }).ToList();
+                List<Wynik> listaWagWariantu = listaWynikow.Where(w => w.Kryterium1 == kryteriumWariant.ID).Select(w => new Wynik { ID = w.ID, KryteriumGlowne = w.KryteriumGlowne, Kryterium1= w.Kryterium1, Kryterium2 = w.Kryterium2, Waga = w.Waga }).ToList();
 
-                foreach (Wynik w in listaWagWariantu.OrderByDescending(o => o.ID))
+                List<Wynik> listaPosortowana = listaWagWariantu.OrderByDescending(o => o.ID).ThenByDescending(o => o.Kryterium1).ToList();
+
+                foreach (Wynik w in listaPosortowana.OrderByDescending(o => o.Kryterium2))
                 {
                     wagaMnozona = Convert.ToDecimal(w.Waga);
 
                     int idKryterium2 = w.Kryterium2;
-                    wagaMnozona = wagaMnozona * pobierzWage(idKryterium2, listaWynikow);
+
+                    do
+                    {
+                        wagaMnozona = wagaMnozona * pobierzWage(idKryterium2, listaWynikow);
+                    } while (idKryterium2 == idCelu);
+
+                    waga = waga + wagaMnozona;
                 }
 
                 listaWagWariantow.Add(kryteriumWariant.ID, waga);

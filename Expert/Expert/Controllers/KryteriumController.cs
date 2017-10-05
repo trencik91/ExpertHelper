@@ -139,7 +139,17 @@ namespace Expert
             foreach (var cel in lista)
             {
                 DataRow dr = listaKryteriow.NewRow();
-                dr["Lp"] = lp;
+
+                if (cel.idCelu == cel.id)
+                {
+                    dr["Lp"] = lp;
+                    lp++;
+                }
+                else
+                {
+                    dr["Lp"] = 0;
+                }
+
                 dr["ID"] = cel.id;
                 dr["ID_Rodzica"] = cel.idRodzica;
                 dr["Cel"] = cel.cel;
@@ -147,8 +157,6 @@ namespace Expert
                 dr["Liczba_Podkryteriow"] = cel.liczbaPodkryteriow;
                 dr["Czy_Wariant"] = cel.czyWariant;
                 dr["ID_Celu"] = cel.idCelu;
-
-                lp++;
 
                 listaKryteriow.Rows.Add(dr);
             }
@@ -253,7 +261,7 @@ namespace Expert
                 Opis = row["Opis"].ToString(),
                 Liczba_Podkryteriow = int.Parse(row["Liczba_Podkryteriow"].ToString()),
                 Czy_Wariant = bool.Parse(row["Czy_Wariant"].ToString())
-            }).Where(row => row.ID_Rodzica == idRoot && row.ID_Celu ==  idCelu && !row.Czy_Wariant).ToList();
+            }).Where(row => row.ID_Rodzica == idRoot && row.ID_Celu == idCelu && !row.Czy_Wariant).ToList();
         }
 
         public static DataTable pobierzTabeleWariantow(int idCelu)

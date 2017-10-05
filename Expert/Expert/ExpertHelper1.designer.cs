@@ -33,24 +33,22 @@ namespace Expert
     partial void InsertKryterium(Kryterium instance);
     partial void UpdateKryterium(Kryterium instance);
     partial void DeleteKryterium(Kryterium instance);
-    partial void InsertWynik(Wynik instance);
-    partial void UpdateWynik(Wynik instance);
-    partial void DeleteWynik(Wynik instance);
-    partial void InsertObliczenia(Obliczenia instance);
-    partial void UpdateObliczenia(Obliczenia instance);
-    partial void DeleteObliczenia(Obliczenia instance);
+    partial void InsertWynikCelu(WynikCelu instance);
+    partial void UpdateWynikCelu(WynikCelu instance);
+    partial void DeleteWynikCelu(WynikCelu instance);
     partial void InsertWaga(Waga instance);
     partial void UpdateWaga(Waga instance);
     partial void DeleteWaga(Waga instance);
-    #endregion
-		
-		public ExpertHelperDataContext() : 
-				base(global::Expert.Properties.Settings.Default.ExpertConnectionString, mappingSource)
-		{
-			OnCreated();
-		}
-		
-		public ExpertHelperDataContext(string connection) : 
+    partial void InsertWynik(Wynik instance);
+    partial void UpdateWynik(Wynik instance);
+    partial void DeleteWynik(Wynik instance);
+        #endregion
+        public ExpertHelperDataContext() :
+                base(global::Expert.Properties.Settings.Default.ExpertConnectionString, mappingSource)
+        {
+            OnCreated();
+        }
+        public ExpertHelperDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
@@ -82,19 +80,11 @@ namespace Expert
 			}
 		}
 		
-		public System.Data.Linq.Table<Wynik> Wyniks
+		public System.Data.Linq.Table<WynikCelu> WynikCelus
 		{
 			get
 			{
-				return this.GetTable<Wynik>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Obliczenia> Obliczenias
-		{
-			get
-			{
-				return this.GetTable<Obliczenia>();
+				return this.GetTable<WynikCelu>();
 			}
 		}
 		
@@ -103,6 +93,14 @@ namespace Expert
 			get
 			{
 				return this.GetTable<Waga>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Wynik> Wyniks
+		{
+			get
+			{
+				return this.GetTable<Wynik>();
 			}
 		}
 	}
@@ -131,21 +129,21 @@ namespace Expert
 		
 		private EntitySet<Kryterium> _Kryteriums;
 		
-		private EntitySet<Wynik> _Wyniks;
+		private EntitySet<WynikCelu> _WynikCelus;
 		
-		private EntitySet<Wynik> _Wyniks1;
-		
-		private EntitySet<Wynik> _Wyniks2;
-		
-		private EntitySet<Obliczenia> _Obliczenias;
-		
-		private EntitySet<Obliczenia> _Obliczenias1;
+		private EntitySet<WynikCelu> _WynikCelus1;
 		
 		private EntitySet<Waga> _Wagas;
 		
 		private EntitySet<Waga> _Wagas1;
 		
 		private EntitySet<Waga> _Wagas2;
+		
+		private EntitySet<Wynik> _Wyniks;
+		
+		private EntitySet<Wynik> _Wyniks1;
+		
+		private EntitySet<Wynik> _Wyniks2;
 		
 		private EntityRef<Kryterium> _Kryterium1;
 		
@@ -174,14 +172,14 @@ namespace Expert
 		public Kryterium()
 		{
 			this._Kryteriums = new EntitySet<Kryterium>(new Action<Kryterium>(this.attach_Kryteriums), new Action<Kryterium>(this.detach_Kryteriums));
-			this._Wyniks = new EntitySet<Wynik>(new Action<Wynik>(this.attach_Wyniks), new Action<Wynik>(this.detach_Wyniks));
-			this._Wyniks1 = new EntitySet<Wynik>(new Action<Wynik>(this.attach_Wyniks1), new Action<Wynik>(this.detach_Wyniks1));
-			this._Wyniks2 = new EntitySet<Wynik>(new Action<Wynik>(this.attach_Wyniks2), new Action<Wynik>(this.detach_Wyniks2));
-			this._Obliczenias = new EntitySet<Obliczenia>(new Action<Obliczenia>(this.attach_Obliczenias), new Action<Obliczenia>(this.detach_Obliczenias));
-			this._Obliczenias1 = new EntitySet<Obliczenia>(new Action<Obliczenia>(this.attach_Obliczenias1), new Action<Obliczenia>(this.detach_Obliczenias1));
+			this._WynikCelus = new EntitySet<WynikCelu>(new Action<WynikCelu>(this.attach_WynikCelus), new Action<WynikCelu>(this.detach_WynikCelus));
+			this._WynikCelus1 = new EntitySet<WynikCelu>(new Action<WynikCelu>(this.attach_WynikCelus1), new Action<WynikCelu>(this.detach_WynikCelus1));
 			this._Wagas = new EntitySet<Waga>(new Action<Waga>(this.attach_Wagas), new Action<Waga>(this.detach_Wagas));
 			this._Wagas1 = new EntitySet<Waga>(new Action<Waga>(this.attach_Wagas1), new Action<Waga>(this.detach_Wagas1));
 			this._Wagas2 = new EntitySet<Waga>(new Action<Waga>(this.attach_Wagas2), new Action<Waga>(this.detach_Wagas2));
+			this._Wyniks = new EntitySet<Wynik>(new Action<Wynik>(this.attach_Wyniks), new Action<Wynik>(this.detach_Wyniks));
+			this._Wyniks1 = new EntitySet<Wynik>(new Action<Wynik>(this.attach_Wyniks1), new Action<Wynik>(this.detach_Wyniks1));
+			this._Wyniks2 = new EntitySet<Wynik>(new Action<Wynik>(this.attach_Wyniks2), new Action<Wynik>(this.detach_Wyniks2));
 			this._Kryterium1 = default(EntityRef<Kryterium>);
 			OnCreated();
 		}
@@ -363,68 +361,29 @@ namespace Expert
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Kryterium_Wynik", Storage="_Wyniks", ThisKey="ID", OtherKey="KryteriumGlowne")]
-		public EntitySet<Wynik> Wyniks
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Kryterium_WynikCelu", Storage="_WynikCelus", ThisKey="ID", OtherKey="ID_Celu")]
+		public EntitySet<WynikCelu> WynikCelus
 		{
 			get
 			{
-				return this._Wyniks;
+				return this._WynikCelus;
 			}
 			set
 			{
-				this._Wyniks.Assign(value);
+				this._WynikCelus.Assign(value);
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Kryterium_Wynik1", Storage="_Wyniks1", ThisKey="ID", OtherKey="Kryterium1")]
-		public EntitySet<Wynik> Wyniks1
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Kryterium_WynikCelu1", Storage="_WynikCelus1", ThisKey="ID", OtherKey="ID_Wariantu")]
+		public EntitySet<WynikCelu> WynikCelus1
 		{
 			get
 			{
-				return this._Wyniks1;
+				return this._WynikCelus1;
 			}
 			set
 			{
-				this._Wyniks1.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Kryterium_Wynik2", Storage="_Wyniks2", ThisKey="ID", OtherKey="Kryterium2")]
-		public EntitySet<Wynik> Wyniks2
-		{
-			get
-			{
-				return this._Wyniks2;
-			}
-			set
-			{
-				this._Wyniks2.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Kryterium_Obliczenia", Storage="_Obliczenias", ThisKey="ID", OtherKey="ID_Kryterium")]
-		public EntitySet<Obliczenia> Obliczenias
-		{
-			get
-			{
-				return this._Obliczenias;
-			}
-			set
-			{
-				this._Obliczenias.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Kryterium_Obliczenia1", Storage="_Obliczenias1", ThisKey="ID", OtherKey="ID_Celu")]
-		public EntitySet<Obliczenia> Obliczenias1
-		{
-			get
-			{
-				return this._Obliczenias1;
-			}
-			set
-			{
-				this._Obliczenias1.Assign(value);
+				this._WynikCelus1.Assign(value);
 			}
 		}
 		
@@ -464,6 +423,45 @@ namespace Expert
 			set
 			{
 				this._Wagas2.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Kryterium_Wynik", Storage="_Wyniks", ThisKey="ID", OtherKey="KryteriumGlowne")]
+		public EntitySet<Wynik> Wyniks
+		{
+			get
+			{
+				return this._Wyniks;
+			}
+			set
+			{
+				this._Wyniks.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Kryterium_Wynik1", Storage="_Wyniks1", ThisKey="ID", OtherKey="Kryterium1")]
+		public EntitySet<Wynik> Wyniks1
+		{
+			get
+			{
+				return this._Wyniks1;
+			}
+			set
+			{
+				this._Wyniks1.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Kryterium_Wynik2", Storage="_Wyniks2", ThisKey="ID", OtherKey="Kryterium2")]
+		public EntitySet<Wynik> Wyniks2
+		{
+			get
+			{
+				return this._Wyniks2;
+			}
+			set
+			{
+				this._Wyniks2.Assign(value);
 			}
 		}
 		
@@ -533,61 +531,25 @@ namespace Expert
 			entity.Kryterium1 = null;
 		}
 		
-		private void attach_Wyniks(Wynik entity)
+		private void attach_WynikCelus(WynikCelu entity)
 		{
 			this.SendPropertyChanging();
 			entity.Kryterium = this;
 		}
 		
-		private void detach_Wyniks(Wynik entity)
+		private void detach_WynikCelus(WynikCelu entity)
 		{
 			this.SendPropertyChanging();
 			entity.Kryterium = null;
 		}
 		
-		private void attach_Wyniks1(Wynik entity)
-		{
-			this.SendPropertyChanging();
-			entity.Kryterium3 = this;
-		}
-		
-		private void detach_Wyniks1(Wynik entity)
-		{
-			this.SendPropertyChanging();
-			entity.Kryterium3 = null;
-		}
-		
-		private void attach_Wyniks2(Wynik entity)
-		{
-			this.SendPropertyChanging();
-			entity.Kryterium4 = this;
-		}
-		
-		private void detach_Wyniks2(Wynik entity)
-		{
-			this.SendPropertyChanging();
-			entity.Kryterium4 = null;
-		}
-		
-		private void attach_Obliczenias(Obliczenia entity)
-		{
-			this.SendPropertyChanging();
-			entity.Kryterium = this;
-		}
-		
-		private void detach_Obliczenias(Obliczenia entity)
-		{
-			this.SendPropertyChanging();
-			entity.Kryterium = null;
-		}
-		
-		private void attach_Obliczenias1(Obliczenia entity)
+		private void attach_WynikCelus1(WynikCelu entity)
 		{
 			this.SendPropertyChanging();
 			entity.Kryterium1 = this;
 		}
 		
-		private void detach_Obliczenias1(Obliczenia entity)
+		private void detach_WynikCelus1(WynikCelu entity)
 		{
 			this.SendPropertyChanging();
 			entity.Kryterium1 = null;
@@ -628,291 +590,46 @@ namespace Expert
 			this.SendPropertyChanging();
 			entity.Kryterium4 = null;
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Wynik")]
-	public partial class Wynik : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ID;
-		
-		private int _KryteriumGlowne;
-		
-		private int _Kryterium1;
-		
-		private int _Kryterium2;
-		
-		private double _Waga;
-		
-		private EntityRef<Kryterium> _Kryterium;
-		
-		private EntityRef<Kryterium> _Kryterium3;
-		
-		private EntityRef<Kryterium> _Kryterium4;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    partial void OnKryteriumGlowneChanging(int value);
-    partial void OnKryteriumGlowneChanged();
-    partial void OnKryterium1Changing(int value);
-    partial void OnKryterium1Changed();
-    partial void OnKryterium2Changing(int value);
-    partial void OnKryterium2Changed();
-    partial void OnWagaChanging(double value);
-    partial void OnWagaChanged();
-    #endregion
-		
-		public Wynik()
+		private void attach_Wyniks(Wynik entity)
 		{
-			this._Kryterium = default(EntityRef<Kryterium>);
-			this._Kryterium3 = default(EntityRef<Kryterium>);
-			this._Kryterium4 = default(EntityRef<Kryterium>);
-			OnCreated();
+			this.SendPropertyChanging();
+			entity.Kryterium = this;
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
+		private void detach_Wyniks(Wynik entity)
 		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
+			this.SendPropertyChanging();
+			entity.Kryterium = null;
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KryteriumGlowne", DbType="Int NOT NULL")]
-		public int KryteriumGlowne
+		private void attach_Wyniks1(Wynik entity)
 		{
-			get
-			{
-				return this._KryteriumGlowne;
-			}
-			set
-			{
-				if ((this._KryteriumGlowne != value))
-				{
-					if (this._Kryterium.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnKryteriumGlowneChanging(value);
-					this.SendPropertyChanging();
-					this._KryteriumGlowne = value;
-					this.SendPropertyChanged("KryteriumGlowne");
-					this.OnKryteriumGlowneChanged();
-				}
-			}
+			this.SendPropertyChanging();
+			entity.Kryterium3 = this;
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Kryterium1", DbType="Int NOT NULL")]
-		public int Kryterium1
+		private void detach_Wyniks1(Wynik entity)
 		{
-			get
-			{
-				return this._Kryterium1;
-			}
-			set
-			{
-				if ((this._Kryterium1 != value))
-				{
-					if (this._Kryterium3.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnKryterium1Changing(value);
-					this.SendPropertyChanging();
-					this._Kryterium1 = value;
-					this.SendPropertyChanged("Kryterium1");
-					this.OnKryterium1Changed();
-				}
-			}
+			this.SendPropertyChanging();
+			entity.Kryterium3 = null;
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Kryterium2", DbType="Int NOT NULL")]
-		public int Kryterium2
+		private void attach_Wyniks2(Wynik entity)
 		{
-			get
-			{
-				return this._Kryterium2;
-			}
-			set
-			{
-				if ((this._Kryterium2 != value))
-				{
-					if (this._Kryterium4.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnKryterium2Changing(value);
-					this.SendPropertyChanging();
-					this._Kryterium2 = value;
-					this.SendPropertyChanged("Kryterium2");
-					this.OnKryterium2Changed();
-				}
-			}
+			this.SendPropertyChanging();
+			entity.Kryterium4 = this;
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Waga", DbType="Float NOT NULL")]
-		public double Waga
+		private void detach_Wyniks2(Wynik entity)
 		{
-			get
-			{
-				return this._Waga;
-			}
-			set
-			{
-				if ((this._Waga != value))
-				{
-					this.OnWagaChanging(value);
-					this.SendPropertyChanging();
-					this._Waga = value;
-					this.SendPropertyChanged("Waga");
-					this.OnWagaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Kryterium_Wynik", Storage="_Kryterium", ThisKey="KryteriumGlowne", OtherKey="ID", IsForeignKey=true)]
-		public Kryterium Kryterium
-		{
-			get
-			{
-				return this._Kryterium.Entity;
-			}
-			set
-			{
-				Kryterium previousValue = this._Kryterium.Entity;
-				if (((previousValue != value) 
-							|| (this._Kryterium.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Kryterium.Entity = null;
-						previousValue.Wyniks.Remove(this);
-					}
-					this._Kryterium.Entity = value;
-					if ((value != null))
-					{
-						value.Wyniks.Add(this);
-						this._KryteriumGlowne = value.ID;
-					}
-					else
-					{
-						this._KryteriumGlowne = default(int);
-					}
-					this.SendPropertyChanged("Kryterium");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Kryterium_Wynik1", Storage="_Kryterium3", ThisKey="Kryterium1", OtherKey="ID", IsForeignKey=true)]
-		public Kryterium Kryterium3
-		{
-			get
-			{
-				return this._Kryterium3.Entity;
-			}
-			set
-			{
-				Kryterium previousValue = this._Kryterium3.Entity;
-				if (((previousValue != value) 
-							|| (this._Kryterium3.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Kryterium3.Entity = null;
-						previousValue.Wyniks1.Remove(this);
-					}
-					this._Kryterium3.Entity = value;
-					if ((value != null))
-					{
-						value.Wyniks1.Add(this);
-						this._Kryterium1 = value.ID;
-					}
-					else
-					{
-						this._Kryterium1 = default(int);
-					}
-					this.SendPropertyChanged("Kryterium3");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Kryterium_Wynik2", Storage="_Kryterium4", ThisKey="Kryterium2", OtherKey="ID", IsForeignKey=true)]
-		public Kryterium Kryterium4
-		{
-			get
-			{
-				return this._Kryterium4.Entity;
-			}
-			set
-			{
-				Kryterium previousValue = this._Kryterium4.Entity;
-				if (((previousValue != value) 
-							|| (this._Kryterium4.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Kryterium4.Entity = null;
-						previousValue.Wyniks2.Remove(this);
-					}
-					this._Kryterium4.Entity = value;
-					if ((value != null))
-					{
-						value.Wyniks2.Add(this);
-						this._Kryterium2 = value.ID;
-					}
-					else
-					{
-						this._Kryterium2 = default(int);
-					}
-					this.SendPropertyChanged("Kryterium4");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
+			this.SendPropertyChanging();
+			entity.Kryterium4 = null;
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Obliczenia")]
-	public partial class Obliczenia : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.WynikCelu")]
+	public partial class WynikCelu : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -921,9 +638,9 @@ namespace Expert
 		
 		private int _ID_Celu;
 		
-		private int _ID_Kryterium;
+		private int _ID_Wariantu;
 		
-		private string _Wyniki;
+		private double _Waga;
 		
 		private EntityRef<Kryterium> _Kryterium;
 		
@@ -937,13 +654,13 @@ namespace Expert
     partial void OnIDChanged();
     partial void OnID_CeluChanging(int value);
     partial void OnID_CeluChanged();
-    partial void OnID_KryteriumChanging(int value);
-    partial void OnID_KryteriumChanged();
-    partial void OnWynikiChanging(string value);
-    partial void OnWynikiChanged();
+    partial void OnID_WariantuChanging(int value);
+    partial void OnID_WariantuChanged();
+    partial void OnWagaChanging(double value);
+    partial void OnWagaChanged();
     #endregion
 		
-		public Obliczenia()
+		public WynikCelu()
 		{
 			this._Kryterium = default(EntityRef<Kryterium>);
 			this._Kryterium1 = default(EntityRef<Kryterium>);
@@ -981,7 +698,7 @@ namespace Expert
 			{
 				if ((this._ID_Celu != value))
 				{
-					if (this._Kryterium1.HasLoadedOrAssignedValue)
+					if (this._Kryterium.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
@@ -994,51 +711,51 @@ namespace Expert
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_Kryterium", DbType="Int NOT NULL")]
-		public int ID_Kryterium
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID_Wariantu", DbType="Int NOT NULL")]
+		public int ID_Wariantu
 		{
 			get
 			{
-				return this._ID_Kryterium;
+				return this._ID_Wariantu;
 			}
 			set
 			{
-				if ((this._ID_Kryterium != value))
+				if ((this._ID_Wariantu != value))
 				{
-					if (this._Kryterium.HasLoadedOrAssignedValue)
+					if (this._Kryterium1.HasLoadedOrAssignedValue)
 					{
 						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 					}
-					this.OnID_KryteriumChanging(value);
+					this.OnID_WariantuChanging(value);
 					this.SendPropertyChanging();
-					this._ID_Kryterium = value;
-					this.SendPropertyChanged("ID_Kryterium");
-					this.OnID_KryteriumChanged();
+					this._ID_Wariantu = value;
+					this.SendPropertyChanged("ID_Wariantu");
+					this.OnID_WariantuChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Wyniki", DbType="Text NOT NULL", CanBeNull=false, UpdateCheck=UpdateCheck.Never)]
-		public string Wyniki
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Waga", DbType="Float NOT NULL")]
+		public double Waga
 		{
 			get
 			{
-				return this._Wyniki;
+				return this._Waga;
 			}
 			set
 			{
-				if ((this._Wyniki != value))
+				if ((this._Waga != value))
 				{
-					this.OnWynikiChanging(value);
+					this.OnWagaChanging(value);
 					this.SendPropertyChanging();
-					this._Wyniki = value;
-					this.SendPropertyChanged("Wyniki");
-					this.OnWynikiChanged();
+					this._Waga = value;
+					this.SendPropertyChanged("Waga");
+					this.OnWagaChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Kryterium_Obliczenia", Storage="_Kryterium", ThisKey="ID_Kryterium", OtherKey="ID", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Kryterium_WynikCelu", Storage="_Kryterium", ThisKey="ID_Celu", OtherKey="ID", IsForeignKey=true)]
 		public Kryterium Kryterium
 		{
 			get
@@ -1055,24 +772,24 @@ namespace Expert
 					if ((previousValue != null))
 					{
 						this._Kryterium.Entity = null;
-						previousValue.Obliczenias.Remove(this);
+						previousValue.WynikCelus.Remove(this);
 					}
 					this._Kryterium.Entity = value;
 					if ((value != null))
 					{
-						value.Obliczenias.Add(this);
-						this._ID_Kryterium = value.ID;
+						value.WynikCelus.Add(this);
+						this._ID_Celu = value.ID;
 					}
 					else
 					{
-						this._ID_Kryterium = default(int);
+						this._ID_Celu = default(int);
 					}
 					this.SendPropertyChanged("Kryterium");
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Kryterium_Obliczenia1", Storage="_Kryterium1", ThisKey="ID_Celu", OtherKey="ID", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Kryterium_WynikCelu1", Storage="_Kryterium1", ThisKey="ID_Wariantu", OtherKey="ID", IsForeignKey=true)]
 		public Kryterium Kryterium1
 		{
 			get
@@ -1089,17 +806,17 @@ namespace Expert
 					if ((previousValue != null))
 					{
 						this._Kryterium1.Entity = null;
-						previousValue.Obliczenias1.Remove(this);
+						previousValue.WynikCelus1.Remove(this);
 					}
 					this._Kryterium1.Entity = value;
 					if ((value != null))
 					{
-						value.Obliczenias1.Add(this);
-						this._ID_Celu = value.ID;
+						value.WynikCelus1.Add(this);
+						this._ID_Wariantu = value.ID;
 					}
 					else
 					{
-						this._ID_Celu = default(int);
+						this._ID_Wariantu = default(int);
 					}
 					this.SendPropertyChanged("Kryterium1");
 				}
@@ -1381,6 +1098,287 @@ namespace Expert
 					else
 					{
 						this._KryteriumGlowne = default(int);
+					}
+					this.SendPropertyChanged("Kryterium4");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Wynik")]
+	public partial class Wynik : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private int _KryteriumGlowne;
+		
+		private int _Kryterium1;
+		
+		private int _Kryterium2;
+		
+		private double _Waga;
+		
+		private EntityRef<Kryterium> _Kryterium;
+		
+		private EntityRef<Kryterium> _Kryterium3;
+		
+		private EntityRef<Kryterium> _Kryterium4;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnKryteriumGlowneChanging(int value);
+    partial void OnKryteriumGlowneChanged();
+    partial void OnKryterium1Changing(int value);
+    partial void OnKryterium1Changed();
+    partial void OnKryterium2Changing(int value);
+    partial void OnKryterium2Changed();
+    partial void OnWagaChanging(double value);
+    partial void OnWagaChanged();
+    #endregion
+		
+		public Wynik()
+		{
+			this._Kryterium = default(EntityRef<Kryterium>);
+			this._Kryterium3 = default(EntityRef<Kryterium>);
+			this._Kryterium4 = default(EntityRef<Kryterium>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KryteriumGlowne", DbType="Int NOT NULL")]
+		public int KryteriumGlowne
+		{
+			get
+			{
+				return this._KryteriumGlowne;
+			}
+			set
+			{
+				if ((this._KryteriumGlowne != value))
+				{
+					if (this._Kryterium.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnKryteriumGlowneChanging(value);
+					this.SendPropertyChanging();
+					this._KryteriumGlowne = value;
+					this.SendPropertyChanged("KryteriumGlowne");
+					this.OnKryteriumGlowneChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Kryterium1", DbType="Int NOT NULL")]
+		public int Kryterium1
+		{
+			get
+			{
+				return this._Kryterium1;
+			}
+			set
+			{
+				if ((this._Kryterium1 != value))
+				{
+					if (this._Kryterium3.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnKryterium1Changing(value);
+					this.SendPropertyChanging();
+					this._Kryterium1 = value;
+					this.SendPropertyChanged("Kryterium1");
+					this.OnKryterium1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Kryterium2", DbType="Int NOT NULL")]
+		public int Kryterium2
+		{
+			get
+			{
+				return this._Kryterium2;
+			}
+			set
+			{
+				if ((this._Kryterium2 != value))
+				{
+					if (this._Kryterium4.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnKryterium2Changing(value);
+					this.SendPropertyChanging();
+					this._Kryterium2 = value;
+					this.SendPropertyChanged("Kryterium2");
+					this.OnKryterium2Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Waga", DbType="Float NOT NULL")]
+		public double Waga
+		{
+			get
+			{
+				return this._Waga;
+			}
+			set
+			{
+				if ((this._Waga != value))
+				{
+					this.OnWagaChanging(value);
+					this.SendPropertyChanging();
+					this._Waga = value;
+					this.SendPropertyChanged("Waga");
+					this.OnWagaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Kryterium_Wynik", Storage="_Kryterium", ThisKey="KryteriumGlowne", OtherKey="ID", IsForeignKey=true)]
+		public Kryterium Kryterium
+		{
+			get
+			{
+				return this._Kryterium.Entity;
+			}
+			set
+			{
+				Kryterium previousValue = this._Kryterium.Entity;
+				if (((previousValue != value) 
+							|| (this._Kryterium.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Kryterium.Entity = null;
+						previousValue.Wyniks.Remove(this);
+					}
+					this._Kryterium.Entity = value;
+					if ((value != null))
+					{
+						value.Wyniks.Add(this);
+						this._KryteriumGlowne = value.ID;
+					}
+					else
+					{
+						this._KryteriumGlowne = default(int);
+					}
+					this.SendPropertyChanged("Kryterium");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Kryterium_Wynik1", Storage="_Kryterium3", ThisKey="Kryterium1", OtherKey="ID", IsForeignKey=true)]
+		public Kryterium Kryterium3
+		{
+			get
+			{
+				return this._Kryterium3.Entity;
+			}
+			set
+			{
+				Kryterium previousValue = this._Kryterium3.Entity;
+				if (((previousValue != value) 
+							|| (this._Kryterium3.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Kryterium3.Entity = null;
+						previousValue.Wyniks1.Remove(this);
+					}
+					this._Kryterium3.Entity = value;
+					if ((value != null))
+					{
+						value.Wyniks1.Add(this);
+						this._Kryterium1 = value.ID;
+					}
+					else
+					{
+						this._Kryterium1 = default(int);
+					}
+					this.SendPropertyChanged("Kryterium3");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Kryterium_Wynik2", Storage="_Kryterium4", ThisKey="Kryterium2", OtherKey="ID", IsForeignKey=true)]
+		public Kryterium Kryterium4
+		{
+			get
+			{
+				return this._Kryterium4.Entity;
+			}
+			set
+			{
+				Kryterium previousValue = this._Kryterium4.Entity;
+				if (((previousValue != value) 
+							|| (this._Kryterium4.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Kryterium4.Entity = null;
+						previousValue.Wyniks2.Remove(this);
+					}
+					this._Kryterium4.Entity = value;
+					if ((value != null))
+					{
+						value.Wyniks2.Add(this);
+						this._Kryterium2 = value.ID;
+					}
+					else
+					{
+						this._Kryterium2 = default(int);
 					}
 					this.SendPropertyChanged("Kryterium4");
 				}

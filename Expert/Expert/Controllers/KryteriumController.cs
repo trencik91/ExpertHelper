@@ -59,8 +59,6 @@ namespace Expert
 
                 return kryterium;
             }
-
-            return null;
         }
 
         public static void edytujKryterium(int id, String nazwa, String opis, bool czyWariant)

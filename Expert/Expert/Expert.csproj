@@ -137,6 +137,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="ExpertHelper.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
@@ -175,7 +176,14 @@
     <Content Include="Database\Expert_log.ldf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Graphics\delete.png" />
+    <Content Include="Graphics\left.png" />
+    <Content Include="Graphics\logo.png" />
+    <Content Include="Graphics\nazwa.png" />
+    <Content Include="Graphics\plus.png" />
+    <Content Include="Graphics\right.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

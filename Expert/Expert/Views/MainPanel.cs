@@ -27,10 +27,20 @@ namespace Expert
 
         private void dodajCelButton_Click(object sender, EventArgs e)
         {
-            this.Visible = false;
+            Visible = false;
             KryteriumPanel kryteriumPanel = new KryteriumPanel(mainForm);
             mainForm.Controls.Add(kryteriumPanel);
             kryteriumPanel.Visible = true;
+        }
+
+        private void zakonczButton_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Czy na pewno chcesz zakończyć pracę w programie?", "Zakończ pracę", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                mainForm.Close();
+            }
         }
     }
 }

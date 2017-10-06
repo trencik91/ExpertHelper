@@ -170,10 +170,5 @@ namespace Expert
                 mainPanel.Visible = true;
             }
         }
-
-        public void ustalPanel(object panel)
-        {
-            setAktualnyPanel(panel);
-        }
     }
 }

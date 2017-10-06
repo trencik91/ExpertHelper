@@ -69,9 +69,6 @@ namespace Expert
             buttonMenu.setControlEnable(buttonMenu.getButton("Dodaj"), false);
             buttonMenu.setControlEnable(buttonMenu.getButton("Usuń"), false);
             buttonMenu.setControlEnable(buttonMenu.getButton("Dalej"), false);
-            buttonMenu.setWagiPanel(this);
-            buttonMenu.ustalPanel(this);
-            this.Visible = true;
         }
 
         private void zatwierdzButton_Click(object sender, EventArgs e)

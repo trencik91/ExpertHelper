@@ -13,6 +13,7 @@ namespace Expert
     public partial class MainPanel : UserControl
     {
         private Form mainForm;
+        private ButtonMenu buttonMenu;
 
         public MainPanel()
         {
@@ -28,9 +29,13 @@ namespace Expert
         private void dodajCelButton_Click(object sender, EventArgs e)
         {
             Visible = false;
-            KryteriumPanel kryteriumPanel = new KryteriumPanel(mainForm);
+            buttonMenu = new ButtonMenu(mainForm);
+            buttonMenu.setMainPanel(this);
+            KryteriumPanel kryteriumPanel = new KryteriumPanel(mainForm, buttonMenu);
             mainForm.Controls.Add(kryteriumPanel);
             kryteriumPanel.Visible = true;
+            buttonMenu.Visible = true;
+            buttonMenu.setAktualnyPanel(this);
         }
 
         private void zakonczButton_Click(object sender, EventArgs e)

@@ -14,17 +14,20 @@ namespace Expert
     {
         private Form mainForm;
         private KryteriumPanel kryteriumPanel;
+        private WagiPanel wagiPanel;
+        private MainPanel mainPanel;
+
+        private object aktualnyPanel;
 
         public ButtonMenu()
         {
             InitializeComponent();
         }
 
-        public ButtonMenu(Form mainForm, KryteriumPanel kryteriumPanel)
+        public ButtonMenu(Form mainForm)
         {
             InitializeComponent();
             this.mainForm = mainForm;
-            this.kryteriumPanel = kryteriumPanel;
             mainForm.Controls.Add(buttonMenuPanel);
             buttonMenuPanel.Location = new Point(19, 4);
             usunButton.Enabled = false;
@@ -32,7 +35,7 @@ namespace Expert
 
         public Panel getPanel()
         {
-            return this.buttonMenuPanel;
+            return buttonMenuPanel;
         }
 
         private void dodajButton_Click(object sender, EventArgs e)
@@ -75,7 +78,7 @@ namespace Expert
             }
         }
 
-        private void setTextBoxTextFocus(Control textBox)
+        public void setTextBoxTextFocus(Control textBox)
         {
             if (null != textBox)
             {
@@ -84,7 +87,7 @@ namespace Expert
             }
         }
 
-        private void setRadioButtonChecked(RadioButton radioButton, bool check)
+        public void setRadioButtonChecked(RadioButton radioButton, bool check)
         {
             if (null != radioButton)
             {
@@ -92,12 +95,32 @@ namespace Expert
             }
         }
 
-        private void setControlEnable(Control control, bool enabled)
+        public void setControlEnable(Control control, bool enabled)
         {
             if (null != control)
             {
                 control.Enabled = enabled;
             }
+        }
+
+        public void setAktualnyPanel(object aktualnyPanel)
+        {
+            this.aktualnyPanel = aktualnyPanel;
+        }
+
+        public void setWagiPanel(WagiPanel wagiPanel)
+        {
+            this.wagiPanel = wagiPanel;
+        }
+
+        public void setMainPanel(MainPanel mainPanel)
+        {
+            this.mainPanel = mainPanel;
+        }
+
+        public void setKryteriumPanel(KryteriumPanel kryteriumPanel)
+        {
+            this.kryteriumPanel = kryteriumPanel;
         }
 
         public Button getButton(String nazwa)
@@ -114,6 +137,31 @@ namespace Expert
                     return dalejButton;
                 default:
                     return null;
+            }
+        }
+
+        private void wsteczButton_Click(object sender, EventArgs e)
+        {
+            dalejButton.Enabled = true;
+
+            if (aktualnyPanel == kryteriumPanel)
+            {
+                kryteriumPanel.Visible = false;
+                Visible = false;
+                mainPanel.Visible = true;
+                setAktualnyPanel(mainPanel);
+            }
+            else if (aktualnyPanel == wagiPanel)
+            {
+                wagiPanel.Visible = false;
+                kryteriumPanel.Visible = true;
+                setAktualnyPanel(kryteriumPanel);
+            }
+            else if (aktualnyPanel == mainPanel)
+            {
+                kryteriumPanel.Visible = false;
+                wagiPanel.Visible = false;
+                mainPanel.Visible = true;
             }
         }
     }

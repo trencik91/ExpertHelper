@@ -15,6 +15,8 @@ namespace Expert
     {
         private Form mainForm;
 
+        private ButtonMenu buttonMenu;
+
         private int idCelu = 0;
         private int idKryterium = 0;
 
@@ -48,6 +50,27 @@ namespace Expert
             listaNazwKryteriow = KryteriumController.pobierzListeNazwKryteriow(idCelu);
             wartoscNumericUpDown.Maximum = MAKSYMALNA_WAGA;
             sliderTrackBar.SetRange(0, MAKSYMALNA_WAGA * 100);
+        }
+
+        public WagiPanel(Form mainForm, ButtonMenu buttonMenu, int idCelu)
+        {
+            InitializeComponent();
+            this.mainForm = mainForm;
+            this.idCelu = idCelu;
+            this.buttonMenu = buttonMenu;
+            problemTreeView.Nodes.Clear();
+            wariantyListBox.Items.Clear();
+            listaNodow = KryteriumController.pobierzDrzewo(idCelu);
+            uzupelnijProblemWarianty();
+            listaIdKryteriow = KryteriumController.pobierzListeIdKryteriow(idCelu);
+            listaNazwKryteriow = KryteriumController.pobierzListeNazwKryteriow(idCelu);
+            wartoscNumericUpDown.Maximum = MAKSYMALNA_WAGA;
+            sliderTrackBar.SetRange(0, MAKSYMALNA_WAGA * 100);
+            buttonMenu.setControlEnable(buttonMenu.getButton("Dodaj"), false);
+            buttonMenu.setControlEnable(buttonMenu.getButton("Usuń"), false);
+            buttonMenu.setControlEnable(buttonMenu.getButton("Dalej"), false);
+            buttonMenu.setWagiPanel(this);
+            buttonMenu.setAktualnyPanel(this);
         }
 
         private void zatwierdzButton_Click(object sender, EventArgs e)

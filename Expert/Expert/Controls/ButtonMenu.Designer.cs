@@ -72,6 +72,7 @@
             this.wsteczButton.Text = "Wstecz";
             this.wsteczButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.wsteczButton.UseVisualStyleBackColor = true;
+            this.wsteczButton.Click += new System.EventHandler(this.wsteczButton_Click);
             // 
             // usunButton
             // 

@@ -29,15 +29,16 @@ namespace Expert
             pobierzCele();
         }
 
-        public KryteriumPanel(Form mainForm)
+        public KryteriumPanel(Form mainForm, ButtonMenu buttonMenu)
         {
             InitializeComponent();
             pobierzCele();
             this.mainForm = mainForm;
             celRadioButton.Checked = true;
-            buttonMenu = new ButtonMenu(mainForm, this);
+            this.buttonMenu = buttonMenu;
+            buttonMenu.setKryteriumPanel(this);
             setButtonEnable("Dalej", false);
-            buttonMenu.Visible = true;
+            buttonMenu.setAktualnyPanel(this);
         }
 
         private void celRadioButton_CheckedChanged(object sender, EventArgs e)
@@ -119,7 +120,7 @@ namespace Expert
                 if (liczbaPodkryteriow >= 2)
                 {
                     this.Visible = false;
-                    WagiPanel wagiPanel = new WagiPanel(mainForm, celID);
+                    WagiPanel wagiPanel = new WagiPanel(mainForm, buttonMenu, celID);
                     mainForm.Controls.Add(wagiPanel);
                     wagiPanel.Visible = true;
                 }

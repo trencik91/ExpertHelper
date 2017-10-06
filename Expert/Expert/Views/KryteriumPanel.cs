@@ -13,6 +13,7 @@ namespace Expert
     public partial class KryteriumPanel : UserControl
     {
         private Form mainForm;
+        private ButtonMenu buttonMenu;
 
         private int celID = 0;
         private int kryteriumID = 0;
@@ -34,6 +35,9 @@ namespace Expert
             pobierzCele();
             this.mainForm = mainForm;
             celRadioButton.Checked = true;
+            buttonMenu = new ButtonMenu(mainForm, this);
+            setButtonEnable("Dalej", false);
+            buttonMenu.Visible = true;
         }
 
         private void celRadioButton_CheckedChanged(object sender, EventArgs e)
@@ -139,6 +143,7 @@ namespace Expert
             zapiszButton.Enabled = true;
             celRadioButton.Checked = true;
             ustalZaznaczenie(wariantRadioButton, kryteriumRadioButton);
+            setButtonEnable("Usuń", false);
 
             if (problemDataGridView.SelectedRows.Count == 1)
             {
@@ -160,6 +165,7 @@ namespace Expert
                         wariantyListBox.DataSource = tabelaWariantow;
                         wariantyListBox.ValueMember = "ID_Wariantu";
                         wariantyListBox.DisplayMember = "Nazwa";
+                        wariantyListBox.ClearSelected();
                     }
 
                     nazwaTextBox.Text = dataRow.Cells[3].Value.ToString();
@@ -250,10 +256,12 @@ namespace Expert
             if (kryteriaTreeView.SelectedNode == null)
             {
                 ustalBlokadeKontrolek(false);
+                setButtonEnable("Usuń", false);
             }
             else
             {
                 ustalBlokadeKontrolek(true);
+                setButtonEnable("Usuń", true);
                 TreeNode item = kryteriaTreeView.SelectedNode;
                 kryteriumID = int.Parse(item.Name.ToString());
                 Kryterium kryterium = KryteriumController.pobierzKryterium(kryteriumID, db, false);
@@ -266,7 +274,7 @@ namespace Expert
             }
         }
 
-        private void pobierzCele()
+        public void pobierzCele()
         {
             DataTable dt = KryteriumController.pobierzTabeleCelow();
 
@@ -355,6 +363,76 @@ namespace Expert
                 {
                     liczbaPodkryteriow = 0;
                 }
+            }
+        }
+
+        public Button getButton(String nazwa)
+        {
+            switch (nazwa)
+            {
+                case "Dodaj":
+                    return dodajButton;
+                case "Zapisz":
+                    return zapiszButton;
+                case "Wagi":
+                    return wagiButton;
+                default:
+                    return null;
+            }
+        }
+
+        public RadioButton getRadioButton(String nazwa)
+        {
+            switch (nazwa)
+            {
+                case "Cel":
+                    return celRadioButton;
+                case "Kryterium":
+                    return kryteriumRadioButton;
+                case "Wariant":
+                    return wariantRadioButton;
+                default:
+                    return null;
+            }
+        }
+
+        public TextBox getNazwaTextBox()
+        {
+            return nazwaTextBox;
+        }
+
+        public void setCelID(int value)
+        {
+            celID = value;
+        }
+
+        public void setKryteriumID(int value)
+        {
+            kryteriumID = value;
+        }
+
+        public int getKryteriumID()
+        {
+            return kryteriumID;
+        }
+
+        public int getCelID()
+        {
+            return celID;
+        }
+
+        public TreeNode getSelectedNode()
+        {
+            return kryteriaTreeView.SelectedNode;
+        }
+
+        public void setButtonEnable(String nazwa, bool enable)
+        {
+            Button usunButton = buttonMenu.getButton(nazwa);
+
+            if (null != usunButton)
+            {
+                usunButton.Enabled = enable;
             }
         }
     }

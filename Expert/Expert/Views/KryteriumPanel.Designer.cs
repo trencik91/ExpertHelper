@@ -31,6 +31,9 @@
             this.components = new System.ComponentModel.Container();
             this.problemGroupBox = new System.Windows.Forms.GroupBox();
             this.problemDataGridView = new System.Windows.Forms.DataGridView();
+            this.celContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.dodajCelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.usuńCelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.kryteriaGroupBox = new System.Windows.Forms.GroupBox();
             this.kryteriaTreeView = new System.Windows.Forms.TreeView();
             this.kryteriumContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -52,17 +55,15 @@
             this.wariantRadioButton = new System.Windows.Forms.RadioButton();
             this.kryteriumRadioButton = new System.Windows.Forms.RadioButton();
             this.celRadioButton = new System.Windows.Forms.RadioButton();
-            this.celContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.dodajCelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.usuńCelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.buttonMenuPanel = new System.Windows.Forms.Panel();
             this.problemGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.problemDataGridView)).BeginInit();
+            this.celContextMenuStrip.SuspendLayout();
             this.kryteriaGroupBox.SuspendLayout();
             this.kryteriumContextMenuStrip.SuspendLayout();
             this.wariantyGroupBox.SuspendLayout();
             this.wariantyContextMenuStrip.SuspendLayout();
             this.dodajGroupBox.SuspendLayout();
-            this.celContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // problemGroupBox
@@ -85,6 +86,27 @@
             this.problemDataGridView.Size = new System.Drawing.Size(322, 509);
             this.problemDataGridView.TabIndex = 0;
             this.problemDataGridView.SelectionChanged += new System.EventHandler(this.problemDataGridView_SelectionChanged);
+            // 
+            // celContextMenuStrip
+            // 
+            this.celContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.dodajCelToolStripMenuItem,
+            this.usuńCelToolStripMenuItem});
+            this.celContextMenuStrip.Name = "celContextMenuStrip";
+            this.celContextMenuStrip.Size = new System.Drawing.Size(124, 48);
+            // 
+            // dodajCelToolStripMenuItem
+            // 
+            this.dodajCelToolStripMenuItem.Name = "dodajCelToolStripMenuItem";
+            this.dodajCelToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.dodajCelToolStripMenuItem.Text = "Dodaj cel";
+            this.dodajCelToolStripMenuItem.Click += new System.EventHandler(this.dodajCelToolStripMenuItem_Click);
+            // 
+            // usuńCelToolStripMenuItem
+            // 
+            this.usuńCelToolStripMenuItem.Name = "usuńCelToolStripMenuItem";
+            this.usuńCelToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.usuńCelToolStripMenuItem.Text = "Usuń cel";
             // 
             // kryteriaGroupBox
             // 
@@ -289,31 +311,18 @@
             this.celRadioButton.UseVisualStyleBackColor = true;
             this.celRadioButton.CheckedChanged += new System.EventHandler(this.celRadioButton_CheckedChanged);
             // 
-            // celContextMenuStrip
+            // buttonMenuPanel
             // 
-            this.celContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.dodajCelToolStripMenuItem,
-            this.usuńCelToolStripMenuItem});
-            this.celContextMenuStrip.Name = "celContextMenuStrip";
-            this.celContextMenuStrip.Size = new System.Drawing.Size(153, 70);
-            // 
-            // dodajCelToolStripMenuItem
-            // 
-            this.dodajCelToolStripMenuItem.Name = "dodajCelToolStripMenuItem";
-            this.dodajCelToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.dodajCelToolStripMenuItem.Text = "Dodaj cel";
-            this.dodajCelToolStripMenuItem.Click += new System.EventHandler(this.dodajCelToolStripMenuItem_Click);
-            // 
-            // usuńCelToolStripMenuItem
-            // 
-            this.usuńCelToolStripMenuItem.Name = "usuńCelToolStripMenuItem";
-            this.usuńCelToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.usuńCelToolStripMenuItem.Text = "Usuń cel";
+            this.buttonMenuPanel.Location = new System.Drawing.Point(19, 4);
+            this.buttonMenuPanel.Name = "buttonMenuPanel";
+            this.buttonMenuPanel.Size = new System.Drawing.Size(963, 48);
+            this.buttonMenuPanel.TabIndex = 4;
             // 
             // KryteriumPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.buttonMenuPanel);
             this.Controls.Add(this.dodajGroupBox);
             this.Controls.Add(this.wariantyGroupBox);
             this.Controls.Add(this.kryteriaGroupBox);
@@ -322,13 +331,13 @@
             this.Size = new System.Drawing.Size(1026, 645);
             this.problemGroupBox.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.problemDataGridView)).EndInit();
+            this.celContextMenuStrip.ResumeLayout(false);
             this.kryteriaGroupBox.ResumeLayout(false);
             this.kryteriumContextMenuStrip.ResumeLayout(false);
             this.wariantyGroupBox.ResumeLayout(false);
             this.wariantyContextMenuStrip.ResumeLayout(false);
             this.dodajGroupBox.ResumeLayout(false);
             this.dodajGroupBox.PerformLayout();
-            this.celContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -361,5 +370,6 @@
         private System.Windows.Forms.ContextMenuStrip celContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem dodajCelToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem usuńCelToolStripMenuItem;
+        private System.Windows.Forms.Panel buttonMenuPanel;
     }
 }

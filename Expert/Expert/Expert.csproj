@@ -68,6 +68,12 @@
     <Compile Include="Controllers\WagaController.cs" />
     <Compile Include="Controllers\WynikCeluController.cs" />
     <Compile Include="Controllers\WynikController.cs" />
+    <Compile Include="Controls\ButtonMenu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ButtonMenu.Designer.cs">
+      <DependentUpon>ButtonMenu.cs</DependentUpon>
+    </Compile>
     <Compile Include="ExpertHelper.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +120,9 @@
     <None Include="ExpertHelper.dbml.layout">
       <DependentUpon>ExpertHelper.dbml</DependentUpon>
     </None>
+    <EmbeddedResource Include="Controls\ButtonMenu.resx">
+      <DependentUpon>ButtonMenu.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\WynikPanel.resx">
       <DependentUpon>WynikPanel.cs</DependentUpon>
     </EmbeddedResource>

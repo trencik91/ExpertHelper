@@ -38,7 +38,7 @@ namespace Expert
             this.buttonMenu = buttonMenu;
             buttonMenu.setKryteriumPanel(this);
             setButtonEnable("Dalej", false);
-            buttonMenu.setAktualnyPanel(this);
+            this.Visible = true;
         }
 
         private void celRadioButton_CheckedChanged(object sender, EventArgs e)
@@ -119,10 +119,11 @@ namespace Expert
             {
                 if (liczbaPodkryteriow >= 2)
                 {
-                    this.Visible = false;
+                    Visible = false;
                     WagiPanel wagiPanel = new WagiPanel(mainForm, buttonMenu, celID);
                     mainForm.Controls.Add(wagiPanel);
                     wagiPanel.Visible = true;
+                    buttonMenu.setAktualnyPanel(wagiPanel);
                 }
                 else
                 {

@@ -35,7 +35,7 @@ namespace Expert
             mainForm.Controls.Add(kryteriumPanel);
             kryteriumPanel.Visible = true;
             buttonMenu.Visible = true;
-            buttonMenu.setAktualnyPanel(this);
+            buttonMenu.ustalPanel(kryteriumPanel);
         }
 
         private void zakonczButton_Click(object sender, EventArgs e)

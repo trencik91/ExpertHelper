@@ -154,15 +154,26 @@ namespace Expert
             else if (aktualnyPanel == wagiPanel)
             {
                 wagiPanel.Visible = false;
+                mainPanel.Visible = false;
                 kryteriumPanel.Visible = true;
                 setAktualnyPanel(kryteriumPanel);
             }
             else if (aktualnyPanel == mainPanel)
             {
                 kryteriumPanel.Visible = false;
-                wagiPanel.Visible = false;
+
+                if (null != wagiPanel)
+                {
+                    wagiPanel.Visible = false;
+                }
+
                 mainPanel.Visible = true;
             }
+        }
+
+        public void ustalPanel(object panel)
+        {
+            setAktualnyPanel(panel);
         }
     }
 }

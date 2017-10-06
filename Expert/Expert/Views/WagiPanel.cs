@@ -70,7 +70,8 @@ namespace Expert
             buttonMenu.setControlEnable(buttonMenu.getButton("Usuń"), false);
             buttonMenu.setControlEnable(buttonMenu.getButton("Dalej"), false);
             buttonMenu.setWagiPanel(this);
-            buttonMenu.setAktualnyPanel(this);
+            buttonMenu.ustalPanel(this);
+            this.Visible = true;
         }
 
         private void zatwierdzButton_Click(object sender, EventArgs e)
@@ -531,7 +532,7 @@ namespace Expert
             WynikPanel wynikPanel = new WynikPanel(listaWagWariantow, idCelu, MAKSYMALNA_WAGA);
             mainForm.Controls.Add(wynikPanel);
             wynikPanel.Visible = true;
-            this.Visible = false;
+            Visible = false;
         }
 
         private Wynik pobierzWage(int idKryterium2, IEnumerable<Wynik> listaWynikow)

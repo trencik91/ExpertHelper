@@ -37,11 +37,11 @@ namespace Expert
             InitializeComponent();
         }
 
-        public WagiPanel(Form mainForm, int idCelu)
+        public WagiPanel(Form mainForm, KryteriumPanel kryteriumPanel)
         {
             InitializeComponent();
             this.mainForm = mainForm;
-            this.idCelu = idCelu;
+            idCelu = kryteriumPanel.getCelID();
             problemTreeView.Nodes.Clear();
             wariantyListBox.Items.Clear();
             listaNodow = KryteriumController.pobierzDrzewo(idCelu);

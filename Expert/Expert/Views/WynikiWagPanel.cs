@@ -56,19 +56,19 @@ namespace Expert
         {
             if (problemDataGridView.SelectedRows.Count == 1)
             {
-                //try
-                //{
-                DataGridViewRow dataRow = problemDataGridView.SelectedRows[0];
+                try
+                {
+                    DataGridViewRow dataRow = problemDataGridView.SelectedRows[0];
 
                 int idCelu = int.Parse(dataRow.Cells[1].Value.ToString());
 
                 pobierzKryteriaDlaCelu(idCelu);
                 pobierzWynikiDlaCelu(idCelu);
-                //}
-                //catch
-                //{
-                //    messagebox.show("zaznacz wiersz z danymi!", "błąd", messageboxbuttons.ok, messageboxicon.error);
-                //}
+                }
+                catch
+                {
+                    MessageBox.Show("Zaznacz wiersz z danymi!", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 

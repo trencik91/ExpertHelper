@@ -16,10 +16,6 @@ namespace Expert
         {
             InitializeComponent();
             MainPanel mainPanel = new MainPanel(this);
-            ButtonMenu buttonMenu = new ButtonMenu(this);
-            KryteriumPanel kryteriumPanel = new KryteriumPanel(this, buttonMenu);
-            WagiPanel wagiPanel = new WagiPanel(this, kryteriumPanel);
-            WynikPanel wynikPanel = new WynikPanel();
             this.Controls.Add(mainPanel);
             mainPanel.Visible = true;
         }

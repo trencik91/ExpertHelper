@@ -30,13 +30,13 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainPanel));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.dodajCelButton = new System.Windows.Forms.Button();
-            this.listaWynikowButton = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.zakonczButton = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.zakonczButton = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.listaWynikowButton = new System.Windows.Forms.Button();
+            this.dodajCelButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -57,49 +57,22 @@
             this.panel1.Size = new System.Drawing.Size(1026, 648);
             this.panel1.TabIndex = 0;
             // 
-            // dodajCelButton
+            // label1
             // 
-            this.dodajCelButton.Location = new System.Drawing.Point(270, 192);
-            this.dodajCelButton.Name = "dodajCelButton";
-            this.dodajCelButton.Size = new System.Drawing.Size(521, 64);
-            this.dodajCelButton.TabIndex = 1;
-            this.dodajCelButton.Text = "Dodaj Cel";
-            this.dodajCelButton.UseVisualStyleBackColor = true;
-            this.dodajCelButton.Click += new System.EventHandler(this.dodajCelButton_Click);
-            // 
-            // listaWynikowButton
-            // 
-            this.listaWynikowButton.Location = new System.Drawing.Point(270, 262);
-            this.listaWynikowButton.Name = "listaWynikowButton";
-            this.listaWynikowButton.Size = new System.Drawing.Size(521, 64);
-            this.listaWynikowButton.TabIndex = 2;
-            this.listaWynikowButton.Text = "Lista wyników";
-            this.listaWynikowButton.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(270, 332);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(521, 64);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Dodaj Cel";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // zakonczButton
-            // 
-            this.zakonczButton.Location = new System.Drawing.Point(270, 493);
-            this.zakonczButton.Name = "zakonczButton";
-            this.zakonczButton.Size = new System.Drawing.Size(521, 64);
-            this.zakonczButton.TabIndex = 4;
-            this.zakonczButton.Text = "Zakończ";
-            this.zakonczButton.UseVisualStyleBackColor = true;
-            this.zakonczButton.Click += new System.EventHandler(this.zakonczButton_Click);
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.White;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.label1.Location = new System.Drawing.Point(404, 123);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(364, 15);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "Program wspomagający podejmowanie decyzji wielokryterialnych";
             // 
             // pictureBox2
             // 
             this.pictureBox2.BackColor = System.Drawing.Color.White;
             this.pictureBox2.Image = global::Expert.Properties.Resources.nazwa;
-            this.pictureBox2.Location = new System.Drawing.Point(406, 30);
+            this.pictureBox2.Location = new System.Drawing.Point(393, 30);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(385, 127);
             this.pictureBox2.TabIndex = 6;
@@ -109,21 +82,49 @@
             // 
             this.pictureBox1.Image = global::Expert.Properties.Resources.logo;
             this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
-            this.pictureBox1.Location = new System.Drawing.Point(270, 30);
+            this.pictureBox1.Location = new System.Drawing.Point(257, 30);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(130, 127);
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
             // 
-            // label1
+            // zakonczButton
             // 
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(442, 124);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(311, 13);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Program wspomagający podejmowanie decyzji wielokryterialnych";
+            this.zakonczButton.Location = new System.Drawing.Point(257, 494);
+            this.zakonczButton.Name = "zakonczButton";
+            this.zakonczButton.Size = new System.Drawing.Size(521, 64);
+            this.zakonczButton.TabIndex = 4;
+            this.zakonczButton.Text = "Zakończ";
+            this.zakonczButton.UseVisualStyleBackColor = true;
+            this.zakonczButton.Click += new System.EventHandler(this.zakonczButton_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(257, 332);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(521, 64);
+            this.button2.TabIndex = 3;
+            this.button2.Text = "Dodaj Cel";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // listaWynikowButton
+            // 
+            this.listaWynikowButton.Location = new System.Drawing.Point(257, 262);
+            this.listaWynikowButton.Name = "listaWynikowButton";
+            this.listaWynikowButton.Size = new System.Drawing.Size(521, 64);
+            this.listaWynikowButton.TabIndex = 2;
+            this.listaWynikowButton.Text = "Lista wyników";
+            this.listaWynikowButton.UseVisualStyleBackColor = true;
+            // 
+            // dodajCelButton
+            // 
+            this.dodajCelButton.Location = new System.Drawing.Point(257, 192);
+            this.dodajCelButton.Name = "dodajCelButton";
+            this.dodajCelButton.Size = new System.Drawing.Size(521, 64);
+            this.dodajCelButton.TabIndex = 1;
+            this.dodajCelButton.Text = "Dodaj Cel";
+            this.dodajCelButton.UseVisualStyleBackColor = true;
+            this.dodajCelButton.Click += new System.EventHandler(this.dodajCelButton_Click);
             // 
             // MainPanel
             // 

@@ -21,24 +21,27 @@ namespace Expert
         private int selectedIndex = 0;
         private int liczbaPodkryteriow = 0;
 
+        private int pierwszyZaznaczony = 0;
+
         private const int PODKRYTERIA = 15;
 
         public KryteriumPanel()
         {
             InitializeComponent();
-            pobierzCele();
         }
 
         public KryteriumPanel(Form mainForm, ButtonMenu buttonMenu)
         {
             InitializeComponent();
             pobierzCele();
+            mainForm.Controls.Add(buttonMenu);
             this.mainForm = mainForm;
             celRadioButton.Checked = true;
             this.buttonMenu = buttonMenu;
             buttonMenu.setKryteriumPanel(this);
             setButtonEnable("Dalej", false);
             Visible = true;
+            pierwszyZaznaczony = 0;
         }
 
         private void celRadioButton_CheckedChanged(object sender, EventArgs e)
@@ -115,6 +118,11 @@ namespace Expert
 
         private void wagiButton_Click(object sender, EventArgs e)
         {
+            if (problemDataGridView.SelectedRows.Count > 0)
+            {
+                pierwszyZaznaczony = problemDataGridView.SelectedRows[0].Index;
+            }
+
             if (wariantyListBox.Items.Count > 1)
             {
                 if (liczbaPodkryteriow >= 2)
@@ -147,6 +155,7 @@ namespace Expert
             celRadioButton.Checked = true;
             ustalZaznaczenie(wariantRadioButton, kryteriumRadioButton);
             setButtonEnable("Usuń", false);
+            setButtonEnable("Dalej", false);
 
             if (problemDataGridView.SelectedRows.Count == 1)
             {
@@ -157,6 +166,15 @@ namespace Expert
                     kryteriumID = int.Parse(dataRow.Cells[1].Value.ToString());
                     celID = kryteriumID;
                     selectedIndex = problemDataGridView.SelectedRows[0].Index;
+
+                    if (pierwszyZaznaczony == selectedIndex)
+                    {
+                        setButtonEnable("Dalej", true);
+                    }
+                    else
+                    {
+                        setButtonEnable("Dalej", false);
+                    }
 
                     TreeNode listaNodow = KryteriumController.pobierzDrzewo(kryteriumID);
                     kryteriaTreeView.Nodes.AddRange(new TreeNode[] { listaNodow });

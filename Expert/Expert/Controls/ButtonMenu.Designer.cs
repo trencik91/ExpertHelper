@@ -44,7 +44,7 @@
             this.buttonMenuPanel.Controls.Add(this.dodajButton);
             this.buttonMenuPanel.Location = new System.Drawing.Point(3, 3);
             this.buttonMenuPanel.Name = "buttonMenuPanel";
-            this.buttonMenuPanel.Size = new System.Drawing.Size(963, 49);
+            this.buttonMenuPanel.Size = new System.Drawing.Size(963, 48);
             this.buttonMenuPanel.TabIndex = 5;
             // 
             // dalejButton
@@ -59,6 +59,7 @@
             this.dalejButton.Text = "Dalej";
             this.dalejButton.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.dalejButton.UseVisualStyleBackColor = true;
+            this.dalejButton.Click += new System.EventHandler(this.dalejButton_Click);
             // 
             // wsteczButton
             // 
@@ -108,7 +109,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.buttonMenuPanel);
             this.Name = "ButtonMenu";
-            this.Size = new System.Drawing.Size(968, 58);
+            this.Size = new System.Drawing.Size(968, 48);
             this.buttonMenuPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 

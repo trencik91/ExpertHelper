@@ -13,6 +13,8 @@ namespace Expert
 {
     public partial class WynikPanel : UserControl
     {
+        private ButtonMenu buttonMenu;
+
         private int maksymalnaWaga;
         private int idCelu;
 
@@ -23,9 +25,10 @@ namespace Expert
             InitializeComponent();
         }
 
-        public WynikPanel(Dictionary<int, decimal> listaWariantowWag, int idCelu, int maksymalnaWaga)
+        public WynikPanel(Dictionary<int, decimal> listaWariantowWag, int idCelu, int maksymalnaWaga, ButtonMenu buttonMenu)
         {
             InitializeComponent();
+            this.buttonMenu = buttonMenu;
             this.maksymalnaWaga = maksymalnaWaga;
             this.listaWariantowWag = listaWariantowWag;
             this.idCelu = idCelu;

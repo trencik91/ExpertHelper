@@ -20,22 +20,25 @@ namespace Expert
             InitializeComponent();
         }
 
-        public MainPanel(Form mainForm)
+        public MainPanel(Form mainForm, ButtonMenu buttonMenu)
         {
             InitializeComponent();
             this.mainForm = mainForm;
+            this.buttonMenu = buttonMenu;
         }
 
         private void dodajCelButton_Click(object sender, EventArgs e)
         {
             Visible = false;
-            buttonMenu = new ButtonMenu(mainForm);
-            buttonMenu.setMainPanel(this);
             KryteriumPanel kryteriumPanel = new KryteriumPanel(mainForm, buttonMenu);
             mainForm.Controls.Add(kryteriumPanel);
             buttonMenu.setAktualnyPanel(kryteriumPanel);
-            buttonMenu.Visible = true;
+            buttonMenu.setControlEnable(buttonMenu.getButton("Dodaj"), true);
+            buttonMenu.setControlEnable(buttonMenu.getButton("Usuń"), false);
+            buttonMenu.setControlEnable(buttonMenu.getButton("Wstecz"), true);
+            buttonMenu.setControlEnable(buttonMenu.getButton("Dalej"), false);
             kryteriumPanel.Visible = true;
+            buttonMenu.Visible = true;
         }
 
         private void zakonczButton_Click(object sender, EventArgs e)

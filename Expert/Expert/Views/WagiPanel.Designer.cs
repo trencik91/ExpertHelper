@@ -72,9 +72,9 @@
             // problemGroupBox
             // 
             this.problemGroupBox.Controls.Add(this.problemTreeView);
-            this.problemGroupBox.Location = new System.Drawing.Point(3, 42);
+            this.problemGroupBox.Location = new System.Drawing.Point(19, 55);
             this.problemGroupBox.Name = "problemGroupBox";
-            this.problemGroupBox.Size = new System.Drawing.Size(280, 296);
+            this.problemGroupBox.Size = new System.Drawing.Size(280, 275);
             this.problemGroupBox.TabIndex = 0;
             this.problemGroupBox.TabStop = false;
             this.problemGroupBox.Text = "Problem";
@@ -84,7 +84,7 @@
             this.problemTreeView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.problemTreeView.Location = new System.Drawing.Point(3, 16);
             this.problemTreeView.Name = "problemTreeView";
-            this.problemTreeView.Size = new System.Drawing.Size(274, 277);
+            this.problemTreeView.Size = new System.Drawing.Size(274, 256);
             this.problemTreeView.TabIndex = 0;
             this.problemTreeView.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.problemTreeView_BeforeSelect);
             this.problemTreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.problemTreeView_AfterSelect);
@@ -92,7 +92,7 @@
             // wariantyGroupBox
             // 
             this.wariantyGroupBox.Controls.Add(this.wariantyListBox);
-            this.wariantyGroupBox.Location = new System.Drawing.Point(9, 372);
+            this.wariantyGroupBox.Location = new System.Drawing.Point(19, 374);
             this.wariantyGroupBox.Name = "wariantyGroupBox";
             this.wariantyGroupBox.Size = new System.Drawing.Size(274, 213);
             this.wariantyGroupBox.TabIndex = 1;
@@ -111,9 +111,9 @@
             // wagiGroupBox
             // 
             this.wagiGroupBox.Controls.Add(this.wagiDataGridView);
-            this.wagiGroupBox.Location = new System.Drawing.Point(355, 42);
+            this.wagiGroupBox.Location = new System.Drawing.Point(355, 58);
             this.wagiGroupBox.Name = "wagiGroupBox";
-            this.wagiGroupBox.Size = new System.Drawing.Size(640, 296);
+            this.wagiGroupBox.Size = new System.Drawing.Size(640, 272);
             this.wagiGroupBox.TabIndex = 2;
             this.wagiGroupBox.TabStop = false;
             this.wagiGroupBox.Text = "Wagi";
@@ -128,7 +128,7 @@
             this.wagiDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.wagiDataGridView.Location = new System.Drawing.Point(3, 16);
             this.wagiDataGridView.Name = "wagiDataGridView";
-            this.wagiDataGridView.Size = new System.Drawing.Size(634, 277);
+            this.wagiDataGridView.Size = new System.Drawing.Size(634, 253);
             this.wagiDataGridView.TabIndex = 0;
             this.wagiDataGridView.CellBeginEdit += new System.Windows.Forms.DataGridViewCellCancelEventHandler(this.wagiDataGridView_CellBeginEdit);
             this.wagiDataGridView.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.wagiDataGridView_CellEndEdit);
@@ -142,7 +142,7 @@
             this.wagiTabControl.Controls.Add(this.liczbowoTabPage);
             this.wagiTabControl.Controls.Add(this.graficznieTabPage);
             this.wagiTabControl.Controls.Add(this.slownieTabPage);
-            this.wagiTabControl.Location = new System.Drawing.Point(355, 372);
+            this.wagiTabControl.Location = new System.Drawing.Point(355, 374);
             this.wagiTabControl.Name = "wagiTabControl";
             this.wagiTabControl.SelectedIndex = 0;
             this.wagiTabControl.Size = new System.Drawing.Size(640, 213);
@@ -329,7 +329,7 @@
             // 
             // zatwierdzButton
             // 
-            this.zatwierdzButton.Location = new System.Drawing.Point(588, 341);
+            this.zatwierdzButton.Location = new System.Drawing.Point(588, 336);
             this.zatwierdzButton.Name = "zatwierdzButton";
             this.zatwierdzButton.Size = new System.Drawing.Size(75, 23);
             this.zatwierdzButton.TabIndex = 4;
@@ -339,7 +339,7 @@
             // 
             // obliczButton
             // 
-            this.obliczButton.Location = new System.Drawing.Point(669, 341);
+            this.obliczButton.Location = new System.Drawing.Point(669, 336);
             this.obliczButton.Name = "obliczButton";
             this.obliczButton.Size = new System.Drawing.Size(75, 23);
             this.obliczButton.TabIndex = 5;
@@ -349,7 +349,7 @@
             // 
             // zapiszButton
             // 
-            this.zapiszButton.Location = new System.Drawing.Point(750, 341);
+            this.zapiszButton.Location = new System.Drawing.Point(750, 336);
             this.zapiszButton.Name = "zapiszButton";
             this.zapiszButton.Size = new System.Drawing.Size(75, 23);
             this.zapiszButton.TabIndex = 6;
@@ -359,7 +359,7 @@
             // 
             // wagiButton
             // 
-            this.wagiButton.Location = new System.Drawing.Point(355, 341);
+            this.wagiButton.Location = new System.Drawing.Point(355, 336);
             this.wagiButton.Name = "wagiButton";
             this.wagiButton.Size = new System.Drawing.Size(75, 23);
             this.wagiButton.TabIndex = 7;
@@ -369,7 +369,7 @@
             // 
             // wynikButton
             // 
-            this.wynikButton.Location = new System.Drawing.Point(920, 343);
+            this.wynikButton.Location = new System.Drawing.Point(920, 336);
             this.wynikButton.Name = "wynikButton";
             this.wynikButton.Size = new System.Drawing.Size(75, 23);
             this.wynikButton.TabIndex = 8;

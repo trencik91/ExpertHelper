@@ -16,8 +16,10 @@ namespace Expert
         private KryteriumPanel kryteriumPanel;
         private WagiPanel wagiPanel;
         private MainPanel mainPanel;
+        private WynikPanel wynikPanel;
 
         private object aktualnyPanel;
+        private object poprzedniPanel;
 
         public ButtonMenu()
         {
@@ -28,9 +30,8 @@ namespace Expert
         {
             InitializeComponent();
             this.mainForm = mainForm;
-            mainForm.Controls.Add(buttonMenuPanel);
-            buttonMenuPanel.Location = new Point(19, 4);
-            usunButton.Enabled = false;
+            Location = new Point(16, 4);
+            Visible = true;
         }
 
         public Panel getPanel()
@@ -108,6 +109,11 @@ namespace Expert
             this.aktualnyPanel = aktualnyPanel;
         }
 
+        public void setPoprzedniPanel(object poprzedniPanel)
+        {
+            this.poprzedniPanel = poprzedniPanel;
+        }
+
         public void setWagiPanel(WagiPanel wagiPanel)
         {
             this.wagiPanel = wagiPanel;
@@ -121,6 +127,11 @@ namespace Expert
         public void setKryteriumPanel(KryteriumPanel kryteriumPanel)
         {
             this.kryteriumPanel = kryteriumPanel;
+        }
+
+        public void setWynikPanel(WynikPanel wynikPanel)
+        {
+            this.wynikPanel = wynikPanel;
         }
 
         public Button getButton(String nazwa)
@@ -144,21 +155,7 @@ namespace Expert
         {
             dalejButton.Enabled = true;
 
-            if (aktualnyPanel == kryteriumPanel)
-            {
-                kryteriumPanel.Visible = false;
-                Visible = false;
-                mainPanel.Visible = true;
-                setAktualnyPanel(mainPanel);
-            }
-            else if (aktualnyPanel == wagiPanel)
-            {
-                wagiPanel.Visible = false;
-                mainPanel.Visible = false;
-                kryteriumPanel.Visible = true;
-                setAktualnyPanel(kryteriumPanel);
-            }
-            else if (aktualnyPanel == mainPanel)
+            if (aktualnyPanel == mainPanel)
             {
                 kryteriumPanel.Visible = false;
 
@@ -168,6 +165,137 @@ namespace Expert
                 }
 
                 mainPanel.Visible = true;
+                setPoprzedniPanel(mainPanel);
+            }
+            else if (aktualnyPanel == kryteriumPanel)
+            {
+                kryteriumPanel.Visible = false;
+                Visible = false;
+
+                if (mainPanel != null)
+                {
+                    mainPanel.Visible = true;
+                }
+                else
+                {
+                    mainPanel = new MainPanel(mainForm, this);
+                    mainForm.Controls.Add(mainPanel);
+                    mainPanel.Visible = true;
+                }
+
+                setAktualnyPanel(mainPanel);
+                setPoprzedniPanel(kryteriumPanel);
+            }
+            else if (aktualnyPanel == wagiPanel)
+            {
+                wagiPanel.Visible = false;
+
+                if (null != mainPanel)
+                {
+                    mainPanel.Visible = false;
+                }
+
+                kryteriumPanel.Visible = true;
+                setAktualnyPanel(kryteriumPanel);
+                setPoprzedniPanel(wagiPanel);
+            }
+            else if (aktualnyPanel == wynikPanel)
+            {
+                wynikPanel.Visible = false;
+
+                if (null != mainPanel)
+                {
+                    mainPanel.Visible = false;
+                }
+
+                wagiPanel.Visible = true;
+                setAktualnyPanel(wagiPanel);
+                setPoprzedniPanel(wynikPanel);
+            }
+        }
+
+        private void dalejButton_Click(object sender, EventArgs e)
+        {
+            ustalDalejPanele();
+            dalejButton.Enabled = false;
+        }
+
+        private void ustalDalejPanele()
+        {
+            ustalDalejKryterium();
+            ustalDalejWagi();
+            ustalDalejWynik();
+        }
+
+        private void ustalDalejKryterium()
+        {
+            if (null != kryteriumPanel && poprzedniPanel == kryteriumPanel)
+            {
+                kryteriumPanel.Visible = true;
+                setAktualnyPanel(kryteriumPanel);
+
+                if (null != wagiPanel)
+                {
+                    wagiPanel.Visible = false;
+                }
+
+                if (null != wynikPanel)
+                {
+                    wynikPanel.Visible = false;
+                }
+
+                if (null != mainPanel)
+                {
+                    mainPanel.Visible = false;
+                }
+            }
+        }
+
+        private void ustalDalejWagi()
+        {
+            if (null != wagiPanel && poprzedniPanel == wagiPanel)
+            {
+                wagiPanel.Visible = true;
+                setAktualnyPanel(wagiPanel);
+
+                if (null != kryteriumPanel)
+                {
+                    kryteriumPanel.Visible = false;
+                }
+
+                if (null != wynikPanel)
+                {
+                    wynikPanel.Visible = false;
+                }
+
+                if (null != mainPanel)
+                {
+                    mainPanel.Visible = false;
+                }
+            }
+        }
+
+        private void ustalDalejWynik()
+        {
+            if (null != wynikPanel && poprzedniPanel == wynikPanel)
+            {
+                wynikPanel.Visible = true;
+                setAktualnyPanel(wynikPanel);
+
+                if (null != kryteriumPanel)
+                {
+                    kryteriumPanel.Visible = false;
+                }
+
+                if (null != wagiPanel)
+                {
+                    wagiPanel.Visible = false;
+                }
+
+                if (null != mainPanel)
+                {
+                    mainPanel.Visible = false;
+                }
             }
         }
     }

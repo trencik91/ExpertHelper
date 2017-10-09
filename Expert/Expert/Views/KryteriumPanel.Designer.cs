@@ -55,7 +55,6 @@
             this.wariantRadioButton = new System.Windows.Forms.RadioButton();
             this.kryteriumRadioButton = new System.Windows.Forms.RadioButton();
             this.celRadioButton = new System.Windows.Forms.RadioButton();
-            this.buttonMenuPanel = new System.Windows.Forms.Panel();
             this.problemGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.problemDataGridView)).BeginInit();
             this.celContextMenuStrip.SuspendLayout();
@@ -311,18 +310,10 @@
             this.celRadioButton.UseVisualStyleBackColor = true;
             this.celRadioButton.CheckedChanged += new System.EventHandler(this.celRadioButton_CheckedChanged);
             // 
-            // buttonMenuPanel
-            // 
-            this.buttonMenuPanel.Location = new System.Drawing.Point(19, 4);
-            this.buttonMenuPanel.Name = "buttonMenuPanel";
-            this.buttonMenuPanel.Size = new System.Drawing.Size(963, 48);
-            this.buttonMenuPanel.TabIndex = 4;
-            // 
             // KryteriumPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.buttonMenuPanel);
             this.Controls.Add(this.dodajGroupBox);
             this.Controls.Add(this.wariantyGroupBox);
             this.Controls.Add(this.kryteriaGroupBox);
@@ -370,6 +361,5 @@
         private System.Windows.Forms.ContextMenuStrip celContextMenuStrip;
         private System.Windows.Forms.ToolStripMenuItem dodajCelToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem usuńCelToolStripMenuItem;
-        private System.Windows.Forms.Panel buttonMenuPanel;
     }
 }

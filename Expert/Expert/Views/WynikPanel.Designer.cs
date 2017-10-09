@@ -50,9 +50,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             chartArea1.Name = "ChartArea1";
             this.wynikChart.ChartAreas.Add(chartArea1);
-            this.wynikChart.Location = new System.Drawing.Point(0, 49);
+            this.wynikChart.Location = new System.Drawing.Point(0, 57);
             this.wynikChart.Name = "wynikChart";
-            this.wynikChart.Size = new System.Drawing.Size(1026, 526);
+            this.wynikChart.Size = new System.Drawing.Size(1026, 518);
             this.wynikChart.TabIndex = 0;
             this.wynikChart.Text = "Wynik";
             // 

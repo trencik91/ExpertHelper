@@ -23,8 +23,8 @@ namespace Expert
         private DataGridViewCell zaznaczonaKomorka = null;
         private DataGridViewCell poprzedniaZaznaczonaKomorka = null;
 
-        private Dictionary<String, int> listaIdKryteriow = new Dictionary<String, int>();
-        private Dictionary<int, String> listaNazwKryteriow = new Dictionary<int, string>();
+        private Dictionary<string, int> listaIdKryteriow = new Dictionary<string, int>();
+        private Dictionary<int, string> listaNazwKryteriow = new Dictionary<int, string>();
 
         private TreeNode listaNodow = null;
 
@@ -35,21 +35,6 @@ namespace Expert
         public WagiPanel()
         {
             InitializeComponent();
-        }
-
-        public WagiPanel(Form mainForm, int idCelu)
-        {
-            InitializeComponent();
-            this.mainForm = mainForm;
-            this.idCelu = idCelu;
-            problemTreeView.Nodes.Clear();
-            wariantyListBox.Items.Clear();
-            listaNodow = KryteriumController.pobierzDrzewo(idCelu);
-            uzupelnijProblemWarianty();
-            listaIdKryteriow = KryteriumController.pobierzListeIdKryteriow(idCelu);
-            listaNazwKryteriow = KryteriumController.pobierzListeNazwKryteriow(idCelu);
-            wartoscNumericUpDown.Maximum = MAKSYMALNA_WAGA;
-            sliderTrackBar.SetRange(0, MAKSYMALNA_WAGA * 100);
         }
 
         public WagiPanel(Form mainForm, ButtonMenu buttonMenu, int idCelu)
@@ -526,9 +511,14 @@ namespace Expert
                 listaWagWariantow.Add(kryteriumWariant.ID, waga);
             }
 
-            WynikPanel wynikPanel = new WynikPanel(listaWagWariantow, idCelu, MAKSYMALNA_WAGA);
+            WynikPanel wynikPanel = new WynikPanel(listaWagWariantow, idCelu, MAKSYMALNA_WAGA, buttonMenu);
             mainForm.Controls.Add(wynikPanel);
             wynikPanel.Visible = true;
+            buttonMenu.setWynikPanel(wynikPanel);
+            buttonMenu.setAktualnyPanel(wynikPanel);
+            buttonMenu.setControlEnable(buttonMenu.getButton("Dalej"), false);
+            buttonMenu.setControlEnable(buttonMenu.getButton("Dodaj"), false);
+            buttonMenu.setControlEnable(buttonMenu.getButton("Usuń"), false);
             Visible = false;
         }
 

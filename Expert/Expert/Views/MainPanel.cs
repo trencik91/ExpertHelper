@@ -66,5 +66,20 @@ namespace Expert
             listaWynikow.Visible = true;
             buttonMenu.Visible = true;
         }
+
+        private void listaWynikowWagButton_Click(object sender, EventArgs e)
+        {
+            Visible = false;
+            WynikiWagPanel wynikiWagPanel = new WynikiWagPanel(mainForm, buttonMenu);
+            mainForm.Controls.Add(wynikiWagPanel);
+            buttonMenu.setWynikiWagPanel(wynikiWagPanel);
+            buttonMenu.setAktualnyPanel(wynikiWagPanel);
+            buttonMenu.setControlEnable(buttonMenu.getButton("Dodaj"), false);
+            buttonMenu.setControlEnable(buttonMenu.getButton("Usuń"), false);
+            buttonMenu.setControlEnable(buttonMenu.getButton("Wstecz"), true);
+            buttonMenu.setControlEnable(buttonMenu.getButton("Dalej"), false);
+            wynikiWagPanel.Visible = true;
+            buttonMenu.Visible = true;
+        }
     }
 }

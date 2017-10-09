@@ -121,6 +121,12 @@
     <Compile Include="Views\WagiPanel.Designer.cs">
       <DependentUpon>WagiPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\WynikiWagPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\WynikiWagPanel.Designer.cs">
+      <DependentUpon>WynikiWagPanel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\WynikPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -135,6 +141,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ListaWynikowPanel.resx">
       <DependentUpon>ListaWynikowPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\WynikiWagPanel.resx">
+      <DependentUpon>WynikiWagPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\WynikPanel.resx">
       <DependentUpon>WynikPanel.cs</DependentUpon>

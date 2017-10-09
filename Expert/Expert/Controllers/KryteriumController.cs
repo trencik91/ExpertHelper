@@ -360,8 +360,8 @@ namespace Expert
                 root.Nodes.Add(rootItem);
                 root.Expand();
 
-                stworzDrzewo(rootItem, idCelu);
-
+                TreeNode node = stworzDrzewo(rootItem, idCelu);
+                node.Expand();
             });
 
             return root;
@@ -379,5 +379,7 @@ namespace Expert
 
             });
         }
+
+
     }
 }

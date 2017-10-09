@@ -18,6 +18,7 @@ namespace Expert
         private MainPanel mainPanel;
         private WynikPanel wynikPanel;
         private ListaWynikowPanel listaWynikowPanel;
+        private WynikiWagPanel wynikiWagPanel;
 
         private object aktualnyPanel;
         private object poprzedniPanel;
@@ -138,6 +139,11 @@ namespace Expert
         public void setListaWynikowPanel(ListaWynikowPanel listaWynikowPanel)
         {
             this.listaWynikowPanel = listaWynikowPanel;
+        }
+
+        public void setWynikiWagPanel(WynikiWagPanel wynikiWagPanel)
+        {
+            this.wynikiWagPanel = wynikiWagPanel;
         }
 
         public Button getButton(String nazwa)

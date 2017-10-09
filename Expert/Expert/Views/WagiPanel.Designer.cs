@@ -72,7 +72,7 @@
             // problemGroupBox
             // 
             this.problemGroupBox.Controls.Add(this.problemTreeView);
-            this.problemGroupBox.Location = new System.Drawing.Point(19, 55);
+            this.problemGroupBox.Location = new System.Drawing.Point(16, 55);
             this.problemGroupBox.Name = "problemGroupBox";
             this.problemGroupBox.Size = new System.Drawing.Size(280, 275);
             this.problemGroupBox.TabIndex = 0;
@@ -92,9 +92,9 @@
             // wariantyGroupBox
             // 
             this.wariantyGroupBox.Controls.Add(this.wariantyListBox);
-            this.wariantyGroupBox.Location = new System.Drawing.Point(19, 374);
+            this.wariantyGroupBox.Location = new System.Drawing.Point(16, 374);
             this.wariantyGroupBox.Name = "wariantyGroupBox";
-            this.wariantyGroupBox.Size = new System.Drawing.Size(274, 213);
+            this.wariantyGroupBox.Size = new System.Drawing.Size(280, 213);
             this.wariantyGroupBox.TabIndex = 1;
             this.wariantyGroupBox.TabStop = false;
             this.wariantyGroupBox.Text = "Warianty";
@@ -105,7 +105,7 @@
             this.wariantyListBox.FormattingEnabled = true;
             this.wariantyListBox.Location = new System.Drawing.Point(3, 16);
             this.wariantyListBox.Name = "wariantyListBox";
-            this.wariantyListBox.Size = new System.Drawing.Size(268, 194);
+            this.wariantyListBox.Size = new System.Drawing.Size(274, 194);
             this.wariantyListBox.TabIndex = 0;
             // 
             // wagiGroupBox

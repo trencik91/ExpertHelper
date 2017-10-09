@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainPanel));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.listaWynikowWagButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -44,6 +45,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.listaWynikowWagButton);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.pictureBox2);
             this.panel1.Controls.Add(this.pictureBox1);
@@ -54,6 +56,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1026, 648);
             this.panel1.TabIndex = 0;
+            // 
+            // listaWynikowWagButton
+            // 
+            this.listaWynikowWagButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.listaWynikowWagButton.Location = new System.Drawing.Point(257, 332);
+            this.listaWynikowWagButton.Name = "listaWynikowWagButton";
+            this.listaWynikowWagButton.Size = new System.Drawing.Size(521, 64);
+            this.listaWynikowWagButton.TabIndex = 8;
+            this.listaWynikowWagButton.Text = "Lista wag";
+            this.listaWynikowWagButton.UseVisualStyleBackColor = true;
+            this.listaWynikowWagButton.Click += new System.EventHandler(this.listaWynikowWagButton_Click);
             // 
             // label1
             // 
@@ -88,6 +101,7 @@
             // 
             // zakonczButton
             // 
+            this.zakonczButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.zakonczButton.Location = new System.Drawing.Point(257, 494);
             this.zakonczButton.Name = "zakonczButton";
             this.zakonczButton.Size = new System.Drawing.Size(521, 64);
@@ -98,6 +112,7 @@
             // 
             // listaWynikowButton
             // 
+            this.listaWynikowButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.listaWynikowButton.Location = new System.Drawing.Point(257, 262);
             this.listaWynikowButton.Name = "listaWynikowButton";
             this.listaWynikowButton.Size = new System.Drawing.Size(521, 64);
@@ -108,6 +123,7 @@
             // 
             // dodajCelButton
             // 
+            this.dodajCelButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.dodajCelButton.Location = new System.Drawing.Point(257, 192);
             this.dodajCelButton.Name = "dodajCelButton";
             this.dodajCelButton.Size = new System.Drawing.Size(521, 64);
@@ -140,5 +156,6 @@
         private System.Windows.Forms.Button zakonczButton;
         private System.Windows.Forms.Button listaWynikowButton;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button listaWynikowWagButton;
     }
 }

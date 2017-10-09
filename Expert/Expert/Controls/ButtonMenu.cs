@@ -17,6 +17,7 @@ namespace Expert
         private WagiPanel wagiPanel;
         private MainPanel mainPanel;
         private WynikPanel wynikPanel;
+        private ListaWynikowPanel listaWynikowPanel;
 
         private object aktualnyPanel;
         private object poprzedniPanel;
@@ -134,6 +135,11 @@ namespace Expert
             this.wynikPanel = wynikPanel;
         }
 
+        public void setListaWynikowPanel(ListaWynikowPanel listaWynikowPanel)
+        {
+            this.listaWynikowPanel = listaWynikowPanel;
+        }
+
         public Button getButton(String nazwa)
         {
             switch (nazwa)
@@ -212,6 +218,21 @@ namespace Expert
                 setAktualnyPanel(wagiPanel);
                 setPoprzedniPanel(wynikPanel);
             }
+            else if (aktualnyPanel == listaWynikowPanel)
+            {
+                listaWynikowPanel.Visible = false;
+                Visible = false;
+
+                if (null == mainPanel)
+                {
+                    mainPanel = new MainPanel(mainForm, this);
+                }
+
+                mainPanel.Visible = true;
+
+                setAktualnyPanel(mainPanel);
+                setPoprzedniPanel(listaWynikowPanel);
+            }
         }
 
         private void dalejButton_Click(object sender, EventArgs e)
@@ -225,6 +246,7 @@ namespace Expert
             ustalDalejKryterium();
             ustalDalejWagi();
             ustalDalejWynik();
+            ustalDalejLista();
         }
 
         private void ustalDalejKryterium()
@@ -295,6 +317,30 @@ namespace Expert
                 if (null != mainPanel)
                 {
                     mainPanel.Visible = false;
+                }
+            }
+        }
+
+        private void ustalDalejLista()
+        {
+            if (null != listaWynikowPanel && poprzedniPanel == listaWynikowPanel)
+            {
+                mainPanel.Visible = true;
+                setAktualnyPanel(mainPanel);
+
+                if (null != kryteriumPanel)
+                {
+                    kryteriumPanel.Visible = false;
+                }
+
+                if (null != wagiPanel)
+                {
+                    wagiPanel.Visible = false;
+                }
+
+                if (null != wynikPanel)
+                {
+                    wynikPanel.Visible = false;
                 }
             }
         }

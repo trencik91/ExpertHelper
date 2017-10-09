@@ -115,6 +115,7 @@
             this.listaWynikowButton.TabIndex = 2;
             this.listaWynikowButton.Text = "Lista wyników";
             this.listaWynikowButton.UseVisualStyleBackColor = true;
+            this.listaWynikowButton.Click += new System.EventHandler(this.listaWynikowButton_Click);
             // 
             // dodajCelButton
             // 

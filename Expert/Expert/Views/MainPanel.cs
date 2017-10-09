@@ -25,6 +25,7 @@ namespace Expert
             InitializeComponent();
             this.mainForm = mainForm;
             this.buttonMenu = buttonMenu;
+            mainForm.Controls.Add(this);
         }
 
         private void dodajCelButton_Click(object sender, EventArgs e)
@@ -49,6 +50,21 @@ namespace Expert
             {
                 mainForm.Close();
             }
+        }
+
+        private void listaWynikowButton_Click(object sender, EventArgs e)
+        {
+            Visible = false;
+            ListaWynikowPanel listaWynikow = new ListaWynikowPanel(mainForm, buttonMenu);
+            mainForm.Controls.Add(listaWynikow);
+            buttonMenu.setListaWynikowPanel(listaWynikow);
+            buttonMenu.setAktualnyPanel(listaWynikow);
+            buttonMenu.setControlEnable(buttonMenu.getButton("Dodaj"), false);
+            buttonMenu.setControlEnable(buttonMenu.getButton("Usuń"), false);
+            buttonMenu.setControlEnable(buttonMenu.getButton("Wstecz"), true);
+            buttonMenu.setControlEnable(buttonMenu.getButton("Dalej"), false);
+            listaWynikow.Visible = true;
+            buttonMenu.Visible = true;
         }
     }
 }

@@ -17,7 +17,6 @@ namespace Expert
             InitializeComponent();
             ButtonMenu buttonMenu = new ButtonMenu(this);
             MainPanel mainPanel = new MainPanel(this, buttonMenu);
-            Controls.Add(mainPanel);
             mainPanel.Visible = true;
         }
     }

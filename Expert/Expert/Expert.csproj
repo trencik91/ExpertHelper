@@ -66,6 +66,7 @@
     <Compile Include="Controllers\GridViewController.cs" />
     <Compile Include="Controllers\KryteriumController.cs" />
     <Compile Include="Controllers\WagaController.cs" />
+    <Compile Include="Controllers\WynikCeluController.cs" />
     <Compile Include="Controllers\WynikController.cs" />
     <Compile Include="Controls\ButtonMenu.cs">
       <SubType>UserControl</SubType>

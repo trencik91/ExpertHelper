@@ -31,12 +31,14 @@
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             this.wagiPanel = new System.Windows.Forms.Panel();
             this.wynikChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.zapiszButton = new System.Windows.Forms.Button();
             this.wagiPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.wynikChart)).BeginInit();
             this.SuspendLayout();
             // 
             // wagiPanel
             // 
+            this.wagiPanel.Controls.Add(this.zapiszButton);
             this.wagiPanel.Controls.Add(this.wynikChart);
             this.wagiPanel.Location = new System.Drawing.Point(0, 3);
             this.wagiPanel.Name = "wagiPanel";
@@ -52,9 +54,19 @@
             this.wynikChart.ChartAreas.Add(chartArea1);
             this.wynikChart.Location = new System.Drawing.Point(0, 57);
             this.wynikChart.Name = "wynikChart";
-            this.wynikChart.Size = new System.Drawing.Size(1026, 518);
+            this.wynikChart.Size = new System.Drawing.Size(1026, 490);
             this.wynikChart.TabIndex = 0;
             this.wynikChart.Text = "Wynik";
+            // 
+            // zapiszButton
+            // 
+            this.zapiszButton.Location = new System.Drawing.Point(927, 553);
+            this.zapiszButton.Name = "zapiszButton";
+            this.zapiszButton.Size = new System.Drawing.Size(75, 23);
+            this.zapiszButton.TabIndex = 1;
+            this.zapiszButton.Text = "Zapisz";
+            this.zapiszButton.UseVisualStyleBackColor = true;
+            this.zapiszButton.Click += new System.EventHandler(this.zapiszButton_Click);
             // 
             // WynikPanel
             // 
@@ -73,5 +85,6 @@
 
         private System.Windows.Forms.Panel wagiPanel;
         private System.Windows.Forms.DataVisualization.Charting.Chart wynikChart;
+        private System.Windows.Forms.Button zapiszButton;
     }
 }

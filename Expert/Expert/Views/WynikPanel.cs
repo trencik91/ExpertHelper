@@ -39,18 +39,6 @@ namespace Expert
         {
             ExpertHelperDataContext db = new ExpertHelperDataContext();
 
-            DataTable dt = new DataTable();
-            dt.Columns.Add("Wariant");
-            dt.Columns.Add("Waga");
-
-            foreach (KeyValuePair<int, decimal> wariant in listaWariantowWag)
-            {
-                DataRow dr = dt.NewRow();
-                dr["Wariant"] = wariant.Key;
-                dr["Waga"] = wariant.Value;
-                dt.Rows.Add(dr);
-            }
-
             Kryterium cel = KryteriumController.pobierzKryterium(idCelu, false);
 
             ChartArea area = new ChartArea("Ranking");
@@ -85,6 +73,16 @@ namespace Expert
             wynikChart.Titles.Add(tytul);
 
             wynikChart.Visible = true;
+        }
+
+        private void zapiszButton_Click(object sender, EventArgs e)
+        {
+            ExpertHelperDataContext db = new ExpertHelperDataContext();
+
+            foreach (KeyValuePair<int, decimal> wariant in listaWariantowWag)
+            {
+                WynikCeluController.dodajWynikCelu(idCelu, wariant.Key, wariant.Value, db);
+            }
         }
     }
 }

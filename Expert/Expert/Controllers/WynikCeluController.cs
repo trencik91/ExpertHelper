@@ -96,5 +96,19 @@ namespace Expert
 
             return wynik;
         }
+
+        public static Dictionary<int, decimal> pobierzMapeWynikow(int idCelu, ExpertHelperDataContext db)
+        {
+            Dictionary<int, decimal> mapaWynikow = new Dictionary<int, decimal>();
+
+            List<WynikCelu> listaWynikow = pobierzListeWynikow(idCelu, db);
+
+            if (listaWynikow.Count > 0)
+            {
+                listaWynikow.ForEach(w => mapaWynikow.Add(w.ID_Wariantu, Convert.ToDecimal(w.Waga)));
+            }
+
+            return mapaWynikow;
+        }
     }
 }

@@ -14,6 +14,7 @@ namespace Expert
     {
         private Form mainForm;
         private ButtonMenu buttonMenu;
+        private Dictionary<int, decimal> listaWariantowWag = new Dictionary<int, decimal>();
 
         public ListaWynikowPanel()
         {
@@ -32,7 +33,30 @@ namespace Expert
 
         private void problemDataGridView_SelectionChanged(object sender, EventArgs e)
         {
+            ExpertHelperDataContext db = new ExpertHelperDataContext();
 
+            if (problemDataGridView.SelectedRows.Count == 1)
+            {
+                try
+                {
+                    DataGridViewRow dataRow = problemDataGridView.SelectedRows[0];
+
+                    int idCelu = int.Parse(dataRow.Cells[1].Value.ToString());
+
+                    listaWariantowWag = WynikCeluController.pobierzMapeWynikow(idCelu, db);
+
+                    WykresController.setChartData(wynikChart, idCelu, listaWariantowWag);
+
+                    if(listaWariantowWag.Count == 0)
+                    {
+                        MessageBox.Show("Brak wyników dla danego celu!", "Informacja", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Zaznacz wiersz z danymi!", "Błąd", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
         public void pobierzCele()

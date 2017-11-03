@@ -146,6 +146,11 @@ namespace Expert
             this.wynikiWagPanel = wynikiWagPanel;
         }
 
+        public object getPoprzedniPanel()
+        {
+            return poprzedniPanel;
+        }
+
         public Button getButton(String nazwa)
         {
             switch (nazwa)
@@ -238,6 +243,21 @@ namespace Expert
 
                 setAktualnyPanel(mainPanel);
                 setPoprzedniPanel(listaWynikowPanel);
+            }
+            else if (aktualnyPanel == wynikiWagPanel)
+            {
+                wynikiWagPanel.Visible = false;
+                Visible = false;
+
+                if (null == mainPanel)
+                {
+                    mainPanel = new MainPanel(mainForm, this);
+                }
+
+                mainPanel.Visible = true;
+
+                setAktualnyPanel(mainPanel);
+                setPoprzedniPanel(wynikiWagPanel);
             }
         }
 
